@@ -20,6 +20,7 @@
             --input-bg: #f5f6f8;
         }
         [data-theme="dark"] {
+            --global-bg: #1a1a2e;
             --card-bg: #252540;
             --text: #e0e0e0;
             --text-secondary: #aaa;
@@ -65,14 +66,14 @@
         .frequent-icon{display:flex;flex-direction:column;align-items:center;cursor:pointer;text-decoration:none;color:var(--text);padding:10px 6px;border-radius:16px;transition:0.2s;background:rgba(255,255,255,0.25);backdrop-filter:blur(4px);}
         .frequent-icon:hover{background:rgba(255,255,255,0.4);}
         .frequent-icon .icon-wrapper{width:var(--icon-size);height:var(--icon-size);border-radius:14px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,0.15);}
-        .frequent-icon .icon-text{width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:calc(var(--icon-size) * 0.26);border-radius:14px;padding:4px;text-align:center;line-height:1.2;}
+        .frequent-icon .icon-text{width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;border-radius:14px;padding:8px;text-align:center;line-height:1.2;}
         .main-container{max-width:var(--page-width);margin:0 auto;padding:16px;}
         .bookmark-grid{display:grid;grid-template-columns:repeat(var(--grid-columns),1fr);gap:10px;}
         .bookmark-item{display:flex;flex-direction:column;align-items:center;cursor:pointer;padding:10px 6px;border-radius:16px;transition:all 0.25s;text-decoration:none;color:var(--text);}
         .bookmark-item:hover{background:var(--hover-bg);transform:translateY(-2px)}
         .icon-wrapper-big{width:var(--icon-size);height:var(--icon-size);border-radius:14px;display:flex;align-items:center;justify-content:center;background:var(--card-bg);box-shadow:0 3px 10px rgba(0,0,0,0.08);}
         .bookmark-item:hover .icon-wrapper-big{box-shadow:0 8px 24px rgba(0,0,0,0.2);}
-        .icon-text-big{width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:calc(var(--icon-size) * 0.26);border-radius:14px;padding:4px;text-align:center;line-height:1.2;}
+        .icon-text-big{width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;border-radius:14px;padding:8px;text-align:center;line-height:1.2;}
         .bookmark-name{font-size:0.72rem;text-align:center;margin-top:8px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;word-break:break-all;}
         .context-menu{display:none;position:fixed;background:var(--card-bg);border:1px solid var(--border);border-radius:10px;box-shadow:0 4px 16px rgba(0,0,0,0.2);z-index:300;min-width:130px;padding:4px 0;}
         .context-menu.show{display:block;}
@@ -190,12 +191,89 @@
     function getColor(s){return`hsl(${hash(s)%360},60%,55%)`;}
     function esc(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML;}
 
-    function formatIconText(text){
-        const clean = text.replace(/\s/g,'').slice(0,4) || '?';
-        if(clean.length <= 3) return esc(clean);
-        const line1 = clean.slice(0,2);
-        const line2 = clean.slice(2,4);
-        return `<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.3;"><span>${esc(line1)}</span><span>${esc(line2)}</span></div>`;
+    function formatIconText(text) {
+        const clean = text.replace(/[^\u4e00-\u9fa5A-Za-z0-9]/g, '') || '?';
+        const hasAlphaNum = /[A-Za-z0-9]/.test(clean);
+        const getCharWidth = c => /[^\x00-\xff]/.test(c) ? 2 : 1;
+
+        if (!hasAlphaNum) {
+            // 纯中文，取前4字
+            const chars = clean.slice(0, 4);
+            if (chars.length === 1) {
+                const fontSize = 'calc(var(--icon-size) * 0.45)';
+                return `<span style="font-size:${fontSize};line-height:1.2;white-space:nowrap;">${esc(chars)}</span>`;
+            } else if (chars.length === 2) {
+                const fontSize = 'calc(var(--icon-size) * 0.32)';
+                return `<span style="font-size:${fontSize};line-height:1.2;white-space:nowrap;">${esc(chars)}</span>`;
+            } else if (chars.length === 3) {
+                const fontSize = 'calc(var(--icon-size) * 0.28)';
+                return `<span style="font-size:${fontSize};line-height:1.2;white-space:nowrap;">${esc(chars)}</span>`;
+            } else {
+                const fontSize = 'calc(var(--icon-size) * 0.28)';
+                return `<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.2;width:100%;height:100%;">
+                    <span style="font-size:${fontSize};"><span style="font-size:${fontSize};">${esc(chars[0])}</span><span style="font-size:${fontSize};">${esc(chars[1])}</span></span>
+                    <span style="font-size:${fontSize};"><span style="font-size:${fontSize};">${esc(chars[2])}</span><span style="font-size:${fontSize};">${esc(chars[3])}</span></span>
+                </div>`;
+            }
+        } else {
+            const allEnglish = [...clean].every(c => /[A-Za-z0-9]/.test(c));
+            if (allEnglish) {
+                // 全英文/数字，取前12个字符
+                const chars = clean.slice(0, 12);
+                if (chars.length <= 6) {
+                    const fontSize = chars.length <= 3 ? 'calc(var(--icon-size) * 0.35)' : 'calc(var(--icon-size) * 0.28)';
+                    return `<span style="font-size:${fontSize};line-height:1.2;white-space:nowrap;">${esc(chars)}</span>`;
+                } else {
+                    const mid = Math.ceil(chars.length / 2);
+                    const line1 = chars.slice(0, mid);
+                    const line2 = chars.slice(mid);
+                    const fontSize = 'calc(var(--icon-size) * 0.22)';
+                    return `<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.15;">
+                        <span style="font-size:${fontSize};">${esc(line1)}</span>
+                        <span style="font-size:${fontSize};">${esc(line2)}</span>
+                    </div>`;
+                }
+            } else {
+                // 混合类型：按视觉宽度截取，总宽 ≤8
+                let chars = '';
+                let totalWidth = 0;
+                for (const c of clean) {
+                    const cw = getCharWidth(c);
+                    if (totalWidth + cw > 8) break;
+                    chars += c;
+                    totalWidth += cw;
+                }
+                if (!chars) chars = clean.slice(0, 1);
+                if (totalWidth <= 6) {
+                    const fontSize = totalWidth <= 4 ? 'calc(var(--icon-size) * 0.30)' : 'calc(var(--icon-size) * 0.26)';
+                    return `<span style="font-size:${fontSize};line-height:1.2;white-space:nowrap;">${esc(chars)}</span>`;
+                }
+                // 分两行
+                let splitIdx = 1;
+                let bestDiff = Infinity;
+                for (let i = 1; i < chars.length; i++) {
+                    const line1 = chars.slice(0, i);
+                    const line2 = chars.slice(i);
+                    let w1 = 0, w2 = 0;
+                    for (const c of line1) w1 += getCharWidth(c);
+                    for (const c of line2) w2 += getCharWidth(c);
+                    if (w1 > 8 || w2 > 8) continue;
+                    const diff = Math.abs(w1 - w2);
+                    if (diff < bestDiff) { bestDiff = diff; splitIdx = i; }
+                }
+                const line1 = chars.slice(0, splitIdx);
+                const line2 = chars.slice(splitIdx);
+                let w1 = 0, w2 = 0;
+                for (const c of line1) w1 += getCharWidth(c);
+                for (const c of line2) w2 += getCharWidth(c);
+                const maxW = Math.max(w1, w2);
+                const fontSize = maxW <= 4 ? 'calc(var(--icon-size) * 0.28)' : 'calc(var(--icon-size) * 0.24)';
+                return `<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.15;">
+                    <span style="font-size:${fontSize}; white-space:nowrap;">${esc(line1)}</span>
+                    <span style="font-size:${fontSize}; white-space:nowrap;">${esc(line2)}</span>
+                </div>`;
+            }
+        }
     }
 
     function applyLayout(){
@@ -206,16 +284,32 @@
     }
     function applyBodyBg(){
         const bg=layoutConfig.globalBg;
-        if(bg.type==='image'&&bg.image) document.documentElement.style.setProperty('--global-bg',`url(${bg.image}) center/cover no-repeat`);
-        else document.documentElement.style.setProperty('--global-bg',bg.value||'#ffffff');
+        const isDefault = (bg.type === 'preset' && bg.value === '#ffffff' && !bg.image);
+        if (isDefault) {
+            document.documentElement.style.removeProperty('--global-bg');
+        } else {
+            if(bg.type==='image'&&bg.image) document.documentElement.style.setProperty('--global-bg',`url(${bg.image}) center/cover no-repeat`);
+            else document.documentElement.style.setProperty('--global-bg',bg.value||'#ffffff');
+        }
     }
     function applyFrequentBg(){
         const bg=layoutConfig.freqBg;
-        if(bg.type==='image'&&bg.image) $('frequentSection').style.background=`url(${bg.image}) center/cover no-repeat`;
-        else $('frequentSection').style.background=bg.value||'#ffffff';
+        const isDefault = (bg.type === 'preset' && bg.value === '#ffffff' && !bg.image);
+        if (isDefault) {
+            $('frequentSection').style.background = '';
+        } else {
+            if(bg.type==='image'&&bg.image) $('frequentSection').style.background=`url(${bg.image}) center/cover no-repeat`;
+            else $('frequentSection').style.background=bg.value||'#ffffff';
+        }
     }
 
-    function applyTheme(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem('bm-theme',t);$('themeToggle').textContent=t==='dark'?'☀️':'🌓';}
+    function applyTheme(t){
+        document.documentElement.setAttribute('data-theme',t);
+        localStorage.setItem('bm-theme',t);
+        $('themeToggle').textContent=t==='dark'?'☀️':'🌓';
+        applyBodyBg();
+        applyFrequentBg();
+    }
     applyTheme(localStorage.getItem('bm-theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'));
     $('themeToggle').onclick=()=>applyTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark');
 
