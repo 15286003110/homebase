@@ -9,6 +9,7 @@
             --page-width: 1200px;
             --grid-columns: 9;
             --icon-size: 72px;
+            --border-radius: 14px;
             --global-bg: #ffffff;
             --card-bg: #ffffff;
             --text: #1a1a2e;
@@ -18,6 +19,7 @@
             --accent: #4f6ef7;
             --danger: #e74c3c;
             --input-bg: #f5f6f8;
+            --frequent-bg: rgba(255,255,255,0.25);
         }
         [data-theme="dark"] {
             --global-bg: #1a1a2e;
@@ -29,6 +31,7 @@
             --accent: #7b8cff;
             --input-bg: #2a2a42;
             --danger: #ff6b6b;
+            --frequent-bg: rgba(255,255,255,0.08);
         }
         *{margin:0;padding:0;box-sizing:border-box}
         body{
@@ -41,6 +44,12 @@
         .header-inner{max-width:var(--page-width);margin:0 auto;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
         .logo{font-size:1.3rem;font-weight:700;color:var(--accent);display:flex;align-items:center;gap:8px;}
         .logo .icon-grid{width:32px;height:32px;background:linear-gradient(135deg,#667eea,#764ba2);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;}
+        .clock-date{display:flex;flex-direction:column;gap:4px;margin-left:auto;margin-right:16px;white-space:nowrap;}
+        .clock-row{display:flex;justify-content:space-between;align-items:baseline;min-width:200px;}
+        .clock-time{font-size:2.2rem;font-weight:700;line-height:1;}
+        .clock-week{font-size:1rem;opacity:0.85;}
+        .clock-date-text{font-size:0.9rem;opacity:0.85;}
+        .clock-lunar{font-size:0.9rem;opacity:0.85;}
         .search-wrap{flex:1;min-width:220px;display:flex;align-items:center;gap:6px;}
         .search-input-wrap{flex:1;position:relative}
         .search-input{width:100%;padding:10px 14px 10px 38px;border:2px solid var(--border);border-radius:24px;font-size:0.95rem;background:var(--input-bg);color:var(--text);outline:none;}
@@ -63,17 +72,17 @@
         .category-tab .count{font-size:0.65rem;opacity:0.85;margin-left:4px}
         .frequent-section{max-width:var(--page-width);margin:16px auto 0;padding:16px;border-radius:16px;transition:background 0.3s;}
         .frequent-icons{display:grid;grid-template-columns:repeat(var(--grid-columns),1fr);gap:10px;}
-        .frequent-icon{display:flex;flex-direction:column;align-items:center;cursor:pointer;text-decoration:none;color:var(--text);padding:10px 6px;border-radius:16px;transition:0.2s;background:rgba(255,255,255,0.25);backdrop-filter:blur(4px);}
-        .frequent-icon:hover{background:rgba(255,255,255,0.4);}
-        .frequent-icon .icon-wrapper{width:var(--icon-size);height:var(--icon-size);border-radius:14px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,0.15);}
-        .frequent-icon .icon-text{width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;border-radius:14px;padding:8px;text-align:center;line-height:1.2;}
+        .frequent-icon{display:flex;flex-direction:column;align-items:center;cursor:pointer;text-decoration:none;color:var(--text);padding:10px 6px;border-radius:16px;transition:transform 0.3s, background 0.2s, box-shadow 0.3s;background:var(--frequent-bg);backdrop-filter:blur(8px);}
+        .frequent-icon:hover{background:var(--hover-bg);transform:scale(1.08);box-shadow:0 8px 24px rgba(0,0,0,0.15);}
+        .frequent-icon .icon-wrapper{width:var(--icon-size);height:var(--icon-size);border-radius:var(--border-radius);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,0.15);transition:border-radius 0.3s;}
+        .frequent-icon .icon-text{width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;border-radius:var(--border-radius);padding:8px;text-align:center;line-height:1.2;transition:border-radius 0.3s;}
         .main-container{max-width:var(--page-width);margin:0 auto;padding:16px;}
         .bookmark-grid{display:grid;grid-template-columns:repeat(var(--grid-columns),1fr);gap:10px;}
-        .bookmark-item{display:flex;flex-direction:column;align-items:center;cursor:pointer;padding:10px 6px;border-radius:16px;transition:all 0.25s;text-decoration:none;color:var(--text);}
-        .bookmark-item:hover{background:var(--hover-bg);transform:translateY(-2px)}
-        .icon-wrapper-big{width:var(--icon-size);height:var(--icon-size);border-radius:14px;display:flex;align-items:center;justify-content:center;background:var(--card-bg);box-shadow:0 3px 10px rgba(0,0,0,0.08);}
-        .bookmark-item:hover .icon-wrapper-big{box-shadow:0 8px 24px rgba(0,0,0,0.2);}
-        .icon-text-big{width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;border-radius:14px;padding:8px;text-align:center;line-height:1.2;}
+        .bookmark-item{display:flex;flex-direction:column;align-items:center;cursor:pointer;padding:10px 6px;border-radius:16px;transition:transform 0.3s, background 0.2s, box-shadow 0.3s;text-decoration:none;color:var(--text);}
+        .bookmark-item:hover{background:var(--hover-bg);transform:scale(1.08);box-shadow:0 8px 24px rgba(0,0,0,0.1);}
+        .icon-wrapper-big{width:var(--icon-size);height:var(--icon-size);border-radius:var(--border-radius);display:flex;align-items:center;justify-content:center;background:var(--card-bg);box-shadow:0 3px 10px rgba(0,0,0,0.08);transition:border-radius 0.3s;}
+        .bookmark-item:hover .icon-wrapper-big{box-shadow:0 12px 28px rgba(0,0,0,0.2);}
+        .icon-text-big{width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;border-radius:var(--border-radius);padding:8px;text-align:center;line-height:1.2;transition:border-radius 0.3s;}
         .bookmark-name{font-size:0.72rem;text-align:center;margin-top:8px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;word-break:break-all;}
         .context-menu{display:none;position:fixed;background:var(--card-bg);border:1px solid var(--border);border-radius:10px;box-shadow:0 4px 16px rgba(0,0,0,0.2);z-index:300;min-width:130px;padding:4px 0;}
         .context-menu.show{display:block;}
@@ -102,6 +111,16 @@
     <header class="header">
         <div class="header-inner">
             <div class="logo"><span class="icon-grid">📑</span> <span id="siteTitle">我的收藏夹</span></div>
+            <div class="clock-date" id="clockDate">
+                <div class="clock-row">
+                    <span class="clock-time" id="clockTime">00:00:00</span>
+                    <span class="clock-week" id="clockWeek">星期六</span>
+                </div>
+                <div class="clock-row">
+                    <span class="clock-date-text" id="clockDateText">2026年7月26日</span>
+                    <span class="clock-lunar" id="clockLunar">农历腊月三十</span>
+                </div>
+            </div>
             <div class="search-wrap">
                 <div class="search-input-wrap"><span class="search-icon">🔍</span><input type="text" class="search-input" id="searchInput" placeholder="搜索书签，回车网页搜索..."><button class="search-clear" id="searchClear">✕</button></div>
                 <select class="engine-select" id="engineSelect"></select>
@@ -137,6 +156,7 @@
         <div class="setting-row"><label>页面宽度 (px)</label><input type="number" id="setPageWidth" min="600" max="3000"></div>
         <div class="setting-row"><label>每行图标数</label><input type="number" id="setColumns" min="4" max="14"></div>
         <div class="setting-row"><label>图标大小 (px)</label><input type="number" id="setIconSize" min="40" max="100"></div>
+        <div class="setting-row"><label>图标圆角 (px)</label><input type="range" id="setBorderRadius" min="0" max="40" value="14" step="1"><span id="borderRadiusValue">14px</span></div>
 
         <h4>常用区背景</h4>
         <div id="freqBgPresets"></div>
@@ -165,7 +185,7 @@
     let siteTitle='我的收藏夹';
     const presetColors = ['#ffffff','#f5f5f5','#e8f5e9','#e3f2fd','#fff3e0','#a1c4fd','#fbc2eb','#84fab0','#ffecd2'];
     const defaultLayout = {
-        pageWidth:1200, columns:9, iconSize:72,
+        pageWidth:1200, columns:9, iconSize:72, borderRadius:14,
         freqBg:{type:'preset',value:'#ffffff',image:null},
         globalBg:{type:'preset',value:'#ffffff',image:null}
     };
@@ -195,9 +215,7 @@
         const clean = text.replace(/[^\u4e00-\u9fa5A-Za-z0-9]/g, '') || '?';
         const hasAlphaNum = /[A-Za-z0-9]/.test(clean);
         const getCharWidth = c => /[^\x00-\xff]/.test(c) ? 2 : 1;
-
         if (!hasAlphaNum) {
-            // 纯中文，取前4字
             const chars = clean.slice(0, 4);
             if (chars.length === 1) {
                 const fontSize = 'calc(var(--icon-size) * 0.45)';
@@ -218,7 +236,6 @@
         } else {
             const allEnglish = [...clean].every(c => /[A-Za-z0-9]/.test(c));
             if (allEnglish) {
-                // 全英文/数字，取前12个字符
                 const chars = clean.slice(0, 12);
                 if (chars.length <= 6) {
                     const fontSize = chars.length <= 3 ? 'calc(var(--icon-size) * 0.35)' : 'calc(var(--icon-size) * 0.28)';
@@ -234,7 +251,6 @@
                     </div>`;
                 }
             } else {
-                // 混合类型：按视觉宽度截取，总宽 ≤8
                 let chars = '';
                 let totalWidth = 0;
                 for (const c of clean) {
@@ -248,7 +264,6 @@
                     const fontSize = totalWidth <= 4 ? 'calc(var(--icon-size) * 0.30)' : 'calc(var(--icon-size) * 0.26)';
                     return `<span style="font-size:${fontSize};line-height:1.2;white-space:nowrap;">${esc(chars)}</span>`;
                 }
-                // 分两行
                 let splitIdx = 1;
                 let bestDiff = Infinity;
                 for (let i = 1; i < chars.length; i++) {
@@ -277,29 +292,31 @@
     }
 
     function applyLayout(){
-        document.documentElement.style.setProperty('--page-width',layoutConfig.pageWidth+'px');
-        document.documentElement.style.setProperty('--grid-columns',layoutConfig.columns);
-        document.documentElement.style.setProperty('--icon-size',layoutConfig.iconSize+'px');
+        const r=document.documentElement.style;
+        r.setProperty('--page-width',layoutConfig.pageWidth+'px');
+        r.setProperty('--grid-columns',layoutConfig.columns);
+        r.setProperty('--icon-size',layoutConfig.iconSize+'px');
+        r.setProperty('--border-radius',layoutConfig.borderRadius+'px');
         applyBodyBg(); applyFrequentBg();
     }
     function applyBodyBg(){
         const bg=layoutConfig.globalBg;
-        const isDefault = (bg.type === 'preset' && bg.value === '#ffffff' && !bg.image);
-        if (isDefault) {
+        if(bg.type==='image'&&bg.image) {
+            document.documentElement.style.setProperty('--global-bg',`url(${bg.image}) center/cover no-repeat`);
+        } else if(bg.type==='preset' && bg.value==='#ffffff' && !bg.image) {
             document.documentElement.style.removeProperty('--global-bg');
         } else {
-            if(bg.type==='image'&&bg.image) document.documentElement.style.setProperty('--global-bg',`url(${bg.image}) center/cover no-repeat`);
-            else document.documentElement.style.setProperty('--global-bg',bg.value||'#ffffff');
+            document.documentElement.style.setProperty('--global-bg',bg.value||'#ffffff');
         }
     }
     function applyFrequentBg(){
         const bg=layoutConfig.freqBg;
-        const isDefault = (bg.type === 'preset' && bg.value === '#ffffff' && !bg.image);
-        if (isDefault) {
+        if(bg.type==='image'&&bg.image) {
+            $('frequentSection').style.background=`url(${bg.image}) center/cover no-repeat`;
+        } else if(bg.type==='preset' && bg.value==='#ffffff' && !bg.image) {
             $('frequentSection').style.background = '';
         } else {
-            if(bg.type==='image'&&bg.image) $('frequentSection').style.background=`url(${bg.image}) center/cover no-repeat`;
-            else $('frequentSection').style.background=bg.value||'#ffffff';
+            $('frequentSection').style.background=bg.value||'#ffffff';
         }
     }
 
@@ -312,6 +329,107 @@
     }
     applyTheme(localStorage.getItem('bm-theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'));
     $('themeToggle').onclick=()=>applyTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark');
+
+    // ========== 农历计算 ==========
+    const LunarCalendar = (function(){
+        const lunarInfo = [
+            0x04bd8,0x04ae0,0x0a570,0x054d5,0x0d260,0x0d950,0x16554,0x056a0,0x09ad0,0x055d2,
+            0x04ae0,0x0a5b6,0x0a4d0,0x0d250,0x1d255,0x0b540,0x0d6a0,0x0ada2,0x095b0,0x14977,
+            0x04970,0x0a4b0,0x0b4b5,0x06a50,0x06d40,0x1ab54,0x02b60,0x09570,0x052f2,0x04970,
+            0x06566,0x0d4a0,0x0ea50,0x06e95,0x05ad0,0x02b60,0x186e3,0x092e0,0x1c8d7,0x0c950,
+            0x0d4a0,0x1d8a6,0x0b550,0x056a0,0x1a5b4,0x025d0,0x092d0,0x0d2b2,0x0a950,0x0b557,
+            0x06ca0,0x0b550,0x15355,0x04da0,0x0a5b0,0x14573,0x052b0,0x0a9a8,0x0e950,0x06aa0,
+            0x0aea6,0x0ab50,0x04b60,0x0aae4,0x0a570,0x05260,0x0f263,0x0d950,0x05b57,0x056a0,
+            0x096d0,0x04dd5,0x04ad0,0x0a4d0,0x0d4d4,0x0d250,0x0d558,0x0b540,0x0b6a0,0x195a6,
+            0x095b0,0x049b0,0x0a974,0x0a4b0,0x0b27a,0x06a50,0x06d40,0x0af46,0x0ab60,0x09570,
+            0x04af5,0x04970,0x064b0,0x074a3,0x0ea50,0x06b58,0x055c0,0x0ab60,0x096d5,0x092e0,
+            0x0c960,0x0d954,0x0d4a0,0x0da50,0x07552,0x056a0,0x0abb7,0x025d0,0x092d0,0x0cab5,
+            0x0a950,0x0b4a0,0x0baa4,0x0ad50,0x055d9,0x04ba0,0x0a5b0,0x15176,0x052b0,0x0a930,
+            0x07954,0x06aa0,0x0ad50,0x05b52,0x04b60,0x0a6e6,0x0a4e0,0x0d260,0x0ea65,0x0d530,
+            0x05aa0,0x076a3,0x096d0,0x04afb,0x04ad0,0x0a4d0,0x1d0b6,0x0d250,0x0d520,0x0dd45,
+            0x0b5a0,0x056d0,0x055b2,0x049b0,0x0a577,0x0a4b0,0x0aa50,0x1b255,0x06d20,0x0ada0,
+            0x14b63,0x09370,0x049f8,0x04970,0x064b0,0x168a6,0x0ea50,0x06b20,0x1a6c4,0x0aae0,
+            0x0a2e0,0x0d2e3,0x0c960,0x0d557,0x0d4a0,0x0da50,0x05d55,0x056a0,0x0a6d0,0x055d4,
+            0x052d0,0x0a9b8,0x0a950,0x0b4a0,0x0b6a6,0x0ad50,0x055a0,0x0aba4,0x0a5b0,0x052b0,
+            0x0b273,0x06930,0x07337,0x06aa0,0x0ad50,0x14b55,0x04b60,0x0a570,0x054e4,0x0d160,
+            0x0e968,0x0d520,0x0daa0,0x16aa6,0x056d0,0x04ae0,0x0a9d4,0x0a4d0,0x0d150,0x0f252,
+            0x0d520
+        ];
+        const solarMonth = [31,28,31,30,31,30,31,31,30,31,30,31];
+        const lunarMonthNames = ['','正月','二月','三月','四月','五月','六月','七月','八月','九月','十月','冬月','腊月'];
+        const lunarDayNames = ['','初一','初二','初三','初四','初五','初六','初七','初八','初九','初十','十一','十二','十三','十四','十五','十六','十七','十八','十九','二十','廿一','廿二','廿三','廿四','廿五','廿六','廿七','廿八','廿九','三十'];
+
+        function leapMonth(y) { return lunarInfo[y-1900] & 0xf; }
+        function leapDays(y) { return leapMonth(y) ? ((lunarInfo[y-1900] & 0x10000) ? 30 : 29) : 0; }
+        function monthDays(y, m) { return (lunarInfo[y-1900] & (0x10000 >> m)) ? 30 : 29; }
+        function yearDays(y) {
+            let sum = 348;
+            for(let i=0x8000; i>0x8; i>>=1) sum += (lunarInfo[y-1900] & i) ? 1 : 0;
+            return sum + leapDays(y);
+        }
+        function solarDays(y, m) {
+            if(m === 2) return ((y%4===0 && y%100!==0) || (y%400===0)) ? 29 : 28;
+            return solarMonth[m-1];
+        }
+
+        return {
+            toLunar: function(date) {
+                let year = date.getFullYear();
+                let month = date.getMonth() + 1;
+                let day = date.getDate();
+                let offset = 0;
+                for(let i=1900; i<year; i++) offset += yearDays(i);
+                for(let i=1; i<month; i++) offset += solarDays(year, i);
+                offset += day;
+                let lYear = year;
+                let days = 0;
+                for(lYear=year; lYear<2100; lYear++) {
+                    days = yearDays(lYear);
+                    if(offset <= days) break;
+                    offset -= days;
+                }
+                let lMonth = 1;
+                let lDay = 1;
+                let isLeap = false;
+                let leap = leapMonth(lYear);
+                for(let i=1; i<=12; i++) {
+                    if(leap>0 && i===leap+1 && !isLeap) {
+                        --i;
+                        isLeap = true;
+                        days = leapDays(lYear);
+                    } else {
+                        days = monthDays(lYear, i);
+                    }
+                    if(offset <= days) {
+                        lMonth = i;
+                        lDay = offset;
+                        break;
+                    }
+                    offset -= days;
+                    if(isLeap && i===leap) isLeap = false;
+                }
+                return {
+                    monthStr: (isLeap ? '闰' : '') + lunarMonthNames[lMonth],
+                    dayStr: lunarDayNames[lDay]
+                };
+            }
+        };
+    })();
+
+    function updateClock(){
+        const now = new Date();
+        const timeStr = now.toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+        const weekStr = now.toLocaleDateString('zh-CN',{weekday:'long'});
+        const dateStr = now.toLocaleDateString('zh-CN',{year:'numeric',month:'long',day:'numeric'});
+        const lunar = LunarCalendar.toLunar(now);
+        const lunarStr = `农历${lunar.monthStr}${lunar.dayStr}`;
+        $('clockTime').textContent = timeStr;
+        $('clockWeek').textContent = weekStr;
+        $('clockDateText').textContent = dateStr;
+        $('clockLunar').textContent = lunarStr;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
 
     function getFrequent(){
         const all=bookmarks.filter(b=>b.clicks>0);
@@ -496,7 +614,11 @@
 
     $('settingsBtn').onclick=()=>{
         $('setSiteTitle').value=siteTitle;
-        $('setPageWidth').value=layoutConfig.pageWidth;$('setColumns').value=layoutConfig.columns;$('setIconSize').value=layoutConfig.iconSize;
+        $('setPageWidth').value=layoutConfig.pageWidth;
+        $('setColumns').value=layoutConfig.columns;
+        $('setIconSize').value=layoutConfig.iconSize;
+        $('setBorderRadius').value=layoutConfig.borderRadius;
+        $('borderRadiusValue').textContent=layoutConfig.borderRadius+'px';
         renderBgPresets('freqBgPresets','freqBg'); renderBgPresets('globalBgPresets','globalBg');
         $('freqBgCustomColor').value=layoutConfig.freqBg.value||'#ffffff';
         $('globalBgCustomColor').value=layoutConfig.globalBg.value||'#ffffff';
@@ -504,15 +626,18 @@
         $('globalBgFileInfo').textContent=layoutConfig.globalBg.image?'已设置图片':'';
         $('settingsModal').classList.add('show');
     };
+    $('setBorderRadius').addEventListener('input',()=>{
+        $('borderRadiusValue').textContent = $('setBorderRadius').value + 'px';
+    });
     $('settingsClose').onclick=()=>{
         siteTitle=$('setSiteTitle').value.trim()||'我的收藏夹';
         layoutConfig.pageWidth=Math.max(600,parseInt($('setPageWidth').value)||1200);
         layoutConfig.columns=Math.min(14,Math.max(4,parseInt($('setColumns').value)||9));
         layoutConfig.iconSize=Math.min(100,Math.max(40,parseInt($('setIconSize').value)||72));
+        layoutConfig.borderRadius = parseInt($('setBorderRadius').value) || 14;
         applyLayout();updateUI();save();renderAll();$('settingsModal').classList.remove('show');
     };
     $('settingsReset').onclick=()=>{layoutConfig=JSON.parse(JSON.stringify(defaultLayout));applyLayout();renderAll();updateUI();$('settingsModal').classList.remove('show');};
-
     $('freqBgCustomColor').oninput=()=>{layoutConfig.freqBg={type:'preset',value:$('freqBgCustomColor').value,image:null};applyFrequentBg();save();renderBgPresets('freqBgPresets','freqBg');};
     $('globalBgCustomColor').oninput=()=>{layoutConfig.globalBg={type:'preset',value:$('globalBgCustomColor').value,image:null};applyBodyBg();save();renderBgPresets('globalBgPresets','globalBg');};
     const handleBgImg=(input,bgKey,infoId)=>{
