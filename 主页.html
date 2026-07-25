@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="pageTitle">我的收藏夹 - 手机桌面风格</title>
+    <style>
+        :root {
+            --page-width: 1200px;
+            --grid-columns: 9;
+            --icon-size: 72px;
+            --global-bg: #ffffff;
+            --card-bg: #ffffff;
+            --text: #1a1a2e;
+            --text-secondary: #666;
+            --border: #e0e0e0;
+            --hover-bg: #f0f1f5;
+            --accent: #4f6ef7;
+            --danger: #e74c3c;
+            --input-bg: #f5f6f8;
+        }
+        [data-theme="dark"] {
+            --card-bg: #252540;
+            --text: #e0e0e0;
+            --text-secondary: #aaa;
+            --border: #3a3a55;
+            --hover-bg: #2e2e48;
+            --accent: #7b8cff;
+            --input-bg: #2a2a42;
+            --danger: #ff6b6b;
+        }
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{
+            font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;
+            background:var(--global-bg);color:var(--text);min-height:100vh;
+            transition:background 0.3s,color 0.3s;
+        }
+        #topContainer{position:sticky;top:0;z-index:100;background:var(--card-bg);box-shadow:0 2px 12px rgba(0,0,0,0.06);}
+        .header{padding:12px 16px;border-bottom:1px solid var(--border);}
+        .header-inner{max-width:var(--page-width);margin:0 auto;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+        .logo{font-size:1.3rem;font-weight:700;color:var(--accent);display:flex;align-items:center;gap:8px;}
+        .logo .icon-grid{width:32px;height:32px;background:linear-gradient(135deg,#667eea,#764ba2);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;}
+        .search-wrap{flex:1;min-width:220px;display:flex;align-items:center;gap:6px;}
+        .search-input-wrap{flex:1;position:relative}
+        .search-input{width:100%;padding:10px 14px 10px 38px;border:2px solid var(--border);border-radius:24px;font-size:0.95rem;background:var(--input-bg);color:var(--text);outline:none;}
+        .search-input:focus{border-color:var(--accent);}
+        .search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--text-secondary);pointer-events:none;}
+        .search-clear{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text-secondary);cursor:pointer;font-size:1.1rem;padding:4px 8px;border-radius:50%;display:none;}
+        .search-clear.visible{display:block}
+        .engine-select{padding:8px 12px;border:2px solid var(--border);border-radius:20px;background:var(--input-bg);color:var(--text);font-size:0.85rem;outline:none;cursor:pointer;}
+        .header-actions{display:flex;gap:8px;align-items:center;}
+        .btn{padding:9px 16px;border-radius:20px;border:none;cursor:pointer;font-size:0.9rem;font-weight:500;transition:all 0.25s;white-space:nowrap;display:flex;align-items:center;gap:6px;}
+        .btn-primary{background:var(--accent);color:#fff;}
+        .btn-outline{background:transparent;border:2px solid var(--border);color:var(--text)}
+        .btn-sm{padding:6px 12px;font-size:0.8rem;border-radius:16px}
+        .btn-icon{width:36px;height:36px;padding:0;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;background:transparent;border:2px solid var(--border);color:var(--text);cursor:pointer;}
+        .top-section{max-width:var(--page-width);margin:0 auto;padding:8px 16px;border-bottom:1px solid var(--border);}
+        .category-tabs{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;}
+        .category-tab{padding:7px 14px;border-radius:20px;cursor:pointer;font-size:0.82rem;font-weight:500;color:#fff;border:2px solid transparent;transition:all 0.25s;position:relative;text-shadow:0 1px 2px rgba(0,0,0,0.2);}
+        .category-tab.active{border-color:#fff;font-weight:700;box-shadow:0 2px 10px rgba(0,0,0,0.2);}
+        .category-tab.drag-over{border-color:#fff !important;box-shadow:0 0 12px rgba(255,255,255,0.6);}
+        .category-tab .count{font-size:0.65rem;opacity:0.85;margin-left:4px}
+        .frequent-section{max-width:var(--page-width);margin:16px auto 0;padding:16px;border-radius:16px;transition:background 0.3s;}
+        .frequent-icons{display:grid;grid-template-columns:repeat(var(--grid-columns),1fr);gap:10px;}
+        .frequent-icon{display:flex;flex-direction:column;align-items:center;cursor:pointer;text-decoration:none;color:var(--text);padding:10px 6px;border-radius:16px;transition:0.2s;background:rgba(255,255,255,0.25);backdrop-filter:blur(4px);}
+        .frequent-icon:hover{background:rgba(255,255,255,0.4);}
+        .frequent-icon .icon-wrapper{width:var(--icon-size);height:var(--icon-size);border-radius:14px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,0.15);}
+        .frequent-icon .icon-text{width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:calc(var(--icon-size) * 0.26);border-radius:14px;padding:4px;text-align:center;line-height:1.2;}
+        .main-container{max-width:var(--page-width);margin:0 auto;padding:16px;}
+        .bookmark-grid{display:grid;grid-template-columns:repeat(var(--grid-columns),1fr);gap:10px;}
+        .bookmark-item{display:flex;flex-direction:column;align-items:center;cursor:pointer;padding:10px 6px;border-radius:16px;transition:all 0.25s;text-decoration:none;color:var(--text);}
+        .bookmark-item:hover{background:var(--hover-bg);transform:translateY(-2px)}
+        .icon-wrapper-big{width:var(--icon-size);height:var(--icon-size);border-radius:14px;display:flex;align-items:center;justify-content:center;background:var(--card-bg);box-shadow:0 3px 10px rgba(0,0,0,0.08);}
+        .bookmark-item:hover .icon-wrapper-big{box-shadow:0 8px 24px rgba(0,0,0,0.2);}
+        .icon-text-big{width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:calc(var(--icon-size) * 0.26);border-radius:14px;padding:4px;text-align:center;line-height:1.2;}
+        .bookmark-name{font-size:0.72rem;text-align:center;margin-top:8px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;word-break:break-all;}
+        .context-menu{display:none;position:fixed;background:var(--card-bg);border:1px solid var(--border);border-radius:10px;box-shadow:0 4px 16px rgba(0,0,0,0.2);z-index:300;min-width:130px;padding:4px 0;}
+        .context-menu.show{display:block;}
+        .context-menu-item{padding:8px 16px;cursor:pointer;font-size:0.85rem;color:var(--text);}
+        .context-menu-item:hover{background:var(--hover-bg);}
+        .modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:200;display:none;align-items:center;justify-content:center;}
+        .modal-overlay.show{display:flex}
+        .modal{background:var(--card-bg);padding:24px;border-radius:16px;width:90%;max-width:500px;box-shadow:0 10px 40px rgba(0,0,0,0.2);max-height:90vh;overflow-y:auto;}
+        .modal h3{margin-bottom:16px}
+        .modal label{font-size:0.85rem;color:var(--text-secondary);display:block;margin-bottom:4px;}
+        .modal input,.modal select{width:100%;padding:10px 14px;border:2px solid var(--border);border-radius:12px;font-size:0.95rem;margin-bottom:12px;background:var(--input-bg);color:var(--text);outline:none;}
+        .modal .btn-row{display:flex;gap:8px;justify-content:flex-end;margin-top:12px}
+        .modal .setting-row{display:flex;gap:12px;align-items:center;margin-bottom:12px;}
+        .modal .setting-row label{flex:1;margin-bottom:0;font-size:0.9rem;color:var(--text);}
+        .modal .setting-row input{width:90px;margin-bottom:0;text-align:center;}
+        .modal .stack-row{display:flex;flex-direction:column;gap:6px;margin-bottom:12px;}
+        .modal .stack-row label{font-size:0.85rem;color:var(--text-secondary);}
+        .modal .stack-row input[type="file"]{width:100%;margin-bottom:4px;}
+        .file-info{font-size:0.8rem;color:var(--text-secondary);margin-top:2px;word-break:break-all;}
+        .preset-bg-item{width:40px;height:40px;border-radius:8px;cursor:pointer;border:2px solid transparent;transition:0.2s;display:inline-block;margin-right:8px;}
+        .preset-bg-item.active{border-color:var(--accent);}
+    </style>
+</head>
+<body>
+<div id="topContainer">
+    <header class="header">
+        <div class="header-inner">
+            <div class="logo"><span class="icon-grid">📑</span> <span id="siteTitle">我的收藏夹</span></div>
+            <div class="search-wrap">
+                <div class="search-input-wrap"><span class="search-icon">🔍</span><input type="text" class="search-input" id="searchInput" placeholder="搜索书签，回车网页搜索..."><button class="search-clear" id="searchClear">✕</button></div>
+                <select class="engine-select" id="engineSelect"></select>
+            </div>
+            <div class="header-actions">
+                <button class="btn-icon" id="themeToggle">🌓</button>
+                <button class="btn btn-outline" id="settingsBtn">⚙️ 设置</button>
+                <input type="file" id="fileInput" accept=".html,.htm" style="display:none">
+                <input type="file" id="settingInput" accept=".json" style="display:none">
+            </div>
+        </div>
+    </header>
+    <div class="top-section"><div class="category-tabs" id="categoryTabs"></div></div>
+</div>
+<div class="frequent-section" id="frequentSection"><div class="row-label">⭐ 常用</div><div class="frequent-icons" id="frequentIcons"></div></div>
+<div class="main-container"><div class="bookmark-grid" id="bookmarkGrid"></div></div>
+<div class="context-menu" id="contextMenu"></div>
+
+<div class="modal-overlay" id="addModal">
+    <div class="modal"><h3>添加书签</h3><label>标题</label><input type="text" id="addTitle"><label>网址</label><input type="text" id="addUrl"><label>分组</label><select id="addGroup"></select><div class="btn-row"><button class="btn btn-outline btn-sm" id="addCancel">取消</button><button class="btn btn-primary btn-sm" id="addConfirm">确定</button></div></div>
+</div>
+
+<div class="modal-overlay" id="settingsModal">
+    <div class="modal">
+        <h3>⚙️ 站点设置</h3>
+        <label>站点标题</label><input type="text" id="setSiteTitle">
+        <div class="btn-row" style="margin-bottom:12px;">
+            <button class="btn btn-primary btn-sm" id="importBtn">📥 导入收藏夹</button>
+            <button class="btn btn-outline btn-sm" id="exportBtn">📤 导出设置</button>
+            <button class="btn btn-outline btn-sm" id="importSettingBtn">📂 导入设置</button>
+        </div>
+        <h4>布局设置</h4>
+        <div class="setting-row"><label>页面宽度 (px)</label><input type="number" id="setPageWidth" min="600" max="3000"></div>
+        <div class="setting-row"><label>每行图标数</label><input type="number" id="setColumns" min="4" max="14"></div>
+        <div class="setting-row"><label>图标大小 (px)</label><input type="number" id="setIconSize" min="40" max="100"></div>
+
+        <h4>常用区背景</h4>
+        <div id="freqBgPresets"></div>
+        <div class="stack-row"><label>自定义颜色</label><input type="color" id="freqBgCustomColor" style="width:80px;height:36px;padding:2px;"></div>
+        <div class="stack-row"><label>自定义背景图</label><input type="file" id="freqBgImgInput" accept="image/*"><span class="file-info" id="freqBgFileInfo"></span></div>
+        <button class="btn btn-outline btn-sm" id="clearFreqBgBtn">清除自定义图</button>
+
+        <h4 style="margin-top:12px;">全局背景</h4>
+        <div id="globalBgPresets"></div>
+        <div class="stack-row"><label>自定义颜色</label><input type="color" id="globalBgCustomColor" style="width:80px;height:36px;padding:2px;"></div>
+        <div class="stack-row"><label>自定义背景图</label><input type="file" id="globalBgImgInput" accept="image/*"><span class="file-info" id="globalBgFileInfo"></span></div>
+        <button class="btn btn-outline btn-sm" id="clearGlobalBgBtn">清除自定义图</button>
+
+        <div class="btn-row" style="margin-top:16px;"><button class="btn btn-outline btn-sm" id="settingsReset">恢复默认</button><button class="btn btn-primary btn-sm" id="settingsClose">关闭</button></div>
+    </div>
+</div>
+
+<script>
+(function(){
+    const $=id=>document.getElementById(id);
+    const ctxMenu=$('contextMenu');
+    let bookmarks=[],currentCat='__ALL__',searchQuery='';
+    let categoryAliases={},customGroups=[];
+    let searchEngines=[{name:'Bing',url:'https://www.bing.com/search?q={query}'},{name:'百度',url:'https://www.baidu.com/s?wd={query}'},{name:'360',url:'https://www.so.com/s?q={query}'},{name:'搜狗',url:'https://www.sogou.com/web?query={query}'},{name:'Google',url:'https://www.google.com/search?q={query}'}];
+    let selectedEngine='';
+    let siteTitle='我的收藏夹';
+    const presetColors = ['#ffffff','#f5f5f5','#e8f5e9','#e3f2fd','#fff3e0','#a1c4fd','#fbc2eb','#84fab0','#ffecd2'];
+    const defaultLayout = {
+        pageWidth:1200, columns:9, iconSize:72,
+        freqBg:{type:'preset',value:'#ffffff',image:null},
+        globalBg:{type:'preset',value:'#ffffff',image:null}
+    };
+    let layoutConfig = JSON.parse(JSON.stringify(defaultLayout));
+
+    const categoryRules=[
+        {name:'视频',keys:['bilibili','youtube','youku','iqiyi','v.qq.com','douyin','tiktok','西瓜视频','movie','film','tv','直播']},
+        {name:'社交',keys:['weibo','twitter','facebook','reddit','tieba','zhihu','douban','t.me','discord','社区','bbs','v2ex']},
+        {name:'购物',keys:['taobao','tmall','jd.com','pinduoduo','amazon','ebay','shop','mall','buy','suning','yangkeduo']},
+        {name:'设计开发',keys:['github','gitlab','gitee','stackoverflow','figma','dribbble','behance','zcool','站酷','ui.cn','code','编程','css','js','dev','api','npm']},
+        {name:'新闻资讯',keys:['news','toutiao','thepaper','sina.com.cn','163.com','ifeng','xinhuanet','36kr','虎嗅','huxiu','geekpark','资讯','快报']},
+        {name:'教育',keys:['edu','course','mooc','wiki','baike','wikipedia','大学','图书馆','读书','学习','教程']},
+        {name:'工具',keys:['tool','translate','fanyi','map','mail','pan','drive','office','pdf','压缩','计算器','查询','天气']},
+        {name:'音乐',keys:['music','kugou','spotify','网易云','qq音乐','sound','专辑','电台','fm']},
+        {name:'阅读',keys:['book','read','起点','qidian','kindle','小说','漫画','动漫','anime','manga']},
+        {name:'游戏',keys:['game','steam','epic','taptap','电竞','huya','douyu','战网','playstation','xbox']},
+        {name:'生活旅行',keys:['travel','携程','ctrip','qunar','飞猪','酒店','机票','火车票','银行','支付','alipay','医院','社保','公积金']}
+    ];
+
+    function classify(bm){if(bm.manualGroup)return bm.manualGroup;const h=(getDomain(bm.url)||'').toLowerCase(),t=bm.title.toLowerCase();for(const r of categoryRules)for(const k of r.keys)if(h.includes(k)||t.includes(k))return r.name;return'工具';}
+    function getDomain(url){try{return new URL(url).hostname;}catch(e){return null;}}
+    function hash(s){let h=0;for(let i=0;i<s.length;i++){h=s.charCodeAt(i)+((h<<5)-h);h&=h;}return Math.abs(h);}
+    function getColor(s){return`hsl(${hash(s)%360},60%,55%)`;}
+    function esc(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML;}
+
+    function formatIconText(text){
+        const clean = text.replace(/\s/g,'').slice(0,4) || '?';
+        if(clean.length <= 3) return esc(clean);
+        const line1 = clean.slice(0,2);
+        const line2 = clean.slice(2,4);
+        return `<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.3;"><span>${esc(line1)}</span><span>${esc(line2)}</span></div>`;
+    }
+
+    function applyLayout(){
+        document.documentElement.style.setProperty('--page-width',layoutConfig.pageWidth+'px');
+        document.documentElement.style.setProperty('--grid-columns',layoutConfig.columns);
+        document.documentElement.style.setProperty('--icon-size',layoutConfig.iconSize+'px');
+        applyBodyBg(); applyFrequentBg();
+    }
+    function applyBodyBg(){
+        const bg=layoutConfig.globalBg;
+        if(bg.type==='image'&&bg.image) document.documentElement.style.setProperty('--global-bg',`url(${bg.image}) center/cover no-repeat`);
+        else document.documentElement.style.setProperty('--global-bg',bg.value||'#ffffff');
+    }
+    function applyFrequentBg(){
+        const bg=layoutConfig.freqBg;
+        if(bg.type==='image'&&bg.image) $('frequentSection').style.background=`url(${bg.image}) center/cover no-repeat`;
+        else $('frequentSection').style.background=bg.value||'#ffffff';
+    }
+
+    function applyTheme(t){document.documentElement.setAttribute('data-theme',t);localStorage.setItem('bm-theme',t);$('themeToggle').textContent=t==='dark'?'☀️':'🌓';}
+    applyTheme(localStorage.getItem('bm-theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'));
+    $('themeToggle').onclick=()=>applyTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark');
+
+    function getFrequent(){
+        const all=bookmarks.filter(b=>b.clicks>0);
+        const pinned=all.filter(b=>b.pinned).sort((a,b)=>(a.pinOrder||0)-(b.pinOrder||0));
+        const unpinned=all.filter(b=>!b.pinned).sort((a,b)=>b.clicks-a.clicks);
+        return [...pinned,...unpinned].slice(0,layoutConfig.columns);
+    }
+    function getCategoryGroups(){
+        const groups={};
+        for(const bm of bookmarks){const cat=classify(bm);if(!groups[cat])groups[cat]=[];groups[cat].push(bm);}
+        return [...new Set([...categoryRules.map(r=>r.name),...Object.keys(groups),...customGroups])].map(n=>({name:n,bookmarks:groups[n]||[],count:(groups[n]||[]).length}));
+    }
+
+    function renderFrequent(){
+        const freq=getFrequent();
+        $('frequentIcons').innerHTML=freq.length?freq.map(b=>{
+            const bg=getColor(getDomain(b.url)||b.title);
+            return`<a class="frequent-icon" href="${esc(b.url)}" target="_blank" draggable="true" data-url="${esc(b.url)}"><div class="icon-wrapper"><div class="icon-text" style="background:${bg}">${formatIconText(b.title)}</div></div><span class="icon-name">${esc(b.title)}</span></a>`;
+        }).join(''):'<span style="color:var(--text);opacity:0.6;">点击书签越多，越常出现在这里</span>';
+        bindFrequentEvents();
+    }
+    function bindFrequentEvents(){
+        $('frequentIcons').querySelectorAll('.frequent-icon').forEach(icon=>{
+            icon.addEventListener('dragstart',e=>{e.dataTransfer.setData('text/plain',icon.dataset.url);icon.style.opacity='0.5';});
+            icon.addEventListener('dragend',()=>{icon.style.opacity='';});
+            icon.addEventListener('dragover',e=>e.preventDefault());
+            icon.addEventListener('drop',e=>{
+                e.preventDefault();
+                const from=e.dataTransfer.getData('text/plain'),to=icon.dataset.url;
+                if(from===to)return;
+                const bFrom=bookmarks.find(b=>b.url===from),bTo=bookmarks.find(b=>b.url===to);
+                if(bFrom&&bTo&&bFrom.pinned&&bTo.pinned){const t=bFrom.pinOrder;bFrom.pinOrder=bTo.pinOrder;bTo.pinOrder=t;}
+                else if(!bFrom?.pinned&&!bTo?.pinned){const t=bFrom.clicks;bFrom.clicks=bTo.clicks;bTo.clicks=t;}
+                else if(bFrom?.pinned&&!bTo?.pinned){bFrom.pinned=false;bFrom.clicks=bTo.clicks+1;}
+                else if(!bFrom?.pinned&&bTo?.pinned){bFrom.pinned=true;bFrom.pinOrder=bTo.pinOrder;bTo.pinOrder=(bTo.pinOrder||0)+1;}
+                save();renderFrequent();
+            });
+            icon.addEventListener('contextmenu',e=>{
+                e.preventDefault();
+                const bm=bookmarks.find(b=>b.url===icon.dataset.url);
+                if(!bm)return;
+                showContextMenu(e.clientX,e.clientY,[
+                    bm.pinned?{label:'取消固定',action:()=>{bm.pinned=false;save();renderFrequent();}}:{label:'固定位置',action:()=>{bm.pinned=true;bm.pinOrder=Date.now();save();renderFrequent();}},
+                    {label:'从常用移除',action:()=>{bm.clicks=0;save();renderFrequent();}},
+                    {label:'重命名',action:()=>{const n=prompt('新名称：',bm.title);if(n?.trim()){bm.title=n.trim();save();renderAll();}}},
+                    {label:'删除',action:()=>{if(confirm('确定删除？'))del(bm.url);}}
+                ]);
+            });
+        });
+    }
+
+    function renderCategoryTabs(){
+        const groups=getCategoryGroups();
+        let tabs=[{id:'__ALL__',label:'全部',count:bookmarks.length}];
+        groups.forEach(g=>tabs.push({id:g.name,label:categoryAliases[g.name]||g.name,count:g.count}));
+        if(!tabs.some(t=>t.id===currentCat))currentCat='__ALL__';
+        $('categoryTabs').innerHTML=tabs.map(t=>`<div class="category-tab${t.id===currentCat?' active':''}" data-id="${t.id}" style="background:${t.id==='__ALL__'?'#6c757d':getColor(t.label)}">${t.label}<span class="count">${t.count}</span></div>`).join('');
+        $('categoryTabs').querySelectorAll('.category-tab').forEach(tab=>{
+            tab.addEventListener('click',()=>{currentCat=tab.dataset.id;searchQuery='';renderAll();});
+            tab.addEventListener('dragover',e=>{e.preventDefault();tab.classList.add('drag-over');});
+            tab.addEventListener('dragleave',()=>tab.classList.remove('drag-over'));
+            tab.addEventListener('drop',e=>{e.preventDefault();tab.classList.remove('drag-over');const url=e.dataTransfer.getData('text/plain');const bm=bookmarks.find(b=>b.url===url);if(bm){bm.manualGroup=tab.dataset.id==='__ALL__'?undefined:tab.dataset.id;save();renderAll();}});
+            tab.addEventListener('contextmenu',e=>{
+                e.preventDefault();
+                const gid=tab.dataset.id;
+                const canDelete=customGroups.includes(gid)||!categoryRules.some(r=>r.name===gid);
+                showContextMenu(e.clientX,e.clientY,[
+                    {label:'添加分组',action:()=>{const n=prompt('新分组名称：');if(n?.trim()){customGroups.push(n.trim());save();renderAll();}}},
+                    gid!=='__ALL__'?{label:'重命名分组',action:()=>{const cur=categoryAliases[gid]||gid;const n=prompt('新名称：',cur);if(n?.trim()&&n!==gid){categoryAliases[gid]=n.trim();save();renderAll();}}}:null,
+                    canDelete?{label:'删除分组',action:()=>{if(confirm(`确定删除「${categoryAliases[gid]||gid}」？`)){customGroups=customGroups.filter(g=>g!==gid);bookmarks.forEach(b=>{if(b.manualGroup===gid)delete b.manualGroup;});save();renderAll();}}}:null
+                ].filter(Boolean));
+            });
+        });
+    }
+
+    function renderBookmarks(){
+        let list=currentCat==='__ALL__'?[...bookmarks]:bookmarks.filter(b=>classify(b)===currentCat);
+        list.sort((a,b)=>a.order-b.order);
+        if(searchQuery)list=list.filter(b=>b.title.toLowerCase().includes(searchQuery)||b.url.toLowerCase().includes(searchQuery));
+        $('bookmarkGrid').innerHTML=list.map(b=>{
+            const bg=getColor(getDomain(b.url)||b.title);
+            return`<a class="bookmark-item" href="${esc(b.url)}" target="_blank" draggable="true" data-url="${esc(b.url)}"><div class="icon-wrapper-big"><div class="icon-text-big" style="background:${bg}">${formatIconText(b.title)}</div></div><span class="bookmark-name">${esc(b.title)}</span></a>`;
+        }).join('');
+        bindBookmarkEvents();
+    }
+    function bindBookmarkEvents(){
+        let dragUrl=null;
+        $('bookmarkGrid').querySelectorAll('.bookmark-item').forEach(item=>{
+            item.addEventListener('dragstart',e=>{dragUrl=item.dataset.url;e.dataTransfer.setData('text/plain',dragUrl);item.style.opacity='0.5';});
+            item.addEventListener('dragend',()=>{item.style.opacity='';dragUrl=null;});
+            item.addEventListener('dragover',e=>e.preventDefault());
+            item.addEventListener('drop',e=>{
+                e.preventDefault();
+                const from=e.dataTransfer.getData('text/plain'),to=item.dataset.url;
+                if(from===to)return;
+                const iFrom=bookmarks.findIndex(b=>b.url===from),iTo=bookmarks.findIndex(b=>b.url===to);
+                if(iFrom>=0&&iTo>=0){const t=bookmarks[iFrom].order;bookmarks[iFrom].order=bookmarks[iTo].order;bookmarks[iTo].order=t;save();renderAll();}
+            });
+            item.addEventListener('click',function(e){if(dragUrl)return;const b=bookmarks.find(b=>b.url===this.dataset.url);if(b){b.clicks=(b.clicks||0)+1;save();renderFrequent();}});
+            item.addEventListener('contextmenu',e=>{
+                e.preventDefault();
+                const url=item.dataset.url;
+                showContextMenu(e.clientX,e.clientY,[
+                    {label:'添加书签',action:()=>openAddModal()},
+                    {label:'重命名',action:()=>{const b=bookmarks.find(b=>b.url===url);if(b){const n=prompt('新名称：',b.title);if(n?.trim()){b.title=n.trim();save();renderAll();}}}},
+                    {label:'删除',action:()=>{if(confirm('确定删除？'))del(url);}}
+                ]);
+            });
+        });
+    }
+
+    function openAddModal(){
+        const groups=getCategoryGroups().map(g=>g.name).concat(customGroups);
+        $('addGroup').innerHTML=groups.map(g=>`<option value="${g}">${categoryAliases[g]||g}</option>`).join('');
+        $('addTitle').value='';$('addUrl').value='';
+        $('addModal').classList.add('show');
+    }
+    $('addCancel').onclick=()=>$('addModal').classList.remove('show');
+    $('addConfirm').onclick=()=>{
+        const title=$('addTitle').value.trim(),url=$('addUrl').value.trim();
+        if(!title||!url)return;
+        const group=$('addGroup').value;
+        const bm={title,url,clicks:0,order:bookmarks.length};
+        if(group!==classify(bm))bm.manualGroup=group;
+        bookmarks.push(bm);save();renderAll();$('addModal').classList.remove('show');
+    };
+
+    function showContextMenu(x,y,items){
+        ctxMenu.innerHTML=items.map(item=>`<div class="context-menu-item">${item.label}</div>`).join('');
+        ctxMenu.querySelectorAll('.context-menu-item').forEach((el,i)=>el.onclick=()=>{hideCtx();items[i].action();});
+        ctxMenu.style.left=x+'px';ctxMenu.style.top=y+'px';ctxMenu.classList.add('show');
+    }
+    function hideCtx(){ctxMenu.classList.remove('show');}
+    document.addEventListener('click',hideCtx);
+
+    function del(url){const i=bookmarks.findIndex(b=>b.url===url);if(i>=0){bookmarks.splice(i,1);save();renderAll();}}
+    function save(){localStorage.setItem('bm-flat',JSON.stringify({bookmarks,aliases:categoryAliases,customGroups,engines:searchEngines,selectedEngine,siteTitle,layoutConfig}));}
+    function load(){
+        try{
+            const d=JSON.parse(localStorage.getItem('bm-flat')||'{}');
+            if(d.bookmarks)bookmarks=d.bookmarks.map(b=>({...b,clicks:b.clicks||0}));
+            if(d.aliases)categoryAliases=d.aliases;
+            if(d.customGroups)customGroups=d.customGroups;
+            if(d.engines)searchEngines=d.engines;
+            if(d.selectedEngine)selectedEngine=d.selectedEngine;
+            if(d.siteTitle)siteTitle=d.siteTitle;
+            if(d.layoutConfig) Object.assign(layoutConfig, defaultLayout, d.layoutConfig);
+        }catch(e){}
+    }
+    function updateEngineSelect(){
+        $('engineSelect').innerHTML=searchEngines.map(e=>`<option>${e.name}</option>`).join('');
+        $('engineSelect').value=selectedEngine||searchEngines[0]?.name||'';
+        selectedEngine=$('engineSelect').value;
+        $('engineSelect').onchange=()=>{selectedEngine=$('engineSelect').value;save();};
+    }
+    function updateUI(){$('siteTitle').textContent=siteTitle;document.title=siteTitle;$('pageTitle').textContent=siteTitle;}
+
+    function importHTML(file){
+        const reader=new FileReader();
+        reader.onload=function(e){
+            try{
+                const doc=new DOMParser().parseFromString(e.target.result,'text/html');
+                const dl=doc.querySelector('dl');if(!dl)return;
+                const result=[];
+                function walk(n){for(const c of n.children)if(c.tagName==='DT'){const a=c.querySelector('a'),s=c.querySelector('dl');if(s)walk(s);else if(a&&a.href&&!a.href.startsWith('javascript:'))result.push({title:a.textContent.trim()||a.href,url:a.href,clicks:0,order:result.length});}}walk(dl);
+                if(!result.length)return;
+                bookmarks=result;currentCat='__ALL__';save();renderAll();
+            }catch(ex){}
+        };
+        reader.readAsText(file);
+    }
+
+    function renderBgPresets(containerId,bgKey){
+        const container=document.getElementById(containerId);
+        container.innerHTML=presetColors.map(c=>`<span class="preset-bg-item${(layoutConfig[bgKey].type==='preset'&&layoutConfig[bgKey].value===c)?' active':''}" style="background:${c};" data-value="${c}"></span>`).join('');
+        container.querySelectorAll('.preset-bg-item').forEach(el=>el.onclick=()=>{
+            layoutConfig[bgKey]={type:'preset',value:el.dataset.value,image:null};
+            if(bgKey==='freqBg')applyFrequentBg(); else applyBodyBg();
+            save(); renderBgPresets(containerId,bgKey);
+        });
+    }
+
+    $('settingsBtn').onclick=()=>{
+        $('setSiteTitle').value=siteTitle;
+        $('setPageWidth').value=layoutConfig.pageWidth;$('setColumns').value=layoutConfig.columns;$('setIconSize').value=layoutConfig.iconSize;
+        renderBgPresets('freqBgPresets','freqBg'); renderBgPresets('globalBgPresets','globalBg');
+        $('freqBgCustomColor').value=layoutConfig.freqBg.value||'#ffffff';
+        $('globalBgCustomColor').value=layoutConfig.globalBg.value||'#ffffff';
+        $('freqBgFileInfo').textContent=layoutConfig.freqBg.image?'已设置图片':'';
+        $('globalBgFileInfo').textContent=layoutConfig.globalBg.image?'已设置图片':'';
+        $('settingsModal').classList.add('show');
+    };
+    $('settingsClose').onclick=()=>{
+        siteTitle=$('setSiteTitle').value.trim()||'我的收藏夹';
+        layoutConfig.pageWidth=Math.max(600,parseInt($('setPageWidth').value)||1200);
+        layoutConfig.columns=Math.min(14,Math.max(4,parseInt($('setColumns').value)||9));
+        layoutConfig.iconSize=Math.min(100,Math.max(40,parseInt($('setIconSize').value)||72));
+        applyLayout();updateUI();save();renderAll();$('settingsModal').classList.remove('show');
+    };
+    $('settingsReset').onclick=()=>{layoutConfig=JSON.parse(JSON.stringify(defaultLayout));applyLayout();renderAll();updateUI();$('settingsModal').classList.remove('show');};
+
+    $('freqBgCustomColor').oninput=()=>{layoutConfig.freqBg={type:'preset',value:$('freqBgCustomColor').value,image:null};applyFrequentBg();save();renderBgPresets('freqBgPresets','freqBg');};
+    $('globalBgCustomColor').oninput=()=>{layoutConfig.globalBg={type:'preset',value:$('globalBgCustomColor').value,image:null};applyBodyBg();save();renderBgPresets('globalBgPresets','globalBg');};
+    const handleBgImg=(input,bgKey,infoId)=>{
+        const f=input.files[0];if(!f)return;
+        $(infoId).textContent=f.name;
+        const reader=new FileReader();
+        reader.onload=e=>{layoutConfig[bgKey]={type:'image',value:'',image:e.target.result};if(bgKey==='freqBg')applyFrequentBg();else applyBodyBg();save();renderBgPresets(bgKey==='freqBg'?'freqBgPresets':'globalBgPresets',bgKey);};
+        reader.readAsDataURL(f);
+    };
+    $('freqBgImgInput').onchange=()=>handleBgImg($('freqBgImgInput'),'freqBg','freqBgFileInfo');
+    $('globalBgImgInput').onchange=()=>handleBgImg($('globalBgImgInput'),'globalBg','globalBgFileInfo');
+    $('clearFreqBgBtn').onclick=()=>{layoutConfig.freqBg={type:'preset',value:'#ffffff',image:null};applyFrequentBg();save();$('freqBgFileInfo').textContent='';renderBgPresets('freqBgPresets','freqBg');};
+    $('clearGlobalBgBtn').onclick=()=>{layoutConfig.globalBg={type:'preset',value:'#ffffff',image:null};applyBodyBg();save();$('globalBgFileInfo').textContent='';renderBgPresets('globalBgPresets','globalBg');};
+
+    $('importBtn').onclick=()=>{$('settingsModal').classList.remove('show');$('fileInput').click();};
+    $('fileInput').onchange=()=>{if($('fileInput').files[0]){importHTML($('fileInput').files[0]);$('fileInput').value='';}};
+    $('exportBtn').onclick=()=>{
+        const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify({bookmarks,aliases:categoryAliases,customGroups,engines:searchEngines,selectedEngine,siteTitle,layoutConfig})],{type:'application/json'}));a.download='bookmarks.json';a.click();
+    };
+    $('importSettingBtn').onclick=()=>{$('settingsModal').classList.remove('show');$('settingInput').click();};
+    $('settingInput').onchange=()=>{
+        if($('settingInput').files[0]){
+            const reader=new FileReader();
+            reader.onload=e=>{
+                try{
+                    const d=JSON.parse(e.target.result);
+                    if(d.bookmarks)bookmarks=d.bookmarks;if(d.aliases)categoryAliases=d.aliases;if(d.customGroups)customGroups=d.customGroups;
+                    if(d.engines)searchEngines=d.engines;if(d.selectedEngine)selectedEngine=d.selectedEngine;if(d.siteTitle)siteTitle=d.siteTitle;
+                    if(d.layoutConfig) Object.assign(layoutConfig, defaultLayout, d.layoutConfig);
+                    applyLayout();updateUI();save();renderAll();
+                }catch(ex){}
+            };
+            reader.readAsText($('settingInput').files[0]);$('settingInput').value='';
+        }
+    };
+
+    $('searchInput').oninput=()=>{searchQuery=$('searchInput').value.toLowerCase();$('searchClear').classList.toggle('visible',!!searchQuery);renderBookmarks();};
+    $('searchInput').onkeydown=e=>{if(e.key==='Enter'){const q=$('searchInput').value.trim();if(!q)return;const eng=searchEngines.find(e=>e.name===selectedEngine);if(eng)window.open(eng.url.replace('{query}',encodeURIComponent(q)),'_blank');}};
+    $('searchClear').onclick=()=>{searchQuery='';$('searchInput').value='';$('searchClear').classList.remove('visible');renderBookmarks();};
+
+    load();updateUI();applyLayout();updateEngineSelect();
+    function renderAll(){renderCategoryTabs();renderFrequent();renderBookmarks();}
+    renderAll();
+})();
+</script>
+</body>
+</html>
