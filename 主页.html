@@ -9,7 +9,7 @@
             --page-width: 1200px;
             --grid-columns: 9;
             --icon-size: 72px;
-            --border-radius: 14px;
+            --border-radius: 20px;
             --global-bg: #ffffff;
             --card-bg: #ffffff;
             --text: #1a1a2e;
@@ -41,18 +41,9 @@
             -webkit-tap-highlight-color: transparent; touch-action: manipulation;
             overflow-x: hidden;
         }
-        /* 桌面端保持固定吸顶 */
-        #topContainer {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background: var(--card-bg);
-            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-            width: 100%;
-            max-width: 100vw;
-        }
+        #topContainer { position: sticky; top:0; z-index:100; background:var(--card-bg); box-shadow:0 2px 12px rgba(0,0,0,0.06); width:100%; max-width:100vw; }
         .header { padding:12px 16px; border-bottom:1px solid var(--border); }
-        .header-inner { max-width:var(--page-width); margin:0 auto; display:flex; align-items:center; gap:10px; flex-wrap:wrap; width:100%; }
+        .header-inner { max-width:var(--page-width); margin:0 auto; display:flex; align-items:center; gap:10px; flex-wrap:wrap; width:100%; padding:0 16px; }
         .logo { font-size:1.3rem; font-weight:700; color:var(--accent); display:flex; align-items:center; gap:8px; white-space:nowrap; }
         .logo .icon-grid { width:32px; height:32px; background:linear-gradient(135deg,#667eea,#764ba2); border-radius:8px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:16px; }
         .clock-date { display:flex; flex-direction:column; gap:4px; margin-left:auto; margin-right:16px; white-space:nowrap; }
@@ -80,7 +71,11 @@
         .btn-xs.danger:hover { border-color:var(--danger); color:var(--danger); background:rgba(231,76,60,0.08); }
         .top-section { max-width:var(--page-width); margin:0 auto; padding:8px 16px; border-bottom:1px solid var(--border); width:100%; }
         .category-tabs { display:flex; flex-wrap:wrap; justify-content:space-between; gap:8px; }
-        .category-tab { padding:7px 14px; border-radius:20px; cursor:pointer; font-size:0.82rem; font-weight:500; color:#fff; border:2px solid transparent; transition:all 0.25s; position:relative; text-shadow:0 1px 2px rgba(0,0,0,0.2); }
+        .category-tab {
+            padding:7px 14px; border-radius:var(--border-radius); cursor:pointer; font-size:0.82rem;
+            font-weight:500; color:#fff; border:2px solid transparent; transition:all 0.25s;
+            position:relative; text-shadow:0 1px 2px rgba(0,0,0,0.2);
+        }
         .category-tab.active { border-color:#fff; font-weight:700; box-shadow:0 2px 10px rgba(0,0,0,0.2); }
         .category-tab.drag-over { border-color:#fff !important; box-shadow:0 0 12px rgba(255,255,255,0.6); }
         .category-tab .count { font-size:0.65rem; opacity:0.85; margin-left:4px; }
@@ -97,7 +92,10 @@
         .icon-wrapper-big { width:var(--icon-size); height:var(--icon-size); border-radius:var(--border-radius); display:flex; align-items:center; justify-content:center; background:var(--card-bg); box-shadow:0 3px 10px rgba(0,0,0,0.08); transition:border-radius 0.3s; }
         .bookmark-item:hover .icon-wrapper-big { box-shadow:0 12px 28px rgba(0,0,0,0.2); }
         .icon-text-big { width:100%; height:100%; display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700; border-radius:var(--border-radius); padding:8px; text-align:center; line-height:1.2; transition:border-radius 0.3s; }
-        .bookmark-name { font-size:0.72rem; text-align:center; margin-top:8px; overflow:hidden; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; word-break:break-all; }
+        .bookmark-name, .frequent-icon .icon-name {
+            font-size:0.72rem; text-align:center; margin-top:8px; overflow:hidden;
+            display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; word-break:break-all;
+        }
         .context-menu { display:none; position:fixed; background:var(--card-bg); border:1px solid var(--border); border-radius:10px; box-shadow:0 4px 16px rgba(0,0,0,0.2); z-index:300; min-width:130px; padding:4px 0; }
         .context-menu.show { display:block; }
         .context-menu-item { padding:8px 16px; cursor:pointer; font-size:0.85rem; color:var(--text); }
@@ -129,8 +127,21 @@
         .row-input { display:flex; align-items:center; gap:10px; }
         .row-input label { flex-shrink:0; font-size:0.85rem; color:var(--text); min-width:80px; }
         .row-input input { flex:1; text-align:center; }
-        .row-input input[type="range"] { flex:1; padding:0; height:6px; -webkit-appearance:none; background:var(--border); border-radius:3px; }
-        .range-value { font-size:0.8rem; min-width:36px; text-align:right; }
+        .row-input input[type="range"] {
+            flex:1; padding:0; height:8px; -webkit-appearance:none;
+            background: var(--border); border-radius:4px; outline:none; cursor:pointer;
+        }
+        .row-input input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance:none; width:22px; height:22px;
+            background: var(--accent); border-radius:50%; cursor:pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15); border: 2px solid #fff;
+        }
+        .row-input input[type="range"]::-moz-range-thumb {
+            width:22px; height:22px; background: var(--accent);
+            border-radius:50%; cursor:pointer; border: 2px solid #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+        .range-value { font-size:0.8rem; min-width:48px; text-align:right; font-weight:500; }
         .background-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
         .bg-presets { display:flex; flex-wrap:wrap; gap:6px; margin:8px 0; }
         .preset-bg-item { width:32px; height:32px; border-radius:8px; cursor:pointer; border:2px solid transparent; transition:0.2s; }
@@ -144,12 +155,8 @@
         .btn-row { display:flex; gap:8px; flex-wrap:wrap; }
         .file-info { font-size:0.8rem; color:var(--text-secondary); margin-top:4px; word-break:break-all; }
 
-        /* 移动端移除固定效果 */
         @media (max-width: 768px) {
-            #topContainer {
-                position: relative;
-                box-shadow: none;
-            }
+            #topContainer { position: relative; box-shadow: none; }
             .clock-row { min-width:0; gap:12px; }
             .clock-time { font-size:1.6rem; }
             .clock-week, .clock-date-text, .clock-lunar { font-size:0.8rem; }
@@ -162,10 +169,10 @@
             .btn-sm { padding:5px 10px; }
             .btn-icon { width:32px; height:32px; }
             .btn-xs { width:30px; height:30px; font-size:0.8rem; }
-            .category-tab { padding:5px 10px; font-size:0.7rem; border-radius:16px; }
+            .category-tab { padding:5px 10px; font-size:0.7rem; }
             .frequent-icons, .bookmark-grid { gap:6px; }
             .frequent-icon, .bookmark-item { padding:6px 4px; }
-            .bookmark-name { font-size:0.65rem; }
+            .bookmark-name, .frequent-icon .icon-name { font-size:0.65rem; }
             .modal { width:96%; max-width:100%; border-radius:16px; }
             .modal-header { padding:14px 16px 10px; }
             .modal-body { padding:12px 16px 8px; gap:12px; }
@@ -196,7 +203,7 @@
 <body>
 <div id="topContainer">
     <header class="header">
-        <div class="header-inner">
+        <div class="header-inner" id="headerInner">
             <div class="logo"><span class="icon-grid">📑</span> <span id="siteTitle">我的收藏夹</span></div>
             <div class="clock-date" id="clockDate">
                 <div class="clock-row"><span class="clock-time" id="clockTime">00:00:00</span><span class="clock-week" id="clockWeek">星期六</span></div>
@@ -214,10 +221,10 @@
             </div>
         </div>
     </header>
-    <div class="top-section"><div class="category-tabs" id="categoryTabs"></div></div>
+    <div class="top-section" id="topSection"><div class="category-tabs" id="categoryTabs"></div></div>
 </div>
 <div class="frequent-section" id="frequentSection"><div class="row-label">⭐ 常用</div><div class="frequent-icons" id="frequentIcons"></div></div>
-<div class="main-container"><div class="bookmark-grid" id="bookmarkGrid"></div></div>
+<div class="main-container" id="mainContainer"><div class="bookmark-grid" id="bookmarkGrid"></div></div>
 <div class="context-menu" id="contextMenu"></div>
 
 <div class="modal-overlay" id="addModal">
@@ -250,10 +257,16 @@
             </div>
             <div class="settings-card">
                 <h4>📐 布局设置</h4>
-                <div class="row-input"><label>页面宽度</label><input type="number" id="setPageWidth" min="600" max="3000" step="10"> <span style="font-size:0.8rem;">px</span></div>
-                <div class="row-input"><label>每行图标数</label><input type="number" id="setColumns" min="4" max="14"></div>
-                <div class="row-input"><label>图标大小</label><input type="number" id="setIconSize" min="40" max="100"> <span style="font-size:0.8rem;">px</span></div>
-                <div class="row-input"><label>图标圆角</label><input type="range" id="setBorderRadius" min="0" max="40" value="14" step="1"><span class="range-value" id="borderRadiusValue">14px</span></div>
+                <div class="row-input">
+                    <label>页面宽度</label>
+                    <input type="range" id="setPageWidth" min="600" max="3000" step="10" value="1200">
+                    <span class="range-value" id="pageWidthValue">1200px</span>
+                </div>
+                <div class="row-input">
+                    <label>图标圆角</label>
+                    <input type="range" id="setBorderRadius" min="0" max="100" value="20" step="1">
+                    <span class="range-value" id="borderRadiusValue">20px</span>
+                </div>
             </div>
             <div class="settings-card">
                 <h4>🔍 搜索引擎管理</h4>
@@ -311,7 +324,7 @@
     let selectedEngine='';
     let siteTitle='我的收藏夹';
     const presetColors=['#ffffff','#f5f5f5','#e8f5e9','#e3f2fd','#fff3e0','#a1c4fd','#fbc2eb','#84fab0','#ffecd2'];
-    const defaultLayout={pageWidth:1200,columns:9,iconSize:72,borderRadius:14,freqBg:{type:'preset',value:'#ffffff',image:null},globalBg:{type:'preset',value:'#ffffff',image:null}};
+    const defaultLayout={pageWidth:1200,columns:9,iconSize:72,borderRadius:20,freqBg:{type:'preset',value:'#ffffff',image:null},globalBg:{type:'preset',value:'#ffffff',image:null}};
     let layoutConfig=JSON.parse(JSON.stringify(defaultLayout));
 
     const categoryRules=[{name:'视频',keys:['bilibili','youtube','youku','iqiyi','v.qq.com','douyin','tiktok','西瓜视频','movie','film','tv','直播']},{name:'社交',keys:['weibo','twitter','facebook','reddit','tieba','zhihu','douban','t.me','discord','社区','bbs','v2ex']},{name:'购物',keys:['taobao','tmall','jd.com','pinduoduo','amazon','ebay','shop','mall','buy','suning','yangkeduo']},{name:'设计开发',keys:['github','gitlab','gitee','stackoverflow','figma','dribbble','behance','zcool','站酷','ui.cn','code','编程','css','js','dev','api','npm']},{name:'新闻资讯',keys:['news','toutiao','thepaper','sina.com.cn','163.com','ifeng','xinhuanet','36kr','虎嗅','huxiu','geekpark','资讯','快报']},{name:'教育',keys:['edu','course','mooc','wiki','baike','wikipedia','大学','图书馆','读书','学习','教程']},{name:'工具',keys:['tool','translate','fanyi','map','mail','pan','drive','office','pdf','压缩','计算器','查询','天气']},{name:'音乐',keys:['music','kugou','spotify','网易云','qq音乐','sound','专辑','电台','fm']},{name:'阅读',keys:['book','read','起点','qidian','kindle','小说','漫画','动漫','anime','manga']},{name:'游戏',keys:['game','steam','epic','taptap','电竞','huya','douyu','战网','playstation','xbox']},{name:'生活旅行',keys:['travel','携程','ctrip','qunar','飞猪','酒店','机票','火车票','银行','支付','alipay','医院','社保','公积金']}];
@@ -362,28 +375,74 @@
         return parseInt(cols) || layoutConfig.columns;
     }
 
+    function computeColumnsAndSize(availableWidth) {
+        const padding = 32;
+        const gap = 10;
+        const usableWidth = Math.max(0, availableWidth - padding);
+        if (usableWidth <= 0) return { columns: 4, iconSize: 40 };
+
+        const targetSize = 100;
+        const maxPossibleColumns = Math.floor((usableWidth + gap) / (targetSize + gap));
+        const columns = Math.min(14, Math.max(4, maxPossibleColumns));
+
+        const totalGaps = (columns - 1) * gap;
+        const spaceForIcons = usableWidth - totalGaps;
+        let iconSize = Math.floor(spaceForIcons / columns);
+        iconSize = Math.min(100, Math.max(40, iconSize));
+
+        if (iconSize < 40) {
+            for (let cols = columns; cols >= 4; cols--) {
+                const gaps = (cols - 1) * gap;
+                const size = Math.floor((usableWidth - gaps) / cols);
+                if (size >= 40) {
+                    return { columns: cols, iconSize: size };
+                }
+            }
+            return { columns: 4, iconSize: 40 };
+        }
+
+        return { columns, iconSize };
+    }
+
     function applyLayout() {
         const r = document.documentElement.style;
         const w = window.innerWidth;
-        let pageWidth = layoutConfig.pageWidth;
-        let columns = layoutConfig.columns;
-        let iconSize = layoutConfig.iconSize;
+        let pageWidthSetting = layoutConfig.pageWidth;
+        let columns, iconSize;
+        let displayWidth;
 
         if (w < 768) {
-            pageWidth = '100%';
-            columns = Math.min(columns, 4);
-            iconSize = Math.min(iconSize, 64);
+            const auto = computeColumnsAndSize(w);
+            columns = Math.min(auto.columns, 4);
+            iconSize = Math.min(auto.iconSize, 64);
+            displayWidth = '100%';
         } else if (w < 1024) {
-            pageWidth = '100%';
-            columns = Math.min(columns, 6);
-            iconSize = Math.min(iconSize, 72);
+            const auto = computeColumnsAndSize(w);
+            columns = Math.min(auto.columns, 6);
+            iconSize = Math.min(auto.iconSize, 72);
+            displayWidth = '100%';
         } else {
-            pageWidth = pageWidth + 'px';
+            const maxDisplayWidth = Math.min(pageWidthSetting, w);
+            const auto = computeColumnsAndSize(maxDisplayWidth);
+            columns = auto.columns;
+            iconSize = auto.iconSize;
+            displayWidth = maxDisplayWidth + 'px';
         }
-        r.setProperty('--page-width', pageWidth);
+
+        r.setProperty('--page-width', displayWidth);
         r.setProperty('--grid-columns', columns);
         r.setProperty('--icon-size', iconSize + 'px');
         r.setProperty('--border-radius', layoutConfig.borderRadius + 'px');
+
+        const headerInner = $('headerInner');
+        const topSection = $('topSection');
+        const freqSection = $('frequentSection');
+        const mainContainer = $('mainContainer');
+        if (headerInner) headerInner.style.maxWidth = displayWidth;
+        if (topSection) topSection.style.maxWidth = displayWidth;
+        if (freqSection) freqSection.style.maxWidth = displayWidth;
+        if (mainContainer) mainContainer.style.maxWidth = displayWidth;
+
         applyBodyBg();
         applyFrequentBg();
     }
@@ -434,10 +493,16 @@
     function deleteEngine(index){if(searchEngines.length<=1){alert('至少保留一个');return;}if(!confirm('删除 '+searchEngines[index].name+'？'))return;const deletedName=searchEngines[index].name;searchEngines.splice(index,1);if(selectedEngine===deletedName)selectedEngine=searchEngines[0]?searchEngines[0].name:'';save();updateEngineSelect();renderEngineList();}
     $('addEngineBtn').onclick=function(){const newName=prompt('名称：','');if(newName===null)return;const trimmedName=newName.trim();if(!trimmedName){alert('名称不能为空');return;}if(searchEngines.some(function(e){return e.name===trimmedName;})){alert('已存在');return;}const newUrl=prompt('URL模板 ({query})：','https://example.com/search?q={query}');if(newUrl===null)return;const trimmedUrl=newUrl.trim();if(!trimmedUrl){alert('URL不能为空');return;}if(trimmedUrl.indexOf('{query}')===-1){if(!confirm('缺少 {query}，确定添加吗？'))return;}searchEngines.push({name:trimmedName,url:trimmedUrl});save();updateEngineSelect();renderEngineList();};
 
+    $('setPageWidth').addEventListener('input', function() {
+        $('pageWidthValue').textContent = this.value + 'px';
+    });
+
     $('settingsBtn').onclick=function(){
         $('setSiteTitle').value=siteTitle;
-        $('setPageWidth').value=layoutConfig.pageWidth;$('setColumns').value=layoutConfig.columns;$('setIconSize').value=layoutConfig.iconSize;
-        $('setBorderRadius').value=layoutConfig.borderRadius;$('borderRadiusValue').textContent=layoutConfig.borderRadius+'px';
+        $('setPageWidth').value=layoutConfig.pageWidth;
+        $('pageWidthValue').textContent = layoutConfig.pageWidth + 'px';
+        $('setBorderRadius').value=layoutConfig.borderRadius;
+        $('borderRadiusValue').textContent=layoutConfig.borderRadius+'px';
         renderBgPresets('freqBgPresets','freqBg');renderBgPresets('globalBgPresets','globalBg');
         $('freqBgCustomColor').value=layoutConfig.freqBg.value||'#ffffff';$('globalBgCustomColor').value=layoutConfig.globalBg.value||'#ffffff';
         $('freqBgFileInfo').textContent=layoutConfig.freqBg.image?'已设置图片':'';$('globalBgFileInfo').textContent=layoutConfig.globalBg.image?'已设置图片':'';
@@ -448,10 +513,8 @@
     $('settingsClose').onclick=function(){
         siteTitle=$('setSiteTitle').value.trim()||'我的收藏夹';
         layoutConfig.pageWidth=Math.max(600,parseInt($('setPageWidth').value)||1200);
-        layoutConfig.columns=Math.min(14,Math.max(4,parseInt($('setColumns').value)||9));
-        layoutConfig.iconSize=Math.min(100,Math.max(40,parseInt($('setIconSize').value)||72));
         const borderRadiusValue = parseInt($('setBorderRadius').value);
-        layoutConfig.borderRadius = isNaN(borderRadiusValue) ? 14 : borderRadiusValue;
+        layoutConfig.borderRadius = isNaN(borderRadiusValue) ? 20 : borderRadiusValue;
         applyLayout();updateUI();updateEngineSelect();save();renderAll();
         $('settingsModal').classList.remove('show');
     };
