@@ -10,6 +10,8 @@
             --grid-columns: 9;
             --icon-size: 80px;
             --border-radius: 20px;
+            --icon-border-radius: 20%;
+            /* 新增：图标专用圆角，百分比，0%直角→100%圆形 */
             --global-bg: #ffffff;
             --card-bg: #ffffff;
             --text: #1a1a2e;
@@ -20,7 +22,7 @@
             --danger: #e74c3c;
             --input-bg: #f5f6f8;
             --icon-name-color: #000000;
-            --bg-overlay: rgba(255,255,255,0.85);
+            --bg-overlay: rgba(255, 255, 255, 0.85);
         }
         [data-theme="dark"] {
             --global-bg: #1a1a2e;
@@ -33,9 +35,13 @@
             --input-bg: #2a2a42;
             --danger: #ff6b6b;
             --icon-name-color: #ffffff;
-            --bg-overlay: rgba(26,26,46,0.88);
+            --bg-overlay: rgba(26, 26, 46, 0.88);
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
             background: var(--global-bg);
@@ -46,7 +52,10 @@
             touch-action: manipulation;
             overflow-x: hidden;
         }
-        body, .header, .top-section, #frequentSection {
+        body,
+        .header,
+        .top-section,
+        #frequentSection {
             background-size: cover !important;
             background-position: center !important;
             background-repeat: no-repeat !important;
@@ -57,7 +66,7 @@
         [data-theme="dark"] .top-section.has-bg-image,
         [data-theme="dark"] #frequentSection.has-bg-image {
             background-blend-mode: overlay;
-            background-color: rgba(0,0,0,0.3);
+            background-color: rgba(0, 0, 0, 0.3);
         }
         #topContainer {
             position: sticky;
@@ -65,28 +74,162 @@
             z-index: 100;
             width: 100%;
         }
-        .header, .top-section { background: var(--card-bg); transition: background 0.3s; }
-        .header { padding: 12px 16px; border-bottom: 1px solid var(--border); }
-        .header-inner { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-        .logo { font-size: 1.3rem; font-weight: 700; color: var(--accent); display: flex; align-items: center; gap: 8px; }
-        .logo .icon-grid { width: 32px; height: 32px; background: linear-gradient(135deg, #667eea, #764ba2); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 16px; }
-        .clock-date { display: flex; flex-direction: column; gap: 4px; margin-left: auto; margin-right: 16px; }
-        .clock-row { display: flex; justify-content: space-between; align-items: baseline; min-width: 200px; }
-        .clock-time { font-size: 2.2rem; font-weight: 700; line-height: 1; }
-        .search-wrap { flex: 1; min-width: 220px; display: flex; align-items: center; gap: 6px; }
-        .search-input-wrap { flex: 1; position: relative; }
-        .search-input { width: 100%; padding: 10px 14px 10px 38px; border: 2px solid var(--border); border-radius: 24px; font-size: 0.95rem; background: var(--input-bg); color: var(--text); outline: none; }
-        .search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-secondary); }
-        .search-clear { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text-secondary); cursor: pointer; font-size: 1.1rem; display: none; }
-        .search-clear.visible { display: flex; align-items: center; justify-content: center; }
-        .engine-select { padding: 8px 12px; border: 2px solid var(--border); border-radius: 20px; background: var(--input-bg); color: var(--text); font-size: 0.85rem; outline: none; cursor: pointer; }
-        .header-actions { display: flex; gap: 8px; align-items: center; }
-        .btn { padding: 9px 16px; border-radius: 20px; border: none; cursor: pointer; font-size: 0.9rem; font-weight: 500; display: flex; align-items: center; gap: 6px; min-height: 40px; }
-        .btn-primary { background: var(--accent); color: #fff; }
-        .btn-outline { background: transparent; border: 2px solid var(--border); color: var(--text); }
-        .btn-sm { padding: 6px 14px; font-size: 0.8rem; border-radius: 16px; min-height: 38px; }
-        .btn-icon { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; background: transparent; border: 2px solid var(--border); color: var(--text); cursor: pointer; }
-        .top-section { padding: 8px 16px; border-bottom: 1px solid var(--border); }
+        .header,
+        .top-section {
+            background: var(--card-bg);
+            transition: background 0.3s;
+        }
+        .header {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+        }
+        .header-inner {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .logo .icon-grid {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 16px;
+        }
+        .clock-date {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-left: auto;
+            margin-right: 16px;
+        }
+        .clock-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            min-width: 200px;
+        }
+        .clock-time {
+            font-size: 2.2rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+        .search-wrap {
+            flex: 1;
+            min-width: 220px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .search-input-wrap {
+            flex: 1;
+            position: relative;
+        }
+        .search-input {
+            width: 100%;
+            padding: 10px 14px 10px 38px;
+            border: 2px solid var(--border);
+            border-radius: 24px;
+            font-size: 0.95rem;
+            background: var(--input-bg);
+            color: var(--text);
+            outline: none;
+        }
+        .search-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+        .search-clear {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 1.1rem;
+            display: none;
+        }
+        .search-clear.visible {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .engine-select {
+            padding: 8px 12px;
+            border: 2px solid var(--border);
+            border-radius: 20px;
+            background: var(--input-bg);
+            color: var(--text);
+            font-size: 0.85rem;
+            outline: none;
+            cursor: pointer;
+        }
+        .header-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .btn {
+            padding: 9px 16px;
+            border-radius: 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            min-height: 40px;
+        }
+        .btn-primary {
+            background: var(--accent);
+            color: #fff;
+        }
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--border);
+            color: var(--text);
+        }
+        .btn-sm {
+            padding: 6px 14px;
+            font-size: 0.8rem;
+            border-radius: 16px;
+            min-height: 38px;
+        }
+        .btn-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            background: transparent;
+            border: 2px solid var(--border);
+            color: var(--text);
+            cursor: pointer;
+        }
+        .top-section {
+            padding: 8px 16px;
+            border-bottom: 1px solid var(--border);
+        }
         .category-tabs {
             display: flex;
             flex-wrap: wrap;
@@ -107,10 +250,22 @@
             align-items: center;
             flex: 0 1 auto;
         }
-        .category-tab:hover { transform: scale(1.08) translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.25); }
-        .category-tab.active { border-color: #fff; font-weight: 700; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
-        .frequent-section { padding: 16px; border-radius: 16px; transition: background 0.3s; }
-        .frequent-icons, .bookmark-grid {
+        .category-tab:hover {
+            transform: scale(1.08) translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+        }
+        .category-tab.active {
+            border-color: #fff;
+            font-weight: 700;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        .frequent-section {
+            padding: 16px;
+            border-radius: 16px;
+            transition: background 0.3s;
+        }
+        .frequent-icons,
+        .bookmark-grid {
             display: grid;
             grid-template-columns: repeat(var(--grid-columns), var(--icon-size));
             justify-content: space-between;
@@ -130,22 +285,25 @@
         .icon-item:hover {
             background: var(--hover-bg);
             transform: scale(1.08) translateY(-2px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
             z-index: 10;
         }
         .icon-box {
             width: var(--icon-size);
             height: var(--icon-size);
-            border-radius: var(--border-radius);
+            border-radius: var(--icon-border-radius);
+            /* 使用图标专用圆角，百分比 */
             display: flex;
             align-items: center;
             justify-content: center;
             background: var(--card-bg);
-            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
             flex-shrink: 0;
-            transition: box-shadow 0.3s;
+            transition: box-shadow 0.3s, border-radius 0.3s;
         }
-        .icon-item:hover .icon-box { box-shadow: 0 12px 28px rgba(0,0,0,0.2); }
+        .icon-item:hover .icon-box {
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+        }
         .icon-content {
             width: 100%;
             height: 100%;
@@ -176,81 +334,323 @@
             background: var(--card-bg);
             border: 1px solid var(--border);
             border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
             z-index: 300;
             min-width: 160px;
             padding: 6px 0;
         }
-        .context-menu.show { display: block; }
-        .context-menu-item { padding: 12px 20px; cursor: pointer; font-size: 0.9rem; color: var(--text); }
-        .context-menu-item:hover { background: var(--hover-bg); }
-        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 200; display: none; align-items: center; justify-content: center; }
-        .modal-overlay.show { display: flex; }
-        .modal { background: var(--card-bg); border-radius: 20px; width: 92%; max-width: 650px; max-height: 90vh; display: flex; flex-direction: column; box-shadow: 0 20px 50px rgba(0,0,0,0.25); overflow: hidden; }
-        .modal-header { padding: 18px 20px 14px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; }
-        .modal-body { flex: 1; overflow-y: auto; padding: 16px 20px; display: flex; flex-direction: column; gap: 16px; overflow-x: hidden; }
-        .modal-footer { padding: 8px 20px 16px; display: flex; justify-content: flex-end; gap: 10px; border-top: 1px solid var(--border); margin-top: 8px; }
-        .settings-card { background: var(--input-bg); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
-        .input-group { display: flex; flex-direction: column; gap: 6px; }
-        .input-group label { font-size: 0.85rem; color: var(--text-secondary); }
-        .input-group input, .input-group select { padding: 10px 14px; border: 2px solid var(--border); border-radius: 12px; font-size: 0.9rem; background: var(--card-bg); color: var(--text); outline: none; min-height: 44px; }
-        .color-presets { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
-        .color-preset { width: 32px; height: 32px; border-radius: 8px; cursor: pointer; border: 2px solid transparent; }
-        .color-preset.active { border-color: var(--accent); transform: scale(1.1); }
-        .bg-presets { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0; }
-        .preset-bg-item { width: 38px; height: 38px; border-radius: 10px; cursor: pointer; border: 2px solid transparent; }
-        .preset-bg-item.active { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent); }
-        .engine-list { display: flex; flex-direction: column; gap: 6px; max-height: 220px; overflow-y: auto; }
-        .engine-item { display: flex; align-items: center; padding: 10px 12px; background: var(--card-bg); border-radius: 10px; gap: 8px; }
-        .btn-row { display: flex; gap: 8px; flex-wrap: wrap; }
-        .file-info { font-size: 0.8rem; color: var(--text-secondary); margin-top: 4px; }
+        .context-menu.show {
+            display: block;
+        }
+        .context-menu-item {
+            padding: 12px 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+        .context-menu-item:hover {
+            background: var(--hover-bg);
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 200;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-overlay.show {
+            display: flex;
+        }
+        .modal {
+            background: var(--card-bg);
+            border-radius: 20px;
+            width: 92%;
+            max-width: 650px;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+        }
+        .modal-header {
+            padding: 18px 20px 14px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+        }
+        .modal-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            overflow-x: hidden;
+        }
+        .modal-footer {
+            padding: 8px 20px 16px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            border-top: 1px solid var(--border);
+            margin-top: 8px;
+        }
+        .settings-card {
+            background: var(--input-bg);
+            border-radius: 14px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .input-group label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        .input-group input,
+        .input-group select {
+            padding: 10px 14px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            font-size: 0.9rem;
+            background: var(--card-bg);
+            color: var(--text);
+            outline: none;
+            min-height: 44px;
+        }
+        .color-presets {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 4px;
+        }
+        .color-preset {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        .color-preset.active {
+            border-color: var(--accent);
+            transform: scale(1.1);
+        }
+        .bg-presets {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 8px 0;
+        }
+        .preset-bg-item {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        .preset-bg-item.active {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent);
+        }
+        .engine-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            max-height: 220px;
+            overflow-y: auto;
+        }
+        .engine-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 12px;
+            background: var(--card-bg);
+            border-radius: 10px;
+            gap: 8px;
+        }
+        .btn-row {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .file-info {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
 
         @media (max-width: 768px) {
-            #topContainer { position: relative; top: auto; }
-            .clock-row { min-width: 0; gap: 12px; }
-            .clock-time { font-size: 1.6rem; }
-            .header-inner { flex-direction: column; align-items: stretch; gap: 8px; }
-            .logo { justify-content: center; font-size: 1.2rem; }
-            .clock-date { margin-left: 0; margin-right: 0; align-items: center; }
-            .search-wrap { order: 1; min-width: 0; }
-            .header-actions { order: 2; justify-content: center; }
-            .btn { padding: 10px 16px; font-size: 0.9rem; min-height: 46px; }
-            .btn-sm { padding: 10px 18px; font-size: 0.9rem; min-height: 44px; border-radius: 20px; }
-            .btn-icon { width: 46px; height: 46px; min-width: 46px; min-height: 46px; }
-            .category-tab { padding: 10px 14px; font-size: 0.8rem; min-height: 42px; }
-            .icon-name { font-size: 0.7rem; }
-            .modal { width: 96%; max-width: 100%; border-radius: 18px; max-height: 92vh; margin: 10px auto; overflow: hidden; }
-            .modal-header { padding: 18px; }
-            .modal-header h3 { font-size: 1.1rem; }
-            .modal-body { padding: 16px; gap: 16px; overflow-x: hidden; }
-            .modal-footer { padding: 12px 16px 18px; flex-direction: column; gap: 12px; }
-            .settings-card { padding: 16px; }
-            .input-group input, .input-group select {
+            #topContainer {
+                position: relative;
+                top: auto;
+            }
+            .clock-row {
+                min-width: 0;
+                gap: 12px;
+            }
+            .clock-time {
+                font-size: 1.6rem;
+            }
+            .header-inner {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 8px;
+            }
+            .logo {
+                justify-content: center;
+                font-size: 1.2rem;
+            }
+            .clock-date {
+                margin-left: 0;
+                margin-right: 0;
+                align-items: center;
+            }
+            .search-wrap {
+                order: 1;
+                min-width: 0;
+            }
+            .header-actions {
+                order: 2;
+                justify-content: center;
+            }
+            .btn {
+                padding: 10px 16px;
+                font-size: 0.9rem;
+                min-height: 46px;
+            }
+            .btn-sm {
+                padding: 10px 18px;
+                font-size: 0.9rem;
+                min-height: 44px;
+                border-radius: 20px;
+            }
+            .btn-icon {
+                width: 46px;
+                height: 46px;
+                min-width: 46px;
+                min-height: 46px;
+            }
+            .category-tab {
+                padding: 10px 14px;
+                font-size: 0.8rem;
+                min-height: 42px;
+            }
+            .icon-name {
+                font-size: 0.7rem;
+            }
+            .modal {
+                width: 96%;
+                max-width: 100%;
+                border-radius: 18px;
+                max-height: 92vh;
+                margin: 10px auto;
+                overflow: hidden;
+            }
+            .modal-header {
+                padding: 18px;
+            }
+            .modal-header h3 {
+                font-size: 1.1rem;
+            }
+            .modal-body {
+                padding: 16px;
+                gap: 16px;
+                overflow-x: hidden;
+            }
+            .modal-footer {
+                padding: 12px 16px 18px;
+                flex-direction: column;
+                gap: 12px;
+            }
+            .settings-card {
+                padding: 16px;
+            }
+            .input-group input,
+            .input-group select {
                 font-size: 1rem;
                 min-height: 48px;
                 padding: 12px;
                 width: 100%;
                 box-sizing: border-box;
             }
-            .background-grid { grid-template-columns: 1fr !important; gap: 16px; }
-            .engine-item { flex-wrap: wrap; padding: 14px; gap: 10px; }
-            .engine-item .engine-name { flex-basis: 100%; font-size: 0.95rem; }
-            .engine-item .engine-url { flex-basis: calc(100% - 70px); font-size: 0.85rem; }
-            .btn-row { gap: 12px; }
-            .btn-row .btn { flex: 1 1 auto; min-width: 120px; justify-content: center; }
-            .file-info { font-size: 0.85rem; }
-            .preset-bg-item { width: 44px; height: 44px; border-radius: 12px; }
-            .context-menu { min-width: 180px; border-radius: 14px; }
-            .context-menu-item { padding: 16px 24px; font-size: 1rem; min-height: 52px; }
+            .background-grid {
+                grid-template-columns: 1fr !important;
+                gap: 16px;
+            }
+            .engine-item {
+                flex-wrap: wrap;
+                padding: 14px;
+                gap: 10px;
+            }
+            .engine-item .engine-name {
+                flex-basis: 100%;
+                font-size: 0.95rem;
+            }
+            .engine-item .engine-url {
+                flex-basis: calc(100% - 70px);
+                font-size: 0.85rem;
+            }
+            .btn-row {
+                gap: 12px;
+            }
+            .btn-row .btn {
+                flex: 1 1 auto;
+                min-width: 120px;
+                justify-content: center;
+            }
+            .file-info {
+                font-size: 0.85rem;
+            }
+            .preset-bg-item {
+                width: 44px;
+                height: 44px;
+                border-radius: 12px;
+            }
+            .context-menu {
+                min-width: 180px;
+                border-radius: 14px;
+            }
+            .context-menu-item {
+                padding: 16px 24px;
+                font-size: 1rem;
+                min-height: 52px;
+            }
         }
         @media (max-width: 480px) {
-            .clock-time { font-size: 1.4rem; }
-            .category-tab { padding: 8px 12px; font-size: 0.75rem; }
-            .preset-bg-item { width: 42px; height: 42px; }
-            .modal { border-radius: 16px; }
-            .modal-header h3 { font-size: 1.05rem; }
-            .settings-card h4 { font-size: 0.95rem; }
-            .context-menu-item { padding: 18px 24px; font-size: 1.05rem; min-height: 56px; }
+            .clock-time {
+                font-size: 1.4rem;
+            }
+            .category-tab {
+                padding: 8px 12px;
+                font-size: 0.75rem;
+            }
+            .preset-bg-item {
+                width: 42px;
+                height: 42px;
+            }
+            .modal {
+                border-radius: 16px;
+            }
+            .modal-header h3 {
+                font-size: 1.05rem;
+            }
+            .settings-card h4 {
+                font-size: 0.95rem;
+            }
+            .context-menu-item {
+                padding: 18px 24px;
+                font-size: 1.05rem;
+                min-height: 56px;
+            }
         }
     </style>
 </head>
@@ -339,7 +739,7 @@
                 <div class="settings-card">
                     <h4>📐 布局设置</h4>
                     <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px; flex-wrap:wrap;"><label style="min-width:80px;">页面宽度</label><input type="range" id="setPageWidth" min="600" max="3000" step="10" style="flex:1;"><span id="pageWidthValue">1200px</span></div>
-                    <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px; flex-wrap:wrap;"><label style="min-width:80px;">图标圆角</label><input type="range" id="setBorderRadius" min="0" max="100" step="1" style="flex:1;"><span id="borderRadiusValue">20px</span></div>
+                    <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px; flex-wrap:wrap;"><label style="min-width:80px;">图标圆角</label><input type="range" id="setBorderRadius" min="0" max="100" step="1" style="flex:1;"><span id="borderRadiusValue">20%</span></div>
                     <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;"><label style="min-width:80px;">图标名称颜色</label><input type="color" id="setIconNameColor"><span id="iconNameColorValue"></span></div>
                 </div>
                 <div class="settings-card"><h4>🔍 搜索引擎管理</h4><div class="engine-list" id="engineListContainer"></div><button class="btn btn-outline btn-sm" id="addEngineBtn" style="margin-top:8px;">+ 添加搜索引擎</button></div>
@@ -359,12 +759,17 @@
         (function() {
             const $ = id => document.getElementById(id);
             const ctxMenu = $('contextMenu');
-            let bookmarks = [], currentCat = '__ALL__', searchQuery = '';
-            let categoryAliases = {}, customGroups = [];
+            let bookmarks = [],
+                currentCat = '__ALL__',
+                searchQuery = '';
+            let categoryAliases = {},
+                customGroups = [];
             let editingBm = null;
             let menuMouseTracker = null;
 
-            const iconPresetColors = ['#F44336','#E91E63','#9C27B0','#673AB7','#3F51B5','#2196F3','#03A9F4','#00BCD4','#009688','#4CAF50','#8BC34A','#CDDC39','#FFC107','#FF9800','#FF5722','#795548','#607D8B','#9E9E9E'];
+            const iconPresetColors = ['#F44336', '#E91E63', '#9C27B0', '#673AB7', '#3F51B5', '#2196F3', '#03A9F4', '#00BCD4', '#009688',
+                '#4CAF50', '#8BC34A', '#CDDC39', '#FFC107', '#FF9800', '#FF5722', '#795548', '#607D8B', '#9E9E9E'
+            ];
             const defaultEngines = [
                 { name: 'Bing', url: 'https://www.bing.com/search?q={query}' },
                 { name: '百度', url: 'https://www.baidu.com/s?wd={query}' },
@@ -375,9 +780,12 @@
             let searchEngines = JSON.parse(JSON.stringify(defaultEngines));
             let selectedEngine = '';
             let siteTitle = '我的收藏夹';
-            const presetBgColors = ['#ffffff','#f5f5f5','#e8f5e9','#e3f2fd','#fff3e0','#a1c4fd','#fbc2eb','#84fab0','#ffecd2'];
+            const presetBgColors = ['#ffffff', '#f5f5f5', '#e8f5e9', '#e3f2fd', '#fff3e0', '#a1c4fd', '#fbc2eb', '#84fab0',
+                '#ffecd2'
+            ];
             const defaultLayout = {
-                pageWidth: 1200, borderRadius: 20,
+                pageWidth: 1200,
+                borderRadius: 20,
                 freqBg: { type: 'preset', value: '#ffffff', image: null },
                 globalBg: { type: 'preset', value: '#ffffff', image: null },
                 iconNameColor: ''
@@ -385,118 +793,192 @@
             let layoutConfig = JSON.parse(JSON.stringify(defaultLayout));
 
             const categoryRules = [
-                { name:'视频', keys:['bilibili','youtube','youku','iqiyi','v.qq.com','douyin','tiktok','西瓜视频','movie','film','tv','直播'] },
-                { name:'社交', keys:['weibo','twitter','facebook','reddit','tieba','zhihu','douban','t.me','discord','社区','bbs','v2ex'] },
-                { name:'购物', keys:['taobao','tmall','jd.com','pinduoduo','amazon','ebay','shop','mall','buy','suning'] },
-                { name:'设计开发', keys:['github','gitlab','gitee','stackoverflow','figma','dribbble','behance','zcool','站酷','ui.cn','code','编程','css','js','dev'] },
-                { name:'新闻资讯', keys:['news','toutiao','thepaper','sina.com.cn','163.com','ifeng','xinhuanet','36kr','虎嗅','huxiu'] },
-                { name:'教育', keys:['edu','course','mooc','wiki','baike','wikipedia','大学','图书馆','读书','学习'] },
-                { name:'工具', keys:['tool','translate','fanyi','map','mail','pan','drive','office','pdf','压缩','计算器','天气'] },
-                { name:'音乐', keys:['music','kugou','spotify','网易云','qq音乐','sound','专辑','电台','fm'] },
-                { name:'阅读', keys:['book','read','起点','qidian','kindle','小说','漫画','动漫','anime','manga'] },
-                { name:'游戏', keys:['game','steam','epic','taptap','电竞','huya','douyu','战网','playstation','xbox'] },
-                { name:'生活旅行', keys:['travel','携程','ctrip','qunar','飞猪','酒店','机票','火车票','银行','支付','alipay','医院','社保'] }
+                { name: '视频', keys: ['bilibili', 'youtube', 'youku', 'iqiyi', 'v.qq.com', 'douyin', 'tiktok', '西瓜视频',
+                        'movie', 'film', 'tv', '直播'
+                    ] },
+                { name: '社交', keys: ['weibo', 'twitter', 'facebook', 'reddit', 'tieba', 'zhihu', 'douban', 't.me',
+                        'discord', '社区', 'bbs', 'v2ex'
+                    ] },
+                { name: '购物', keys: ['taobao', 'tmall', 'jd.com', 'pinduoduo', 'amazon', 'ebay', 'shop', 'mall', 'buy',
+                        'suning'
+                    ] },
+                { name: '设计开发', keys: ['github', 'gitlab', 'gitee', 'stackoverflow', 'figma', 'dribbble', 'behance',
+                        'zcool', '站酷', 'ui.cn', 'code', '编程', 'css', 'js', 'dev'
+                    ] },
+                { name: '新闻资讯', keys: ['news', 'toutiao', 'thepaper', 'sina.com.cn', '163.com', 'ifeng', 'xinhuanet',
+                        '36kr', '虎嗅', 'huxiu'
+                    ] },
+                { name: '教育', keys: ['edu', 'course', 'mooc', 'wiki', 'baike', 'wikipedia', '大学', '图书馆', '读书',
+                        '学习'
+                    ] },
+                { name: '工具', keys: ['tool', 'translate', 'fanyi', 'map', 'mail', 'pan', 'drive', 'office', 'pdf',
+                        '压缩', '计算器', '天气'
+                    ] },
+                { name: '音乐', keys: ['music', 'kugou', 'spotify', '网易云', 'qq音乐', 'sound', '专辑', '电台', 'fm'] },
+                { name: '阅读', keys: ['book', 'read', '起点', 'qidian', 'kindle', '小说', '漫画', '动漫', 'anime', 'manga'] },
+                { name: '游戏', keys: ['game', 'steam', 'epic', 'taptap', '电竞', 'huya', 'douyu', '战网', 'playstation',
+                        'xbox'
+                    ] },
+                { name: '生活旅行', keys: ['travel', '携程', 'ctrip', 'qunar', '飞猪', '酒店', '机票', '火车票', '银行', '支付',
+                        'alipay', '医院', '社保'
+                    ] }
             ];
 
-            function classify(bm) { if(bm.manualGroup) return bm.manualGroup; const h=(getDomain(bm.url)||'').toLowerCase(), t=bm.title.toLowerCase(); for(let r of categoryRules) for(let k of r.keys) if(h.includes(k)||t.includes(k)) return r.name; return '工具'; }
-            function getDomain(url) { try{return new URL(url).hostname;}catch(e){return null;} }
-            function hash(s) { let h=0; for(let i=0;i<s.length;i++) h=((h<<5)-h)+s.charCodeAt(i); return Math.abs(h); }
-            function getColor(s) { return 'hsl('+(hash(s)%360)+',60%,55%)'; }
+            function classify(bm) { if (bm.manualGroup) return bm.manualGroup;
+                const h = (getDomain(bm.url) || '').toLowerCase(),
+                    t = bm.title.toLowerCase(); for (let r of categoryRules)
+                    for (let k of r.keys)
+                        if (h.includes(k) || t.includes(k)) return r.name; return '工具'; }
+
+            function getDomain(url) { try { return new URL(url).hostname; } catch (e) { return null; } }
+
+            function hash(s) { let h = 0; for (let i = 0; i < s.length; i++) h = ((h << 5) - h) + s.charCodeAt(i); return Math
+                    .abs(h); }
+
+            function getColor(s) { return 'hsl(' + (hash(s) % 360) + ',60%,55%)'; }
+
             function getIconBackground(bm) {
-                if (bm.customImage) return 'url('+esc(bm.customImage)+') center/cover no-repeat';
+                if (bm.customImage) return 'url(' + esc(bm.customImage) + ') center/cover no-repeat';
                 return bm.customColor || getColor(getDomain(bm.url) || bm.title);
             }
-            function esc(s) { const d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
+
+            function esc(s) { const d = document.createElement('div');
+                d.textContent = s; return d.innerHTML; }
+
             function formatIconContent(bm) {
                 if (bm.customImage) return '';
                 const text = bm.title;
-                const clean = text.replace(/[^\u4e00-\u9fa5A-Za-z0-9]/g,'')||'?';
+                const clean = text.replace(/[^\u4e00-\u9fa5A-Za-z0-9]/g, '') || '?';
                 const hasAlphaNum = /[A-Za-z0-9]/.test(clean);
-                const getCharWidth = c => /[^\x00-\xff]/.test(c)?2:1;
-                if(!hasAlphaNum) {
-                    const chars = clean.slice(0,4);
-                    if(chars.length===1) return '<span style="font-size:calc(var(--icon-size)*0.45);line-height:1.2;white-space:nowrap;">'+esc(chars)+'</span>';
-                    if(chars.length===2) return '<span style="font-size:calc(var(--icon-size)*0.32);line-height:1.2;white-space:nowrap;">'+esc(chars)+'</span>';
-                    if(chars.length===3) return '<span style="font-size:calc(var(--icon-size)*0.28);line-height:1.2;white-space:nowrap;">'+esc(chars)+'</span>';
-                    const fs='calc(var(--icon-size)*0.28)';
-                    return '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.2;width:100%;height:100%;"><span style="font-size:'+fs+';"><span style="font-size:'+fs+';">'+esc(chars[0])+'</span><span style="font-size:'+fs+';">'+esc(chars[1])+'</span></span><span style="font-size:'+fs+';"><span style="font-size:'+fs+';">'+esc(chars[2])+'</span><span style="font-size:'+fs+';">'+esc(chars[3])+'</span></span></div>';
+                const getCharWidth = c => /[^\x00-\xff]/.test(c) ? 2 : 1;
+                if (!hasAlphaNum) {
+                    const chars = clean.slice(0, 4);
+                    if (chars.length === 1) return '<span style="font-size:calc(var(--icon-size)*0.45);line-height:1.2;white-space:nowrap;">' +
+                        esc(chars) + '</span>';
+                    if (chars.length === 2) return '<span style="font-size:calc(var(--icon-size)*0.32);line-height:1.2;white-space:nowrap;">' +
+                        esc(chars) + '</span>';
+                    if (chars.length === 3) return '<span style="font-size:calc(var(--icon-size)*0.28);line-height:1.2;white-space:nowrap;">' +
+                        esc(chars) + '</span>';
+                    const fs = 'calc(var(--icon-size)*0.28)';
+                    return '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.2;width:100%;height:100%;"><span style="font-size:' +
+                        fs + ';"><span style="font-size:' + fs + ';">' + esc(chars[0]) + '</span><span style="font-size:' +
+                        fs + ';">' + esc(chars[1]) + '</span></span><span style="font-size:' + fs +
+                        ';"><span style="font-size:' + fs + ';">' + esc(chars[2]) + '</span><span style="font-size:' +
+                        fs + ';">' + esc(chars[3]) + '</span></span></div>';
                 } else {
                     const charsArr = clean.split('');
-                    const allEnglish = charsArr.every(c=>/[A-Za-z0-9]/.test(c));
-                    if(allEnglish) {
-                        const chars = clean.slice(0,12);
-                        if(chars.length<=6) { const fs=chars.length<=3?'calc(var(--icon-size)*0.35)':'calc(var(--icon-size)*0.28)'; return '<span style="font-size:'+fs+';line-height:1.2;white-space:nowrap;">'+esc(chars)+'</span>'; }
-                        const mid=Math.ceil(chars.length/2), line1=chars.slice(0,mid), line2=chars.slice(mid);
-                        const fs='calc(var(--icon-size)*0.22)';
-                        return '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.15;"><span style="font-size:'+fs+';">'+esc(line1)+'</span><span style="font-size:'+fs+';">'+esc(line2)+'</span></div>';
+                    const allEnglish = charsArr.every(c => /[A-Za-z0-9]/.test(c));
+                    if (allEnglish) {
+                        const chars = clean.slice(0, 12);
+                        if (chars.length <= 6) { const fs = chars.length <= 3 ? 'calc(var(--icon-size)*0.35)' :
+                                'calc(var(--icon-size)*0.28)'; return '<span style="font-size:' + fs +
+                                ';line-height:1.2;white-space:nowrap;">' + esc(chars) + '</span>'; }
+                        const mid = Math.ceil(chars.length / 2),
+                            line1 = chars.slice(0, mid),
+                            line2 = chars.slice(mid);
+                        const fs = 'calc(var(--icon-size)*0.22)';
+                        return '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.15;"><span style="font-size:' +
+                            fs + ';">' + esc(line1) + '</span><span style="font-size:' + fs + ';">' + esc(line2) +
+                            '</span></div>';
                     } else {
-                        let chars='', totalWidth=0;
-                        for(const c of clean) { const cw=getCharWidth(c); if(totalWidth+cw>8) break; chars+=c; totalWidth+=cw; }
-                        if(!chars) chars=clean.slice(0,1);
-                        if(totalWidth<=6) { const fs=totalWidth<=4?'calc(var(--icon-size)*0.30)':'calc(var(--icon-size)*0.26)'; return '<span style="font-size:'+fs+';line-height:1.2;white-space:nowrap;">'+esc(chars)+'</span>'; }
-                        let splitIdx=1, bestDiff=Infinity;
-                        for(let j=1;j<chars.length;j++) {
-                            const line1=chars.slice(0,j), line2=chars.slice(j);
-                            let w1=0,w2=0;
-                            for(const c of line1) w1+=getCharWidth(c);
-                            for(const c of line2) w2+=getCharWidth(c);
-                            if(w1>8||w2>8) continue;
-                            const diff=Math.abs(w1-w2);
-                            if(diff<bestDiff) { bestDiff=diff; splitIdx=j; }
+                        let chars = '',
+                            totalWidth = 0;
+                        for (const c of clean) { const cw = getCharWidth(c); if (totalWidth + cw > 8) break;
+                            chars += c;
+                            totalWidth += cw; }
+                        if (!chars) chars = clean.slice(0, 1);
+                        if (totalWidth <= 6) { const fs = totalWidth <= 4 ? 'calc(var(--icon-size)*0.30)' :
+                                'calc(var(--icon-size)*0.26)'; return '<span style="font-size:' + fs +
+                                ';line-height:1.2;white-space:nowrap;">' + esc(chars) + '</span>'; }
+                        let splitIdx = 1,
+                            bestDiff = Infinity;
+                        for (let j = 1; j < chars.length; j++) {
+                            const line1 = chars.slice(0, j),
+                                line2 = chars.slice(j);
+                            let w1 = 0,
+                                w2 = 0;
+                            for (const c of line1) w1 += getCharWidth(c);
+                            for (const c of line2) w2 += getCharWidth(c);
+                            if (w1 > 8 || w2 > 8) continue;
+                            const diff = Math.abs(w1 - w2);
+                            if (diff < bestDiff) { bestDiff = diff;
+                                splitIdx = j; }
                         }
-                        const line1=chars.slice(0,splitIdx), line2=chars.slice(splitIdx);
-                        let w1=0,w2=0;
-                        for(const c of line1) w1+=getCharWidth(c);
-                        for(const c of line2) w2+=getCharWidth(c);
-                        const maxW=Math.max(w1,w2);
-                        const fs=maxW<=4?'calc(var(--icon-size)*0.28)':'calc(var(--icon-size)*0.24)';
-                        return '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.15;"><span style="font-size:'+fs+';white-space:nowrap;">'+esc(line1)+'</span><span style="font-size:'+fs+';white-space:nowrap;">'+esc(line2)+'</span></div>';
+                        const line1 = chars.slice(0, splitIdx),
+                            line2 = chars.slice(splitIdx);
+                        let w1 = 0,
+                            w2 = 0;
+                        for (const c of line1) w1 += getCharWidth(c);
+                        for (const c of line2) w2 += getCharWidth(c);
+                        const maxW = Math.max(w1, w2);
+                        const fs = maxW <= 4 ? 'calc(var(--icon-size)*0.28)' : 'calc(var(--icon-size)*0.24)';
+                        return '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.15;"><span style="font-size:' +
+                            fs + ';white-space:nowrap;">' + esc(line1) + '</span><span style="font-size:' + fs +
+                            ';white-space:nowrap;">' + esc(line2) + '</span></div>';
                     }
                 }
             }
 
-            function getCurrentColumns() { return parseInt(getComputedStyle(document.documentElement).getPropertyValue('--grid-columns').trim())||9; }
+            function getCurrentColumns() { return parseInt(getComputedStyle(document.documentElement).getPropertyValue(
+                    '--grid-columns').trim()) || 9; }
+
             function applyLayout() {
-                const r=document.documentElement.style; const w=window.innerWidth;
+                const r = document.documentElement.style;
+                const w = window.innerWidth;
                 let displayWidth, columns, iconSize;
-                if(w<768) displayWidth='100%'; else displayWidth=Math.min(layoutConfig.pageWidth,w)+'px';
-                const usableWidth = displayWidth==='100%' ? w-32 : Math.min(layoutConfig.pageWidth,w)-32;
-                let bestCols=4, bestSize=80;
-                const maxCols = w<768?4:(w<1024?6:24);
-                for(let c=maxCols;c>=4;c--) {
-                    const maxPossible=Math.floor((usableWidth-(c-1)*22)/c);
-                    if(maxPossible>=80) {
-                        const icon=Math.min(90,maxPossible);
-                        if((usableWidth-c*icon)/(c-1)>=22) { bestCols=c; bestSize=icon; break; }
+                if (w < 768) displayWidth = '100%';
+                else displayWidth = Math.min(layoutConfig.pageWidth, w) + 'px';
+                const usableWidth = displayWidth === '100%' ? w - 32 : Math.min(layoutConfig.pageWidth, w) - 32;
+                let bestCols = 4,
+                    bestSize = 80;
+                const maxCols = w < 768 ? 4 : (w < 1024 ? 6 : 24);
+                for (let c = maxCols; c >= 4; c--) {
+                    const maxPossible = Math.floor((usableWidth - (c - 1) * 22) / c);
+                    if (maxPossible >= 80) {
+                        const icon = Math.min(90, maxPossible);
+                        if ((usableWidth - c * icon) / (c - 1) >= 22) { bestCols = c;
+                            bestSize = icon; break; }
                     }
                 }
-                r.setProperty('--page-width',displayWidth);
-                r.setProperty('--grid-columns',bestCols);
-                r.setProperty('--icon-size',bestSize+'px');
-                r.setProperty('--border-radius',layoutConfig.borderRadius+'px');
-                if(layoutConfig.iconNameColor) r.setProperty('--icon-name-color',layoutConfig.iconNameColor);
+                r.setProperty('--page-width', displayWidth);
+                r.setProperty('--grid-columns', bestCols);
+                r.setProperty('--icon-size', bestSize + 'px');
+                // 图标专用圆角：百分比，0%直角 → 100%圆形
+                r.setProperty('--icon-border-radius', layoutConfig.borderRadius + '%');
+                // 其他元素保留 px 圆角（如分类标签等）
+                r.setProperty('--border-radius', layoutConfig.borderRadius + 'px');
+                if (layoutConfig.iconNameColor) r.setProperty('--icon-name-color', layoutConfig.iconNameColor);
                 else r.removeProperty('--icon-name-color');
-                ['headerSection','topSection','frequentSection','mainContainer'].forEach(id=>{ const el=document.getElementById(id); if(el){ el.style.width=displayWidth; el.style.maxWidth=displayWidth; el.style.marginLeft='auto'; el.style.marginRight='auto'; } });
-                applyBodyBg(); applyFrequentBg();
+                ['headerSection', 'topSection', 'frequentSection', 'mainContainer'].forEach(id => { const el = document
+                        .getElementById(id); if (el) { el.style.width = displayWidth;
+                        el.style.maxWidth = displayWidth;
+                        el.style.marginLeft = 'auto';
+                        el.style.marginRight = 'auto'; } });
+                applyBodyBg();
+                applyFrequentBg();
             }
-            window.addEventListener('resize',()=>{ applyLayout(); renderAll(); });
+            window.addEventListener('resize', () => { applyLayout();
+                renderAll(); });
 
             function applyBodyBg() {
                 const bg = layoutConfig.globalBg;
-                const header = document.querySelector('.header'), top = document.querySelector('.top-section');
+                const header = document.querySelector('.header'),
+                    top = document.querySelector('.top-section');
                 const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
                 document.body.classList.remove('has-bg-image');
-                if(header) header.classList.remove('has-bg-image');
-                if(top) top.classList.remove('has-bg-image');
-                
+                if (header) header.classList.remove('has-bg-image');
+                if (top) top.classList.remove('has-bg-image');
+
                 if (bg.type === 'image' && bg.image) {
-                    const val = 'url('+bg.image+') center/cover no-repeat fixed';
+                    const val = 'url(' + bg.image + ') center/cover no-repeat fixed';
                     document.documentElement.style.setProperty('--global-bg', val);
                     document.body.style.background = val;
                     document.body.classList.add('has-bg-image');
-                    if(header) { header.style.background = val; header.classList.add('has-bg-image'); }
-                    if(top) { top.style.background = val; top.classList.add('has-bg-image'); }
-                    if(isDark) {
+                    if (header) { header.style.background = val;
+                        header.classList.add('has-bg-image'); }
+                    if (top) { top.style.background = val;
+                        top.classList.add('has-bg-image'); }
+                    if (isDark) {
                         document.body.style.backgroundColor = 'rgba(0,0,0,0.3)';
                         document.body.style.backgroundBlendMode = 'overlay';
                     } else {
@@ -509,65 +991,145 @@
                     document.body.style.background = '';
                     document.body.style.backgroundColor = '';
                     document.body.style.backgroundBlendMode = 'normal';
-                    if(header) { header.style.background = ''; }
-                    if(top) { top.style.background = ''; }
-                    if(color !== '#ffffff') {
+                    if (header) { header.style.background = ''; }
+                    if (top) { top.style.background = ''; }
+                    if (color !== '#ffffff') {
                         document.documentElement.style.setProperty('--global-bg', color);
-                        if(header) header.style.background = color;
-                        if(top) top.style.background = color;
+                        if (header) header.style.background = color;
+                        if (top) top.style.background = color;
                     }
                 }
                 document.body.style.backgroundImage = document.body.style.backgroundImage;
             }
+
             function applyFrequentBg() {
-                const bg=layoutConfig.freqBg;
+                const bg = layoutConfig.freqBg;
                 const el = $('frequentSection');
                 el.classList.remove('has-bg-image');
-                if(bg.type==='image'&&bg.image){
-                    el.style.background='url('+bg.image+') center/cover no-repeat';
+                if (bg.type === 'image' && bg.image) {
+                    el.style.background = 'url(' + bg.image + ') center/cover no-repeat';
                     el.classList.add('has-bg-image');
-                    if(document.documentElement.getAttribute('data-theme') === 'dark') {
+                    if (document.documentElement.getAttribute('data-theme') === 'dark') {
                         el.style.backgroundBlendMode = 'overlay';
                         el.style.backgroundColor = 'rgba(0,0,0,0.2)';
                     } else {
                         el.style.backgroundBlendMode = 'normal';
                         el.style.backgroundColor = 'transparent';
                     }
-                } else if(bg.value==='#ffffff') {
-                    el.style.background='';
+                } else if (bg.value === '#ffffff') {
+                    el.style.background = '';
                     el.style.backgroundBlendMode = 'normal';
                 } else {
-                    el.style.background=bg.value;
+                    el.style.background = bg.value;
                     el.style.backgroundBlendMode = 'normal';
                 }
             }
+
             function applyTheme(t) {
                 document.documentElement.setAttribute('data-theme', t);
                 localStorage.setItem('bm-theme', t);
-                $('themeToggle').textContent = t==='dark'?'☀️':'🌓';
+                $('themeToggle').textContent = t === 'dark' ? '☀️' : '🌓';
                 applyBodyBg();
                 applyFrequentBg();
             }
-            applyTheme(localStorage.getItem('bm-theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'));
-            $('themeToggle').onclick = ()=> applyTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark');
+            applyTheme(localStorage.getItem('bm-theme') || (matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' :
+            'light'));
+            $('themeToggle').onclick = () => applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ?
+                'light' : 'dark');
 
-            const LunarCalendar=(function(){
-                const lunarInfo=[0x04bd8,0x04ae0,0x0a570,0x054d5,0x0d260,0x0d950,0x16554,0x056a0,0x09ad0,0x055d2,0x04ae0,0x0a5b6,0x0a4d0,0x0d250,0x1d255,0x0b540,0x0d6a0,0x0ada2,0x095b0,0x14977,0x04970,0x0a4b0,0x0b4b5,0x06a50,0x06d40,0x1ab54,0x02b60,0x09570,0x052f2,0x04970,0x06566,0x0d4a0,0x0ea50,0x06e95,0x05ad0,0x02b60,0x186e3,0x092e0,0x1c8d7,0x0c950,0x0d4a0,0x1d8a6,0x0b550,0x056a0,0x1a5b4,0x025d0,0x092d0,0x0d2b2,0x0a950,0x0b557,0x06ca0,0x0b550,0x15355,0x04da0,0x0a5b0,0x14573,0x052b0,0x0a9a8,0x0e950,0x06aa0,0x0aea6,0x0ab50,0x04b60,0x0aae4,0x0a570,0x05260,0x0f263,0x0d950,0x05b57,0x056a0,0x096d0,0x04dd5,0x04ad0,0x0a4d0,0x0d4d4,0x0d250,0x0d558,0x0b540,0x0b6a0,0x195a6,0x095b0,0x049b0,0x0a974,0x0a4b0,0x0b27a,0x06a50,0x06d40,0x0af46,0x0ab60,0x09570,0x04af5,0x04970,0x064b0,0x074a3,0x0ea50,0x06b58,0x055c0,0x0ab60,0x096d5,0x092e0,0x0c960,0x0d954,0x0d4a0,0x0da50,0x07552,0x056a0,0x0abb7,0x025d0,0x092d0,0x0cab5,0x0a950,0x0b4a0,0x0baa4,0x0ad50,0x055d9,0x04ba0,0x0a5b0,0x15176,0x052b0,0x0a930,0x07954,0x06aa0,0x0ad50,0x05b52,0x04b60,0x0a6e6,0x0a4e0,0x0d260,0x0ea65,0x0d530,0x05aa0,0x076a3,0x096d0,0x04afb,0x04ad0,0x0a4d0,0x1d0b6,0x0d250,0x0d520,0x0dd45,0x0b5a0,0x056d0,0x055b2,0x049b0,0x0a577,0x0a4b0,0x0aa50,0x1b255,0x06d20,0x0ada0,0x14b63,0x09370,0x049f8,0x04970,0x064b0,0x168a6,0x0ea50,0x06b20,0x1a6c4,0x0aae0,0x0a2e0,0x0d2e3,0x0c960,0x0d557,0x0d4a0,0x0da50,0x05d55,0x056a0,0x0a6d0,0x055d4,0x052d0,0x0a9b8,0x0a950,0x0b4a0,0x0b6a6,0x0ad50,0x055a0,0x0aba4,0x0a5b0,0x052b0,0x0b273,0x06930,0x07337,0x06aa0,0x0ad50,0x14b55,0x04b60,0x0a570,0x054e4,0x0d160,0x0e968,0x0d520,0x0daa0,0x16aa6,0x056d0,0x04ae0,0x0a9d4,0x0a4d0,0x0d150,0x0f252,0x0d520];
-                const solarMonth=[31,28,31,30,31,30,31,31,30,31,30,31];
-                const lunarMonthNames=['','正月','二月','三月','四月','五月','六月','七月','八月','九月','十月','冬月','腊月'];
-                const lunarDayNames=['','初一','初二','初三','初四','初五','初六','初七','初八','初九','初十','十一','十二','十三','十四','十五','十六','十七','十八','十九','二十','廿一','廿二','廿三','廿四','廿五','廿六','廿七','廿八','廿九','三十'];
-                function leapMonth(y){return lunarInfo[y-1900]&0xf;}
-                function leapDays(y){return leapMonth(y)?((lunarInfo[y-1900]&0x10000)?30:29):0;}
-                function monthDays(y,m){return(lunarInfo[y-1900]&(0x10000>>m))?30:29;}
-                function yearDays(y){let sum=348; for(let i=0x8000;i>0x8;i>>=1) sum+=(lunarInfo[y-1900]&i)?1:0; return sum+leapDays(y);}
-                function solarDays(y,m){if(m===2) return((y%4===0&&y%100!==0)||(y%400===0))?29:28; return solarMonth[m-1];}
-                return { toLunar(date) { let y=date.getFullYear(), m=date.getMonth()+1, d=date.getDate(), offset=0; for(let i=1900;i<y;i++) offset+=yearDays(i); for(let i=1;i<m;i++) offset+=solarDays(y,i); offset+=d; let ly=y, days=0; for(ly=y;ly<2100;ly++){ days=yearDays(ly); if(offset<=days) break; offset-=days; } let lm=1, ld=1, isLeap=false, leap=leapMonth(ly); for(let i=1;i<=12;i++){ if(leap>0&&i===leap+1&&!isLeap){ --i; isLeap=true; days=leapDays(ly); } else days=monthDays(ly,i); if(offset<=days){ lm=i; ld=offset; break; } offset-=days; if(isLeap&&i===leap) isLeap=false; } return { monthStr:(isLeap?'闰':'')+lunarMonthNames[lm], dayStr:lunarDayNames[ld] }; } };
+            const LunarCalendar = (function() {
+                const lunarInfo = [0x04bd8, 0x04ae0, 0x0a570, 0x054d5, 0x0d260, 0x0d950, 0x16554, 0x056a0, 0x09ad0,
+                    0x055d2, 0x04ae0, 0x0a5b6, 0x0a4d0, 0x0d250, 0x1d255, 0x0b540, 0x0d6a0, 0x0ada2, 0x095b0,
+                    0x14977, 0x04970, 0x0a4b0, 0x0b4b5, 0x06a50, 0x06d40, 0x1ab54, 0x02b60, 0x09570, 0x052f2,
+                    0x04970, 0x06566, 0x0d4a0, 0x0ea50, 0x06e95, 0x05ad0, 0x02b60, 0x186e3, 0x092e0, 0x1c8d7,
+                    0x0c950, 0x0d4a0, 0x1d8a6, 0x0b550, 0x056a0, 0x1a5b4, 0x025d0, 0x092d0, 0x0d2b2, 0x0a950,
+                    0x0b557, 0x06ca0, 0x0b550, 0x15355, 0x04da0, 0x0a5b0, 0x14573, 0x052b0, 0x0a9a8, 0x0e950,
+                    0x06aa0, 0x0aea6, 0x0ab50, 0x04b60, 0x0aae4, 0x0a570, 0x05260, 0x0f263, 0x0d950, 0x05b57,
+                    0x056a0, 0x096d0, 0x04dd5, 0x04ad0, 0x0a4d0, 0x0d4d4, 0x0d250, 0x0d558, 0x0b540, 0x0b6a0,
+                    0x195a6, 0x095b0, 0x049b0, 0x0a974, 0x0a4b0, 0x0b27a, 0x06a50, 0x06d40, 0x0af46, 0x0ab60,
+                    0x09570, 0x04af5, 0x04970, 0x064b0, 0x074a3, 0x0ea50, 0x06b58, 0x055c0, 0x0ab60, 0x096d5,
+                    0x092e0, 0x0c960, 0x0d954, 0x0d4a0, 0x0da50, 0x07552, 0x056a0, 0x0abb7, 0x025d0, 0x092d0,
+                    0x0cab5, 0x0a950, 0x0b4a0, 0x0baa4, 0x0ad50, 0x055d9, 0x04ba0, 0x0a5b0, 0x15176, 0x052b0,
+                    0x0a930, 0x07954, 0x06aa0, 0x0ad50, 0x05b52, 0x04b60, 0x0a6e6, 0x0a4e0, 0x0d260, 0x0ea65,
+                    0x0d530, 0x05aa0, 0x076a3, 0x096d0, 0x04afb, 0x04ad0, 0x0a4d0, 0x1d0b6, 0x0d250, 0x0d520,
+                    0x0dd45, 0x0b5a0, 0x056d0, 0x055b2, 0x049b0, 0x0a577, 0x0a4b0, 0x0aa50, 0x1b255, 0x06d20,
+                    0x0ada0, 0x14b63, 0x09370, 0x049f8, 0x04970, 0x064b0, 0x168a6, 0x0ea50, 0x06b20, 0x1a6c4,
+                    0x0aae0, 0x0a2e0, 0x0d2e3, 0x0c960, 0x0d557, 0x0d4a0, 0x0da50, 0x05d55, 0x056a0, 0x0a6d0,
+                    0x055d4, 0x052d0, 0x0a9b8, 0x0a950, 0x0b4a0, 0x0b6a6, 0x0ad50, 0x055a0, 0x0aba4, 0x0a5b0,
+                    0x052b0, 0x0b273, 0x06930, 0x07337, 0x06aa0, 0x0ad50, 0x14b55, 0x04b60, 0x0a570, 0x054e4,
+                    0x0d160, 0x0e968, 0x0d520, 0x0daa0, 0x16aa6, 0x056d0, 0x04ae0, 0x0a9d4, 0x0a4d0, 0x0d150,
+                    0x0f252, 0x0d520
+                ];
+                const solarMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+                const lunarMonthNames = ['', '正月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '冬月',
+                    '腊月'
+                ];
+                const lunarDayNames = ['', '初一', '初二', '初三', '初四', '初五', '初六', '初七', '初八', '初九', '初十', '十一',
+                    '十二', '十三', '十四', '十五', '十六', '十七', '十八', '十九', '二十', '廿一', '廿二', '廿三', '廿四', '廿五',
+                    '廿六', '廿七', '廿八', '廿九', '三十'
+                ];
+
+                function leapMonth(y) { return lunarInfo[y - 1900] & 0xf; }
+
+                function leapDays(y) { return leapMonth(y) ? ((lunarInfo[y - 1900] & 0x10000) ? 30 : 29) : 0; }
+
+                function monthDays(y, m) { return (lunarInfo[y - 1900] & (0x10000 >> m)) ? 30 : 29; }
+
+                function yearDays(y) { let sum = 348; for (let i = 0x8000; i > 0x8; i >>= 1) sum += (lunarInfo[y -
+                    1900] & i) ? 1 : 0; return sum + leapDays(y); }
+
+                function solarDays(y, m) { if (m === 2) return ((y % 4 === 0 && y % 100 !== 0) || (y % 400 === 0)) ?
+                        29 : 28; return solarMonth[m - 1]; }
+                return {
+                    toLunar(date) {
+                        let y = date.getFullYear(),
+                            m = date.getMonth() + 1,
+                            d = date.getDate(),
+                            offset = 0;
+                        for (let i = 1900; i < y; i++) offset += yearDays(i);
+                        for (let i = 1; i < m; i++) offset += solarDays(y, i);
+                        offset += d;
+                        let ly = y,
+                            days = 0;
+                        for (ly = y; ly < 2100; ly++) { days = yearDays(ly); if (offset <= days) break;
+                            offset -= days; }
+                        let lm = 1,
+                            ld = 1,
+                            isLeap = false,
+                            leap = leapMonth(ly);
+                        for (let i = 1; i <= 12; i++) { if (leap > 0 && i === leap + 1 && !isLeap) { --i;
+                                isLeap = true;
+                                days = leapDays(ly); } else days = monthDays(ly, i); if (offset <= days) { lm = i;
+                                ld = offset; break; }
+                            offset -= days; if (isLeap && i === leap) isLeap = false; }
+                        return { monthStr: (isLeap ? '闰' : '') + lunarMonthNames[lm], dayStr: lunarDayNames[ld] };
+                    }
+                };
             })();
-            function updateClock() { const now=new Date(); $('clockTime').textContent=now.toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit',second:'2-digit'}); $('clockWeek').textContent=now.toLocaleDateString('zh-CN',{weekday:'long'}); $('clockDateText').textContent=now.toLocaleDateString('zh-CN',{year:'numeric',month:'long',day:'numeric'}); const lunar=LunarCalendar.toLunar(now); $('clockLunar').textContent='农历'+lunar.monthStr+lunar.dayStr; }
-            setInterval(updateClock,1000); updateClock();
 
-            function getFrequent() { const cols=getCurrentColumns(); const all=bookmarks.filter(b=>b.clicks>0); const pinned=all.filter(b=>b.pinned).sort((a,b)=>(a.pinOrder||0)-(b.pinOrder||0)); const unpinned=all.filter(b=>!b.pinned).sort((a,b)=>b.clicks-a.clicks); return pinned.concat(unpinned).slice(0,cols); }
-            function getCategoryGroups() { const groups={}; bookmarks.forEach(b=>{ const cat=classify(b); if(!groups[cat]) groups[cat]=[]; groups[cat].push(b); }); const names=categoryRules.map(r=>r.name).concat(Object.keys(groups),customGroups); return [...new Set(names)].map(n=>({ name:n, bookmarks:groups[n]||[], count:(groups[n]||[]).length })); }
+            function updateClock() { const now = new Date();
+                $('clockTime').textContent = now.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit',
+                    second: '2-digit' });
+                $('clockWeek').textContent = now.toLocaleDateString('zh-CN', { weekday: 'long' });
+                $('clockDateText').textContent = now.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long',
+                    day: 'numeric' });
+                const lunar = LunarCalendar.toLunar(now);
+                $('clockLunar').textContent = '农历' + lunar.monthStr + lunar.dayStr; }
+            setInterval(updateClock, 1000);
+            updateClock();
+
+            function getFrequent() { const cols = getCurrentColumns();
+                const all = bookmarks.filter(b => b.clicks > 0);
+                const pinned = all.filter(b => b.pinned).sort((a, b) => (a.pinOrder || 0) - (b.pinOrder || 0));
+                const unpinned = all.filter(b => !b.pinned).sort((a, b) => b.clicks - a.clicks);
+                return pinned.concat(unpinned).slice(0, cols); }
+
+            function getCategoryGroups() { const groups = {};
+                bookmarks.forEach(b => { const cat = classify(b); if (!groups[cat]) groups[cat] = [];
+                    groups[cat].push(b); });
+                const names = categoryRules.map(r => r.name).concat(Object.keys(groups), customGroups);
+                return [...new Set(names)].map(n => ({ name: n, bookmarks: groups[n] || [], count: (groups[n] || [])
+                        .length })); }
 
             function renderIconHtml(bm) {
                 const bg = getIconBackground(bm);
@@ -580,53 +1142,75 @@
 
             function renderFrequent() {
                 const freq = getFrequent();
-                let html = freq.length ? freq.map(b=>renderIconHtml(b)).join('') : '<span style="color:var(--text);opacity:0.6;">点击书签越多，越常出现在这里</span>';
+                let html = freq.length ? freq.map(b => renderIconHtml(b)).join('') :
+                    '<span style="color:var(--text);opacity:0.6;">点击书签越多，越常出现在这里</span>';
                 $('frequentIcons').innerHTML = html;
                 bindIconEvents('#frequentIcons .icon-item', true);
             }
 
             function renderBookmarks() {
-                let list = currentCat==='__ALL__'?bookmarks.slice():bookmarks.filter(b=>classify(b)===currentCat);
-                list.sort((a,b)=>a.order-b.order);
-                if(searchQuery) list = list.filter(b=>b.title.toLowerCase().includes(searchQuery)||b.url.toLowerCase().includes(searchQuery));
-                $('bookmarkGrid').innerHTML = list.map(b=>renderIconHtml(b)).join('');
+                let list = currentCat === '__ALL__' ? bookmarks.slice() : bookmarks.filter(b => classify(b) ===
+                currentCat);
+                list.sort((a, b) => a.order - b.order);
+                if (searchQuery) list = list.filter(b => b.title.toLowerCase().includes(searchQuery) || b.url
+                .toLowerCase().includes(searchQuery));
+                $('bookmarkGrid').innerHTML = list.map(b => renderIconHtml(b)).join('');
                 bindIconEvents('#bookmarkGrid .icon-item', false);
             }
 
             function bindIconEvents(selector, isFreq) {
-                document.querySelectorAll(selector).forEach(item=>{
-                    item.addEventListener('dragstart', e=>{ e.dataTransfer.setData('text/plain', item.dataset.url); });
-                    item.addEventListener('dragover', e=>e.preventDefault());
-                    item.addEventListener('drop', e=>{
+                document.querySelectorAll(selector).forEach(item => {
+                    item.addEventListener('dragstart', e => { e.dataTransfer.setData('text/plain', item.dataset
+                            .url); });
+                    item.addEventListener('dragover', e => e.preventDefault());
+                    item.addEventListener('drop', e => {
                         e.preventDefault();
-                        const from=e.dataTransfer.getData('text/plain'), to=item.dataset.url;
-                        if(from===to) return;
-                        const a=bookmarks.find(b=>b.url===from), b=bookmarks.find(b=>b.url===to);
-                        if(!a||!b) return;
-                        if(isFreq) {
-                            if(a.pinned&&b.pinned){ [a.pinOrder,b.pinOrder]=[b.pinOrder,a.pinOrder]; }
-                            else if(!a.pinned&&!b.pinned){ [a.clicks,b.clicks]=[b.clicks,a.clicks]; }
-                            else if(a.pinned&&!b.pinned){ a.pinned=false; a.clicks=b.clicks+1; }
-                            else { a.pinned=true; a.pinOrder=b.pinOrder; b.pinOrder=(b.pinOrder||0)+1; }
-                        } else { [a.order,b.order]=[b.order,a.order]; }
-                        save(); renderAll();
+                        const from = e.dataTransfer.getData('text/plain'),
+                            to = item.dataset.url;
+                        if (from === to) return;
+                        const a = bookmarks.find(b => b.url === from),
+                            b = bookmarks.find(b => b.url === to);
+                        if (!a || !b) return;
+                        if (isFreq) {
+                            if (a.pinned && b.pinned) { [a.pinOrder, b.pinOrder] = [b.pinOrder, a
+                                .pinOrder]; } else if (!a.pinned && !b.pinned) { [a.clicks, b
+                                    .clicks] = [b.clicks, a.clicks]; } else if (a.pinned && !b
+                                .pinned) { a.pinned = false;
+                                a.clicks = b.clicks + 1; } else { a.pinned = true;
+                                a.pinOrder = b.pinOrder;
+                                b.pinOrder = (b.pinOrder || 0) + 1; }
+                        } else { [a.order, b.order] = [b.order, a.order]; }
+                        save();
+                        renderAll();
                     });
-                    item.addEventListener('click', function(e){
-                        const bm = bookmarks.find(b=>b.url===item.dataset.url);
-                        if(bm){ bm.clicks=(bm.clicks||0)+1; save(); renderFrequent(); }
+                    item.addEventListener('click', function(e) {
+                        const bm = bookmarks.find(b => b.url === item.dataset.url);
+                        if (bm) { bm.clicks = (bm.clicks || 0) + 1;
+                            save();
+                            renderFrequent(); }
                     });
-                    item.addEventListener('contextmenu', function(e){
+                    item.addEventListener('contextmenu', function(e) {
                         e.preventDefault();
-                        const bm = bookmarks.find(b=>b.url===item.dataset.url);
-                        if(!bm) return;
+                        const bm = bookmarks.find(b => b.url === item.dataset.url);
+                        if (!bm) return;
                         const items = [];
-                        items.push({ label:'添加书签', action: openAddModal });
-                        if(isFreq) {
-                            items.push(bm.pinned ? { label:'取消固定', action:()=>{ bm.pinned=false; save(); renderFrequent(); } } : { label:'固定位置', action:()=>{ bm.pinned=true; bm.pinOrder=Date.now(); save(); renderFrequent(); } });
-                            items.push({ label:'从常用移除', action:()=>{ bm.clicks=0; save(); renderFrequent(); } });
+                        items.push({ label: '添加书签', action: openAddModal });
+                        if (isFreq) {
+                            items.push(bm.pinned ? { label: '取消固定', action: () => { bm.pinned =
+                                        false;
+                                    save();
+                                    renderFrequent(); } } : { label: '固定位置',
+                                action: () => { bm.pinned = true;
+                                    bm.pinOrder = Date.now();
+                                    save();
+                                    renderFrequent(); } });
+                            items.push({ label: '从常用移除', action: () => { bm.clicks = 0;
+                                    save();
+                                    renderFrequent(); } });
                         }
-                        items.push({ label:'编辑', action:()=>openEditModal(bm) });
-                        items.push({ label:'删除', action:()=>{ if(confirm('确定删除？')) del(bm.url); } });
+                        items.push({ label: '编辑', action: () => openEditModal(bm) });
+                        items.push({ label: '删除', action: () => { if (confirm('确定删除？')) del(bm
+                                    .url); } });
                         showContextMenu(e, items);
                     });
                 });
@@ -634,19 +1218,41 @@
 
             function renderCategoryTabs() {
                 const groups = getCategoryGroups();
-                let tabs = [{id:'__ALL__',label:'全部',count:bookmarks.length}];
-                groups.forEach(g=>tabs.push({id:g.name,label:categoryAliases[g.name]||g.name,count:g.count}));
-                if(!tabs.some(t=>t.id===currentCat)) currentCat='__ALL__';
-                $('categoryTabs').innerHTML = tabs.map(t=>`<div class="category-tab${t.id===currentCat?' active':''}" data-id="${t.id}" style="background:${t.id==='__ALL__'?'#6c757d':getColor(t.label)}">${t.label}<span style="font-size:0.65rem;opacity:0.85;margin-left:4px;">${t.count}</span></div>`).join('');
-                document.querySelectorAll('.category-tab').forEach(tab=>{
-                    tab.addEventListener('click', ()=>{ currentCat=tab.dataset.id; searchQuery=''; renderAll(); });
-                    tab.addEventListener('contextmenu', e=>{
+                let tabs = [{ id: '__ALL__', label: '全部', count: bookmarks.length }];
+                groups.forEach(g => tabs.push({ id: g.name, label: categoryAliases[g.name] || g.name, count: g
+                        .count }));
+                if (!tabs.some(t => t.id === currentCat)) currentCat = '__ALL__';
+                $('categoryTabs').innerHTML = tabs.map(t =>
+                    `<div class="category-tab${t.id===currentCat?' active':''}" data-id="${t.id}" style="background:${t.id==='__ALL__'?'#6c757d':getColor(t.label)}">${t.label}<span style="font-size:0.65rem;opacity:0.85;margin-left:4px;">${t.count}</span></div>`
+                    ).join('');
+                document.querySelectorAll('.category-tab').forEach(tab => {
+                    tab.addEventListener('click', () => { currentCat = tab.dataset.id;
+                        searchQuery = '';
+                        renderAll(); });
+                    tab.addEventListener('contextmenu', e => {
                         e.preventDefault();
-                        const gid=tab.dataset.id;
-                        const canDelete = customGroups.includes(gid) || !categoryRules.some(r=>r.name===gid);
-                        const items = [{ label:'添加书签', action: openAddModal }, { label:'添加分组', action:()=>{ const n=prompt('新分组名称：'); if(n&&n.trim()){ customGroups.push(n.trim()); save(); renderAll(); } } }];
-                        if(gid!=='__ALL__') items.push({ label:'重命名分组', action:()=>{ const cur=categoryAliases[gid]||gid; const n=prompt('新名称：',cur); if(n&&n.trim()&&n!==gid){ categoryAliases[gid]=n.trim(); save(); renderAll(); } } });
-                        if(canDelete) items.push({ label:'删除分组', action:()=>{ if(confirm('确定删除「'+(categoryAliases[gid]||gid)+'」？')){ customGroups=customGroups.filter(g=>g!==gid); bookmarks.forEach(b=>{ if(b.manualGroup===gid) delete b.manualGroup; }); save(); renderAll(); } } });
+                        const gid = tab.dataset.id;
+                        const canDelete = customGroups.includes(gid) || !categoryRules.some(r => r
+                            .name === gid);
+                        const items = [{ label: '添加书签', action: openAddModal },
+                            { label: '添加分组', action: () => { const n = prompt('新分组名称：'); if (
+                                    n && n.trim()) { customGroups.push(n.trim());
+                                    save();
+                                    renderAll(); } } }
+                        ];
+                        if (gid !== '__ALL__') items.push({ label: '重命名分组',
+                            action: () => { const cur = categoryAliases[gid] || gid; const n =
+                                    prompt('新名称：', cur); if (n && n.trim() && n !== gid) {
+                                        categoryAliases[gid] = n.trim();
+                                        save();
+                                        renderAll(); } } });
+                        if (canDelete) items.push({ label: '删除分组', action: () => { if (confirm(
+                                    '确定删除「' + (categoryAliases[gid] || gid) + '」？')) {
+                                    customGroups = customGroups.filter(g => g !== gid);
+                                    bookmarks.forEach(b => { if (b.manualGroup === gid) delete b
+                                            .manualGroup; });
+                                    save();
+                                    renderAll(); } } });
                         showContextMenu(e, items);
                     });
                 });
@@ -656,80 +1262,92 @@
                 editingBm = bm;
                 $('editTitle').value = bm.title;
                 $('editUrl').value = bm.url;
-                $('editIconColor').value = bm.customColor || getColor(getDomain(bm.url)||bm.title);
+                $('editIconColor').value = bm.customColor || getColor(getDomain(bm.url) || bm.title);
                 $('editImageInfo').textContent = bm.customImage ? '已设置图片' : '';
                 renderIconColorPresets();
                 $('editModal').classList.add('show');
             }
+
             function renderIconColorPresets() {
                 const container = $('iconColorPresets');
                 const current = $('editIconColor').value;
-                container.innerHTML = iconPresetColors.map(c=>`<div class="color-preset${c===current?' active':''}" style="background:${c}" data-color="${c}"></div>`).join('');
-                container.querySelectorAll('.color-preset').forEach(el=>{
-                    el.addEventListener('click', ()=>{
+                container.innerHTML = iconPresetColors.map(c =>
+                    `<div class="color-preset${c===current?' active':''}" style="background:${c}" data-color="${c}"></div>`
+                    ).join('');
+                container.querySelectorAll('.color-preset').forEach(el => {
+                    el.addEventListener('click', () => {
                         $('editIconColor').value = el.dataset.color;
                         renderIconColorPresets();
                     });
                 });
             }
             $('editIconColor').addEventListener('input', renderIconColorPresets);
-            $('editIconImage').addEventListener('change', function(){
+            $('editIconImage').addEventListener('change', function() {
                 const file = this.files[0];
-                if(!file) return;
-                if(file.size > 15*1024*1024){ alert('图片不超过15MB'); this.value=''; return; }
+                if (!file) return;
+                if (file.size > 15 * 1024 * 1024) { alert('图片不超过15MB');
+                    this.value = ''; return; }
                 const reader = new FileReader();
-                reader.onload = function(e){
+                reader.onload = function(e) {
                     $('editImageInfo').textContent = file.name;
-                    if(editingBm) editingBm._tempImage = e.target.result;
+                    if (editingBm) editingBm._tempImage = e.target.result;
                 };
                 reader.readAsDataURL(file);
             });
-            $('clearEditImageBtn').addEventListener('click', ()=>{
+            $('clearEditImageBtn').addEventListener('click', () => {
                 $('editIconImage').value = '';
                 $('editImageInfo').textContent = '';
-                if(editingBm) editingBm._tempImage = null;
+                if (editingBm) editingBm._tempImage = null;
             });
-            $('editCancel').onclick = ()=>{ $('editModal').classList.remove('show'); editingBm=null; };
-            $('editConfirm').onclick = ()=>{
-                if(!editingBm) return;
+            $('editCancel').onclick = () => { $('editModal').classList.remove('show');
+                editingBm = null; };
+            $('editConfirm').onclick = () => {
+                if (!editingBm) return;
                 const title = $('editTitle').value.trim();
                 const url = $('editUrl').value.trim();
-                if(!title||!url) return;
+                if (!title || !url) return;
                 editingBm.title = title;
                 editingBm.url = url;
                 editingBm.customColor = $('editIconColor').value;
-                if(editingBm._tempImage) {
+                if (editingBm._tempImage) {
                     editingBm.customImage = editingBm._tempImage;
                     delete editingBm._tempImage;
-                } else if(editingBm._tempImage === null) {
+                } else if (editingBm._tempImage === null) {
                     delete editingBm.customImage;
                 }
-                save(); renderAll();
+                save();
+                renderAll();
                 $('editModal').classList.remove('show');
                 editingBm = null;
             };
 
             function showContextMenu(e, items) {
                 ctxMenu.innerHTML = items.map(item => `<div class="context-menu-item">${item.label}</div>`).join('');
-                ctxMenu.querySelectorAll('.context-menu-item').forEach((mi,i)=>{ mi.onclick = (e)=>{ e.stopPropagation(); hideCtx(); items[i].action(); }; });
-                const x = e.clientX||(e.touches&&e.touches[0].clientX)||0;
-                const y = e.clientY||(e.touches&&e.touches[0].clientY)||0;
+                ctxMenu.querySelectorAll('.context-menu-item').forEach((mi, i) => { mi.onclick = (e) => { e
+                        .stopPropagation();
+                        hideCtx();
+                        items[i].action(); }; });
+                const x = e.clientX || (e.touches && e.touches[0].clientX) || 0;
+                const y = e.clientY || (e.touches && e.touches[0].clientY) || 0;
                 ctxMenu.style.display = 'block';
-                const w = ctxMenu.offsetWidth||160, h = ctxMenu.offsetHeight||200;
-                ctxMenu.style.left = Math.min(x, window.innerWidth-w-10)+'px';
-                ctxMenu.style.top = Math.min(y, window.innerHeight-h-10)+'px';
+                const w = ctxMenu.offsetWidth || 160,
+                    h = ctxMenu.offsetHeight || 200;
+                ctxMenu.style.left = Math.min(x, window.innerWidth - w - 10) + 'px';
+                ctxMenu.style.top = Math.min(y, window.innerHeight - h - 10) + 'px';
                 ctxMenu.classList.add('show');
 
                 if (menuMouseTracker) document.removeEventListener('mousemove', menuMouseTracker);
                 menuMouseTracker = (ev) => {
                     const rect = ctxMenu.getBoundingClientRect();
-                    if (ev.clientX < rect.left || ev.clientX > rect.right || ev.clientY < rect.top || ev.clientY > rect.bottom) {
+                    if (ev.clientX < rect.left || ev.clientX > rect.right || ev.clientY < rect.top || ev
+                        .clientY > rect.bottom) {
                         hideCtx();
                     }
                 };
                 document.addEventListener('mousemove', menuMouseTracker);
             }
-            function hideCtx(){
+
+            function hideCtx() {
                 ctxMenu.classList.remove('show');
                 ctxMenu.style.display = 'none';
                 if (menuMouseTracker) {
@@ -738,49 +1356,147 @@
                 }
             }
 
-            document.addEventListener('mousedown', function(e){ if(!ctxMenu.contains(e.target)) hideCtx(); }, true);
-            document.addEventListener('touchstart', function(e){ if(!ctxMenu.contains(e.target)) hideCtx(); }, {passive:true});
-            document.addEventListener('contextmenu', function(e){ if(!ctxMenu.contains(e.target)) hideCtx(); }, true);
+            document.addEventListener('mousedown', function(e) { if (!ctxMenu.contains(e.target)) hideCtx(); }, true);
+            document.addEventListener('touchstart', function(e) { if (!ctxMenu.contains(e.target)) hideCtx(); }, { passive: true });
+            document.addEventListener('contextmenu', function(e) { if (!ctxMenu.contains(e.target)) hideCtx(); }, true);
             ctxMenu.addEventListener('mouseleave', hideCtx);
-            document.addEventListener('keydown', function(e){ if(e.key==='Escape') hideCtx(); });
+            document.addEventListener('keydown', function(e) { if (e.key === 'Escape') hideCtx(); });
 
-            function del(url){ const i=bookmarks.findIndex(b=>b.url===url); if(i>=0){ bookmarks.splice(i,1); save(); renderAll(); } }
-            function save(){ localStorage.setItem('bm-flat',JSON.stringify({bookmarks,aliases:categoryAliases,customGroups,engines:searchEngines,selectedEngine,siteTitle,layoutConfig})); }
-            function load(){ try{ const d=JSON.parse(localStorage.getItem('bm-flat')||'{}'); if(d.bookmarks) bookmarks=d.bookmarks.map(b=>({...b,clicks:b.clicks||0})); if(d.aliases) categoryAliases=d.aliases; if(d.customGroups) customGroups=d.customGroups; if(d.engines) searchEngines=d.engines; if(d.selectedEngine) selectedEngine=d.selectedEngine; if(d.siteTitle) siteTitle=d.siteTitle; if(d.layoutConfig) Object.assign(layoutConfig, d.layoutConfig); }catch(e){} }
-            function updateEngineSelect(){ $('engineSelect').innerHTML=searchEngines.map(e=>`<option>${e.name}</option>`).join(''); $('engineSelect').value=selectedEngine||(searchEngines[0]?.name||''); selectedEngine=$('engineSelect').value; $('engineSelect').onchange=()=>{ selectedEngine=$('engineSelect').value; save(); }; }
-            function updateUI(){ $('siteTitle').textContent=siteTitle; document.title=siteTitle; $('pageTitle').textContent=siteTitle; }
+            function del(url) { const i = bookmarks.findIndex(b => b.url === url); if (i >= 0) { bookmarks.splice(i, 1);
+                    save();
+                    renderAll(); } }
 
-            $('settingsBtn').onclick=()=>{
-                $('setSiteTitle').value=siteTitle; $('setPageWidth').value=layoutConfig.pageWidth; $('pageWidthValue').textContent=layoutConfig.pageWidth+'px';
-                $('setBorderRadius').value=layoutConfig.borderRadius; $('borderRadiusValue').textContent=layoutConfig.borderRadius+'px';
-                $('setIconNameColor').value=layoutConfig.iconNameColor||''; $('iconNameColorValue').textContent=layoutConfig.iconNameColor||'默认';
-                renderBgPresets('freqBgPresets','freqBg'); renderBgPresets('globalBgPresets','globalBg');
-                $('freqBgCustomColor').value=layoutConfig.freqBg.value||'#ffffff'; $('globalBgCustomColor').value=layoutConfig.globalBg.value||'#ffffff';
-                $('freqBgFileInfo').textContent=layoutConfig.freqBg.image?'已设置图片':''; $('globalBgFileInfo').textContent=layoutConfig.globalBg.image?'已设置图片':'';
-                renderEngineList(); $('settingsModal').classList.add('show');
+            function save() { localStorage.setItem('bm-flat', JSON.stringify({ bookmarks, aliases: categoryAliases,
+                    customGroups, engines: searchEngines, selectedEngine, siteTitle, layoutConfig })); }
+
+            function load() {
+                try {
+                    const d = JSON.parse(localStorage.getItem('bm-flat') || '{}');
+                    if (d.bookmarks) bookmarks = d.bookmarks.map(b => ({ ...b, clicks: b.clicks || 0 }));
+                    if (d.aliases) categoryAliases = d.aliases;
+                    if (d.customGroups) customGroups = d.customGroups;
+                    if (d.engines) searchEngines = d.engines;
+                    if (d.selectedEngine) selectedEngine = d.selectedEngine;
+                    if (d.siteTitle) siteTitle = d.siteTitle;
+                    if (d.layoutConfig) Object.assign(layoutConfig, d.layoutConfig);
+                } catch (e) {}
+            }
+
+            function updateEngineSelect() { $('engineSelect').innerHTML = searchEngines.map(e =>
+                    `<option>${e.name}</option>`).join('');
+                $('engineSelect').value = selectedEngine || (searchEngines[0]?.name || '');
+                selectedEngine = $('engineSelect').value;
+                $('engineSelect').onchange = () => { selectedEngine = $('engineSelect').value;
+                    save(); }; }
+
+            function updateUI() { $('siteTitle').textContent = siteTitle;
+                document.title = siteTitle;
+                $('pageTitle').textContent = siteTitle; }
+
+            $('settingsBtn').onclick = () => {
+                $('setSiteTitle').value = siteTitle;
+                $('setPageWidth').value = layoutConfig.pageWidth;
+                $('pageWidthValue').textContent = layoutConfig.pageWidth + 'px';
+                $('setBorderRadius').value = layoutConfig.borderRadius;
+                // 显示百分比
+                $('borderRadiusValue').textContent = layoutConfig.borderRadius + '%';
+                $('setIconNameColor').value = layoutConfig.iconNameColor || '';
+                $('iconNameColorValue').textContent = layoutConfig.iconNameColor || '默认';
+                renderBgPresets('freqBgPresets', 'freqBg');
+                renderBgPresets('globalBgPresets', 'globalBg');
+                $('freqBgCustomColor').value = layoutConfig.freqBg.value || '#ffffff';
+                $('globalBgCustomColor').value = layoutConfig.globalBg.value || '#ffffff';
+                $('freqBgFileInfo').textContent = layoutConfig.freqBg.image ? '已设置图片' : '';
+                $('globalBgFileInfo').textContent = layoutConfig.globalBg.image ? '已设置图片' : '';
+                renderEngineList();
+                $('settingsModal').classList.add('show');
             };
-            $('setPageWidth').oninput=function(){ $('pageWidthValue').textContent=this.value+'px'; };
-            $('setBorderRadius').oninput=function(){ $('borderRadiusValue').textContent=this.value+'px'; };
-            $('setIconNameColor').oninput=function(){ $('iconNameColorValue').textContent=this.value; };
-            $('settingsClose').onclick=()=>{
-                siteTitle=$('setSiteTitle').value.trim()||'我的收藏夹';
-                layoutConfig.pageWidth=Math.max(600, +$('setPageWidth').value || 1200);
-                // 修复：允许圆角为 0，只有无效值才回退到 20
-                let br = +$('setBorderRadius').value;
-                if (isNaN(br) || br < 0) br = 20;
-                layoutConfig.borderRadius = br;
+            $('setPageWidth').oninput = function() { $('pageWidthValue').textContent = this.value + 'px'; };
+            // 圆角滑块：显示百分比
+            $('setBorderRadius').oninput = function() { $('borderRadiusValue').textContent = this.value + '%'; };
+            $('setIconNameColor').oninput = function() { $('iconNameColorValue').textContent = this.value; };
+            $('settingsClose').onclick = () => {
+                siteTitle = $('setSiteTitle').value.trim() || '我的收藏夹';
+                layoutConfig.pageWidth = Math.max(600, +$('setPageWidth').value || 1200);
+                // 修复：使用 ?? 代替 ||，让 0 可以正常保存（0% 表示直角）
+                const val = +$('setBorderRadius').value;
+                layoutConfig.borderRadius = isNaN(val) ? 20 : val;
                 layoutConfig.iconNameColor = $('setIconNameColor').value;
-                applyLayout(); updateUI(); updateEngineSelect(); save(); renderAll(); $('settingsModal').classList.remove('show');
+                applyLayout();
+                updateUI();
+                updateEngineSelect();
+                save();
+                renderAll();
+                $('settingsModal').classList.remove('show');
             };
-            $('settingsReset').onclick=()=>{ layoutConfig=JSON.parse(JSON.stringify(defaultLayout)); searchEngines=JSON.parse(JSON.stringify(defaultEngines)); selectedEngine=''; siteTitle='我的收藏夹'; categoryAliases={}; customGroups=[]; save(); applyLayout(); updateUI(); updateEngineSelect(); renderAll(); $('settingsModal').classList.remove('show'); };
-            function renderBgPresets(id,key){ const c=$(id); c.innerHTML=presetBgColors.map(col=>`<span class="preset-bg-item${layoutConfig[key].type==='preset'&&layoutConfig[key].value===col?' active':''}" style="background:${col}" data-value="${col}"></span>`).join(''); c.querySelectorAll('.preset-bg-item').forEach(el=>{ el.onclick=()=>{ layoutConfig[key]={type:'preset',value:el.dataset.value,image:null}; if(key==='freqBg') applyFrequentBg(); else applyBodyBg(); save(); renderBgPresets(id,key); }; }); }
-            function renderEngineList(){ const c=$('engineListContainer'); if(!searchEngines.length){ c.innerHTML='<div>暂无</div>'; return; } c.innerHTML=searchEngines.map((eng,i)=>`<div class="engine-item"><span class="engine-name">${esc(eng.name)}</span><span class="engine-url">${esc(eng.url.slice(0,40))}</span><div class="engine-actions"><button class="btn-xs edit-engine-btn" data-index="${i}">✏️</button><button class="btn-xs danger delete-engine-btn" data-index="${i}" ${searchEngines.length>1?'':'disabled'}>🗑️</button></div></div>`).join(''); c.querySelectorAll('.edit-engine-btn').forEach(b=>b.onclick=e=>{ e.stopPropagation(); editEngine(+b.dataset.index); }); c.querySelectorAll('.delete-engine-btn').forEach(b=>b.onclick=e=>{ e.stopPropagation(); deleteEngine(+b.dataset.index); }); }
-            function editEngine(i){ const eng=searchEngines[i]; if(!eng) return; const n=prompt('名称：',eng.name); if(n===null) return; const nn=n.trim(); if(!nn) return alert('名称不能为空'); const u=prompt('URL ({query})：',eng.url); if(u===null) return; const nu=u.trim(); if(!nu) return alert('URL不能为空'); if(!nu.includes('{query}')&&!confirm('缺少{query}，确定？')) return; searchEngines[i]={name:nn,url:nu}; if(selectedEngine===eng.name) selectedEngine=nn; save(); updateEngineSelect(); renderEngineList(); }
-            function deleteEngine(i){ if(searchEngines.length<=1) return alert('至少保留一个'); if(!confirm('删除 '+searchEngines[i].name+'？')) return; const delName=searchEngines[i].name; searchEngines.splice(i,1); if(selectedEngine===delName) selectedEngine=searchEngines[0]?.name||''; save(); updateEngineSelect(); renderEngineList(); }
-            $('addEngineBtn').onclick=()=>{ const n=prompt('名称：'); if(n===null) return; const nn=n.trim(); if(!nn) return alert('名称不能为空'); if(searchEngines.some(e=>e.name===nn)) return alert('已存在'); const u=prompt('URL ({query})：','https://example.com/search?q={query}'); if(u===null) return; const nu=u.trim(); if(!nu) return alert('URL不能为空'); if(!nu.includes('{query}')&&!confirm('缺少{query}，确定？')) return; searchEngines.push({name:nn,url:nu}); save(); updateEngineSelect(); renderEngineList(); };
+            $('settingsReset').onclick = () => {
+                layoutConfig = JSON.parse(JSON.stringify(defaultLayout));
+                searchEngines = JSON.parse(JSON.stringify(defaultEngines));
+                selectedEngine = '';
+                siteTitle = '我的收藏夹';
+                categoryAliases = {};
+                customGroups = [];
+                save();
+                applyLayout();
+                updateUI();
+                updateEngineSelect();
+                renderAll();
+                $('settingsModal').classList.remove('show');
+            };
+
+            function renderBgPresets(id, key) { const c = $(id);
+                c.innerHTML = presetBgColors.map(col =>
+                    `<span class="preset-bg-item${layoutConfig[key].type==='preset'&&layoutConfig[key].value===col?' active':''}" style="background:${col}" data-value="${col}"></span>`
+                    ).join('');
+                c.querySelectorAll('.preset-bg-item').forEach(el => { el.onclick = () => { layoutConfig[key] = {
+                            type: 'preset',
+                            value: el.dataset.value,
+                            image: null
+                        }; if (key === 'freqBg') applyFrequentBg();
+                        else applyBodyBg();
+                        save();
+                        renderBgPresets(id, key); }; }); }
+
+            function renderEngineList() { const c = $('engineListContainer'); if (!searchEngines.length) { c.innerHTML =
+                        '<div>暂无</div>'; return; }
+                c.innerHTML = searchEngines.map((eng, i) =>
+                    `<div class="engine-item"><span class="engine-name">${esc(eng.name)}</span><span class="engine-url">${esc(eng.url.slice(0,40))}</span><div class="engine-actions"><button class="btn-xs edit-engine-btn" data-index="${i}">✏️</button><button class="btn-xs danger delete-engine-btn" data-index="${i}" ${searchEngines.length>1?'':'disabled'}>🗑️</button></div></div>`
+                    ).join('');
+                c.querySelectorAll('.edit-engine-btn').forEach(b => b.onclick = e => { e.stopPropagation();
+                    editEngine(+b.dataset.index); });
+                c.querySelectorAll('.delete-engine-btn').forEach(b => b.onclick = e => { e.stopPropagation();
+                    deleteEngine(+b.dataset.index); }); }
+
+            function editEngine(i) { const eng = searchEngines[i]; if (!eng) return; const n = prompt('名称：', eng.name); if (
+                    n === null) return; const nn = n.trim(); if (!nn) return alert('名称不能为空'); const u = prompt(
+                    'URL ({query})：', eng.url); if (u === null) return; const nu = u.trim(); if (!nu) return alert(
+                    'URL不能为空'); if (!nu.includes('{query}') && !confirm('缺少{query}，确定？')) return;
+                searchEngines[i] = { name: nn, url: nu }; if (selectedEngine === eng.name) selectedEngine = nn;
+                save();
+                updateEngineSelect();
+                renderEngineList(); }
+
+            function deleteEngine(i) { if (searchEngines.length <= 1) return alert('至少保留一个'); if (!confirm('删除 ' +
+                    searchEngines[i].name + '？')) return; const delName = searchEngines[i].name;
+                searchEngines.splice(i, 1); if (selectedEngine === delName) selectedEngine = searchEngines[0]?.name ||
+                    '';
+                save();
+                updateEngineSelect();
+                renderEngineList(); }
+            $('addEngineBtn').onclick = () => { const n = prompt('名称：'); if (n === null) return; const nn = n.trim(); if (
+                    !nn) return alert('名称不能为空'); if (searchEngines.some(e => e.name === nn)) return alert(
+                    '已存在'); const u = prompt('URL ({query})：', 'https://example.com/search?q={query}'); if (u ===
+                    null) return; const nu = u.trim(); if (!nu) return alert('URL不能为空'); if (!nu.includes(
+                    '{query}') && !confirm('缺少{query}，确定？')) return;
+                searchEngines.push({ name: nn, url: nu });
+                save();
+                updateEngineSelect();
+                renderEngineList(); };
             const handleBgImg = (input, key, infoId) => {
-                const f=input.files[0]; if(!f) return;
-                if(f.size>15*1024*1024){ alert('图片超过15MB'); input.value=''; return; }
+                const f = input.files[0];
+                if (!f) return;
+                if (f.size > 15 * 1024 * 1024) { alert('图片超过15MB');
+                    input.value = ''; return; }
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     const img = new Image();
@@ -800,44 +1516,119 @@
                         ctx.drawImage(img, 0, 0, width, height);
                         const compressed = canvas.toDataURL('image/jpeg', 0.85);
                         layoutConfig[key] = { type: 'image', value: '', image: compressed };
-                        if(key==='freqBg') applyFrequentBg();
+                        if (key === 'freqBg') applyFrequentBg();
                         else applyBodyBg();
                         save();
                         $(infoId).textContent = f.name + ' (已压缩 ' + width + 'x' + height + ')';
-                        renderBgPresets(key==='freqBg'?'freqBgPresets':'globalBgPresets', key);
+                        renderBgPresets(key === 'freqBg' ? 'freqBgPresets' : 'globalBgPresets', key);
                     };
                     img.src = e.target.result;
                 };
                 reader.readAsDataURL(f);
             };
-            $('freqBgImgInput').onchange=function(){ handleBgImg(this,'freqBg','freqBgFileInfo'); };
-            $('globalBgImgInput').onchange=function(){ handleBgImg(this,'global','globalBgFileInfo'); };
-            $('clearFreqBgBtn').onclick=()=>{ layoutConfig.freqBg={type:'preset',value:'#ffffff',image:null}; applyFrequentBg(); save(); $('freqBgFileInfo').textContent=''; renderBgPresets('freqBgPresets','freqBg'); };
-            $('clearGlobalBgBtn').onclick=()=>{ layoutConfig.globalBg={type:'preset',value:'#ffffff',image:null}; applyBodyBg(); save(); $('globalBgFileInfo').textContent=''; renderBgPresets('globalBgPresets','globalBg'); };
-            $('importBtn').onclick=()=>{ $('settingsModal').classList.remove('show'); $('fileInput').click(); };
-            $('fileInput').onchange=function(){ if(this.files[0]){ const r=new FileReader(); r.onload=function(e){ const doc=new DOMParser().parseFromString(e.target.result,'text/html'); const dl=doc.querySelector('dl'); if(!dl) return; const res=[]; function walk(n){ for(let c of n.children){ if(c.tagName==='DT'){ const a=c.querySelector('a'), s=c.querySelector('dl'); if(s) walk(s); else if(a&&a.href&&!a.href.startsWith('javascript:')) res.push({title:a.textContent.trim()||a.href,url:a.href,clicks:0,order:res.length}); } } } walk(dl); if(res.length){ bookmarks=res; currentCat='__ALL__'; save(); renderAll(); } }; r.readAsText(this.files[0]); this.value=''; } };
-            $('exportBtn').onclick=()=>{ const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([JSON.stringify({bookmarks,aliases:categoryAliases,customGroups,engines:searchEngines,selectedEngine,siteTitle,layoutConfig})],{type:'application/json'})); a.download='bookmarks.json'; a.click(); };
-            $('importSettingBtn').onclick=()=>{ $('settingsModal').classList.remove('show'); $('settingInput').click(); };
-            $('settingInput').onchange=function(){ if(this.files[0]){ const r=new FileReader(); r.onload=function(e){ try{ const d=JSON.parse(e.target.result); if(d.bookmarks) bookmarks=d.bookmarks; if(d.aliases) categoryAliases=d.aliases; if(d.customGroups) customGroups=d.customGroups; if(d.engines) searchEngines=d.engines; if(d.selectedEngine) selectedEngine=d.selectedEngine; if(d.siteTitle) siteTitle=d.siteTitle; if(d.layoutConfig) Object.assign(layoutConfig, d.layoutConfig); applyLayout(); updateUI(); updateEngineSelect(); save(); renderAll(); }catch(ex){} }; r.readAsText(this.files[0]); this.value=''; } };
+            $('freqBgImgInput').onchange = function() { handleBgImg(this, 'freqBg', 'freqBgFileInfo'); };
+            $('globalBgImgInput').onchange = function() { handleBgImg(this, 'globalBg', 'globalBgFileInfo'); };
+            $('clearFreqBgBtn').onclick = () => { layoutConfig.freqBg = { type: 'preset', value: '#ffffff',
+                    image: null };
+                applyFrequentBg();
+                save();
+                $('freqBgFileInfo').textContent = '';
+                renderBgPresets('freqBgPresets', 'freqBg'); };
+            $('clearGlobalBgBtn').onclick = () => { layoutConfig.globalBg = { type: 'preset', value: '#ffffff',
+                    image: null };
+                applyBodyBg();
+                save();
+                $('globalBgFileInfo').textContent = '';
+                renderBgPresets('globalBgPresets', 'globalBg'); };
+            $('importBtn').onclick = () => { $('settingsModal').classList.remove('show');
+                $('fileInput').click(); };
+            $('fileInput').onchange = function() { if (this.files[0]) { const r = new FileReader();
+                    r.onload = function(e) { const doc = new DOMParser().parseFromString(e.target.result,
+                            'text/html'); const dl = doc.querySelector('dl'); if (!dl) return; const
+                            res = [];
 
-            $('searchInput').oninput = function(){ searchQuery=this.value.toLowerCase(); $('searchClear').classList.toggle('visible',!!searchQuery); renderBookmarks(); };
-            $('searchInput').onkeydown = function(e){
-                if(e.key==='Enter'){
-                    const q=this.value.trim(); if(!q) return;
-                    const list = currentCat==='__ALL__'?bookmarks:bookmarks.filter(b=>classify(b)===currentCat);
-                    if(list.some(b=>b.title.toLowerCase().includes(q)||b.url.toLowerCase().includes(q))){ renderBookmarks(); return; }
-                    const eng=searchEngines.find(e=>e.name===selectedEngine);
-                    if(eng) window.open(eng.url.replace('{query}',encodeURIComponent(q)),'_blank');
+                        function walk(n) { for (let c of n.children) { if (c.tagName === 'DT') { const a =
+                                    c.querySelector('a'),
+                                    s = c.querySelector('dl'); if (s) walk(s);
+                                else if (a && a.href && !a.href.startsWith('javascript:')) res
+                                    .push({ title: a.textContent.trim() || a.href, url: a
+                                        .href, clicks: 0, order: res.length }); } } }
+                        walk(dl); if (res.length) { bookmarks = res;
+                            currentCat = '__ALL__';
+                            save();
+                            renderAll(); } };
+                    r.readAsText(this.files[0]);
+                    this.value = ''; } };
+            $('exportBtn').onclick = () => { const a = document.createElement('a');
+                a.href = URL.createObjectURL(new Blob([JSON.stringify({ bookmarks, aliases: categoryAliases,
+                        customGroups, engines: searchEngines, selectedEngine, siteTitle,
+                        layoutConfig })], { type: 'application/json' }));
+                a.download = 'bookmarks.json';
+                a.click(); };
+            $('importSettingBtn').onclick = () => { $('settingsModal').classList.remove('show');
+                $('settingInput').click(); };
+            $('settingInput').onchange = function() { if (this.files[0]) { const r = new FileReader();
+                    r.onload = function(e) { try { const d = JSON.parse(e.target.result); if (d.bookmarks)
+                                bookmarks = d.bookmarks; if (d.aliases) categoryAliases = d.aliases; if (
+                                d.customGroups) customGroups = d.customGroups; if (d.engines)
+                                searchEngines = d.engines; if (d.selectedEngine) selectedEngine = d
+                                .selectedEngine; if (d.siteTitle) siteTitle = d.siteTitle; if (d
+                                .layoutConfig) Object.assign(layoutConfig, d.layoutConfig);
+                            applyLayout();
+                            updateUI();
+                            updateEngineSelect();
+                            save();
+                            renderAll();
+                        } catch (ex) {} };
+                    r.readAsText(this.files[0]);
+                    this.value = ''; } };
+
+            $('searchInput').oninput = function() { searchQuery = this.value.toLowerCase();
+                $('searchClear').classList.toggle('visible', !!searchQuery);
+                renderBookmarks(); };
+            $('searchInput').onkeydown = function(e) {
+                if (e.key === 'Enter') {
+                    const q = this.value.trim();
+                    if (!q) return;
+                    const list = currentCat === '__ALL__' ? bookmarks : bookmarks.filter(b => classify(b) ===
+                        currentCat);
+                    if (list.some(b => b.title.toLowerCase().includes(q) || b.url.toLowerCase().includes(q))) {
+                        renderBookmarks();
+                        return;
+                    }
+                    const eng = searchEngines.find(e => e.name === selectedEngine);
+                    if (eng) window.open(eng.url.replace('{query}', encodeURIComponent(q)), '_blank');
                 }
             };
-            $('searchClear').onclick = ()=>{ searchQuery=''; $('searchInput').value=''; $('searchClear').classList.remove('visible'); renderBookmarks(); };
+            $('searchClear').onclick = () => { searchQuery = '';
+                $('searchInput').value = '';
+                $('searchClear').classList.remove('visible');
+                renderBookmarks(); };
 
-            function openAddModal(){ const groups=getCategoryGroups().map(g=>g.name).concat(customGroups); $('addGroup').innerHTML=groups.map(g=>`<option value="${g}">${categoryAliases[g]||g}</option>`).join(''); $('addTitle').value=''; $('addUrl').value=''; $('addModal').classList.add('show'); }
-            $('addCancel').onclick=()=>$('addModal').classList.remove('show');
-            $('addConfirm').onclick=()=>{ const t=$('addTitle').value.trim(), u=$('addUrl').value.trim(); if(!t||!u) return; const bm={title:t,url:u,clicks:0,order:bookmarks.length}; if($('addGroup').value!==classify(bm)) bm.manualGroup=$('addGroup').value; bookmarks.push(bm); save(); renderAll(); $('addModal').classList.remove('show'); };
+            function openAddModal() { const groups = getCategoryGroups().map(g => g.name).concat(customGroups);
+                $('addGroup').innerHTML = groups.map(g =>
+                    `<option value="${g}">${categoryAliases[g]||g}</option>`).join('');
+                $('addTitle').value = '';
+                $('addUrl').value = '';
+                $('addModal').classList.add('show'); }
+            $('addCancel').onclick = () => $('addModal').classList.remove('show');
+            $('addConfirm').onclick = () => { const t = $('addTitle').value.trim(),
+                    u = $('addUrl').value.trim(); if (!t || !u) return; const bm = { title: t, url: u, clicks: 0,
+                    order: bookmarks.length }; if ($('addGroup').value !== classify(bm)) bm.manualGroup = $(
+                    'addGroup').value;
+                bookmarks.push(bm);
+                save();
+                renderAll();
+                $('addModal').classList.remove('show'); };
 
-            load(); updateUI(); applyLayout(); updateEngineSelect();
-            function renderAll(){ renderCategoryTabs(); renderFrequent(); renderBookmarks(); }
+            load();
+            updateUI();
+            applyLayout();
+            updateEngineSelect();
+
+            function renderAll() { renderCategoryTabs();
+                renderFrequent();
+                renderBookmarks(); }
             renderAll();
         })();
     </script>
