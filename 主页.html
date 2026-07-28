@@ -19,6 +19,8 @@
             --hover-bg: #f0f1f5;
             --accent: #4f6ef7;
             --danger: #e74c3c;
+            --success: #27ae60;
+            --warning: #f39c12;
             --input-bg: #f5f6f8;
             --icon-name-color: #000000;
             --bg-overlay: rgba(255, 255, 255, 0.85);
@@ -37,6 +39,8 @@
             --hover-bg: #2a2a44;
             --accent: #7b8cff;
             --danger: #ff6b6b;
+            --success: #2ecc71;
+            --warning: #f1c40f;
             --input-bg: #1e1e36;
             --icon-name-color: #f0f0f8;
             --shadow-color: rgba(0, 0, 0, 0.4);
@@ -270,6 +274,14 @@
         .btn-xs.danger {
             color: var(--danger);
         }
+        .btn-success {
+            background: var(--success);
+            color: #fff;
+        }
+        .btn-warning {
+            background: var(--warning);
+            color: #fff;
+        }
 
         .top-section {
             padding: 8px 16px;
@@ -377,8 +389,13 @@
             border-radius: inherit;
         }
         @keyframes pulse {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 1; }
+            0%,
+            100% {
+                opacity: 0.5;
+            }
+            50% {
+                opacity: 1;
+            }
         }
         .icon-item:hover .icon-box {
             box-shadow: 0 12px 28px var(--shadow-hover);
@@ -662,7 +679,7 @@
             padding: 14px 10px;
             border-radius: 12px;
             text-align: center;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
         }
         .dashboard-stat .number {
             font-size: 1.8rem;
@@ -680,7 +697,7 @@
             border-radius: 12px;
             padding: 12px;
             margin-top: 8px;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
         }
         .top-list h5 {
             font-size: 0.85rem;
@@ -716,26 +733,209 @@
             margin-top: 2px;
         }
 
+        .webdav-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            margin-top: 4px;
+        }
+        .webdav-status.success {
+            background: rgba(39, 174, 96, 0.12);
+            color: var(--success);
+        }
+        .webdav-status.error {
+            background: rgba(231, 76, 60, 0.12);
+            color: var(--danger);
+        }
+        .webdav-status.info {
+            background: rgba(79, 110, 247, 0.1);
+            color: var(--accent);
+        }
+        .webdav-status.pending {
+            background: rgba(243, 156, 18, 0.12);
+            color: var(--warning);
+        }
+        .webdav-status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .webdav-status.success .webdav-status-dot {
+            background: var(--success);
+        }
+        .webdav-status.error .webdav-status-dot {
+            background: var(--danger);
+        }
+        .webdav-status.info .webdav-status-dot {
+            background: var(--accent);
+        }
+        .webdav-status.pending .webdav-status-dot {
+            background: var(--warning);
+            animation: pulse 0.8s ease-in-out infinite;
+        }
+        .webdav-card-summary {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .webdav-card-summary .status-text {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+        .webdav-card-summary .status-text.connected {
+            color: var(--success);
+        }
+        .webdav-card-summary .status-text.disconnected {
+            color: var(--text-secondary);
+        }
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 48px;
+            height: 26px;
+            flex-shrink: 0;
+        }
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: 0.3s;
+            border-radius: 26px;
+        }
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.3s;
+            border-radius: 50%;
+        }
+        input:checked+.toggle-slider {
+            background-color: var(--accent);
+        }
+        input:checked+.toggle-slider:before {
+            transform: translateX(22px);
+        }
+        .webdav-test-result {
+            font-size: 0.82rem;
+            padding: 8px 12px;
+            border-radius: 8px;
+            margin-top: 4px;
+            display: none;
+        }
+        .webdav-test-result.show {
+            display: block;
+        }
+        .webdav-test-result.success {
+            background: rgba(39, 174, 96, 0.12);
+            color: var(--success);
+        }
+        .webdav-test-result.error {
+            background: rgba(231, 76, 60, 0.12);
+            color: var(--danger);
+        }
+
         @media (max-width: 768px) {
-            #topContainer { position: relative; top: auto; }
-            .clock-row { min-width: 0; gap: 12px; }
-            .clock-time { font-size: 1.6rem; }
-            .header-inner { flex-direction: column; align-items: stretch; gap: 8px; }
-            .logo { justify-content: center; font-size: 1.2rem; }
-            .clock-date { margin-left: 0; margin-right: 0; align-items: center; }
-            .search-wrap { order: 1; min-width: 0; }
-            .header-actions { order: 2; justify-content: center; }
-            .btn { padding: 10px 16px; font-size: 0.9rem; min-height: 46px; }
-            .btn-sm { padding: 10px 18px; font-size: 0.9rem; min-height: 44px; border-radius: 20px; }
-            .btn-icon { width: 46px; height: 46px; min-width: 46px; min-height: 46px; }
-            .category-tab { padding: 10px 14px; font-size: 0.8rem; min-height: 42px; }
-            .icon-name { font-size: 0.7rem; }
-            .modal { width: 96%; max-width: 100%; border-radius: 18px; max-height: 92vh; margin: 10px auto; overflow: hidden; }
-            .dashboard-grid { grid-template-columns: 1fr 1fr; }
-            .top-list ol li { flex-direction: column; align-items: flex-start; }
+            #topContainer {
+                position: relative;
+                top: auto;
+            }
+            .clock-row {
+                min-width: 0;
+                gap: 12px;
+            }
+            .clock-time {
+                font-size: 1.6rem;
+            }
+            .header-inner {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 8px;
+            }
+            .logo {
+                justify-content: center;
+                font-size: 1.2rem;
+            }
+            .clock-date {
+                margin-left: 0;
+                margin-right: 0;
+                align-items: center;
+            }
+            .search-wrap {
+                order: 1;
+                min-width: 0;
+            }
+            .header-actions {
+                order: 2;
+                justify-content: center;
+            }
+            .btn {
+                padding: 10px 16px;
+                font-size: 0.9rem;
+                min-height: 46px;
+            }
+            .btn-sm {
+                padding: 10px 18px;
+                font-size: 0.9rem;
+                min-height: 44px;
+                border-radius: 20px;
+            }
+            .btn-icon {
+                width: 46px;
+                height: 46px;
+                min-width: 46px;
+                min-height: 46px;
+            }
+            .category-tab {
+                padding: 10px 14px;
+                font-size: 0.8rem;
+                min-height: 42px;
+            }
+            .icon-name {
+                font-size: 0.7rem;
+            }
+            .modal {
+                width: 96%;
+                max-width: 100%;
+                border-radius: 18px;
+                max-height: 92vh;
+                margin: 10px auto;
+                overflow: hidden;
+            }
+            .dashboard-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .top-list ol li {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .webdav-card-summary {
+                flex-direction: column;
+                align-items: flex-start;
+            }
         }
         @media (max-width: 480px) {
-            .dashboard-grid { grid-template-columns: 1fr; }
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -916,10 +1116,144 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- WebDAV 同步卡片 -->
+                <div class="settings-card" id="webdavSettingsCard">
+                    <h4>☁️ WebDAV 同步</h4>
+                    <div class="webdav-card-summary" id="webdavCardSummary">
+                        <span class="status-text disconnected" id="webdavStatusText">未配置</span>
+                        <span style="font-size:0.75rem;color:var(--text-secondary);" id="webdavLastSyncText"></span>
+                    </div>
+                    <div class="setting-hint" style="margin-bottom:4px;">将书签数据同步到WebDAV服务器，支持多设备数据互通</div>
+                    <button class="btn btn-primary btn-sm" id="openWebdavSettingsBtn">⚙️ 打开 WebDAV 同步设置</button>
+                    <div class="btn-row" style="margin-top:4px;">
+                        <button class="btn btn-outline btn-sm" id="webdavQuickUploadBtn" title="立即上传数据到WebDAV">📤 立即上传</button>
+                        <button class="btn btn-outline btn-sm" id="webdavQuickDownloadBtn" title="从WebDAV下载数据">📥 立即下载</button>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-outline btn-sm" id="settingsReset">恢复默认</button>
                 <button class="btn btn-primary btn-sm" id="settingsClose">关闭</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- WebDAV 同步设置弹窗 -->
+    <div class="modal-overlay" id="webdavModal" role="dialog" aria-modal="true" aria-label="WebDAV同步设置">
+        <div class="modal" style="max-width:560px;">
+            <div class="modal-header"><h3>☁️ WebDAV 同步设置</h3><button class="btn-icon" id="webdavModalClose" aria-label="关闭" style="border:none;font-size:1.2rem;">✕</button></div>
+            <div class="modal-body">
+                <div class="settings-card">
+                    <h4 style="cursor:default;">🔌 连接配置</h4>
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+                        <label style="font-size:0.85rem;color:var(--text-secondary);">启用 WebDAV 同步</label>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="webdavEnabled">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="input-group">
+                        <label for="webdavUrl">WebDAV 服务器地址</label>
+                        <input type="text" id="webdavUrl" placeholder="https://example.com/webdav/">
+                        <div class="setting-hint">例如：http://192.168.31.4:8083/webdav</div>
+                    </div>
+                    <div class="input-group">
+                        <label for="webdavUsername">用户名</label>
+                        <input type="text" id="webdavUsername" placeholder="WebDAV用户名" autocomplete="off">
+                    </div>
+                    <div class="input-group">
+                        <label for="webdavPassword">密码</label>
+                        <div style="display:flex;gap:8px;align-items:center;">
+                            <input type="password" id="webdavPassword" placeholder="WebDAV密码" autocomplete="off" style="flex:1;">
+                            <button class="btn btn-outline btn-sm" id="webdavTogglePwd" title="显示/隐藏密码" style="min-height:44px;min-width:44px;justify-content:center;">👁️</button>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label for="webdavRemotePath">远程文件路径</label>
+                        <input type="text" id="webdavRemotePath" placeholder="/bookmarks.json" value="/Myadmin/bookmarks.json">
+                        <div class="setting-hint">数据在WebDAV服务器上的存储路径，例如 /Myadmin/bookmarks.json</div>
+                    </div>
+                    <button class="btn btn-outline btn-sm" id="webdavTestBtn" style="align-self:flex-start;">🔍 测试连接</button>
+                    <div class="webdav-test-result" id="webdavTestResult"></div>
+                </div>
+
+                <div class="settings-card">
+                    <h4 style="cursor:default;">⚡ 同步模式</h4>
+                    <div class="setting-hint" style="margin-bottom:8px;">可同时启用多种同步方式，自动同步仅上传且静默比对</div>
+
+                    <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);">
+                        <div>
+                            <span style="font-weight:500;">🔄 自动同步</span>
+                            <div class="setting-hint">数据变更后自动上传到WebDAV（默认开启）</div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="webdavAutoSync" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+
+                    <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);">
+                        <div>
+                            <span style="font-weight:500;">🚀 打开页面时同步</span>
+                            <div class="setting-hint">打开页面时自动从WebDAV静默下载最新数据</div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="webdavSyncOnOpen">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+
+                    <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);">
+                        <div>
+                            <span style="font-weight:500;">🔒 关闭页面前同步</span>
+                            <div class="setting-hint">关闭或刷新页面前自动上传数据到WebDAV</div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="webdavSyncOnClose">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+
+                    <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;">
+                        <div style="flex:1;">
+                            <span style="font-weight:500;">⏰ 定时同步间隔</span>
+                            <div class="setting-hint">按固定时间间隔自动上传数据到WebDAV</div>
+                        </div>
+                        <select id="webdavSyncInterval" style="padding:8px 12px;border:2px solid var(--border);border-radius:12px;font-size:0.85rem;background:var(--card-bg);color:var(--text);outline:none;min-height:40px;">
+                            <option value="0">关闭</option>
+                            <option value="5">每 5 分钟</option>
+                            <option value="15">每 15 分钟</option>
+                            <option value="30">每 30 分钟</option>
+                            <option value="60">每 60 分钟</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="settings-card">
+                    <h4 style="cursor:default;">📋 手动操作</h4>
+                    <div class="btn-row">
+                        <button class="btn btn-primary btn-sm" id="webdavUploadBtn">📤 立即上传到 WebDAV</button>
+                        <button class="btn btn-outline btn-sm" id="webdavDownloadBtn">📥 从 WebDAV 下载</button>
+                    </div>
+                    <div class="setting-hint">上传：将本地数据推送到WebDAV服务器<br>下载：从WebDAV服务器拉取数据覆盖本地（会自动备份）</div>
+                </div>
+
+                <div class="settings-card">
+                    <h4 style="cursor:default;">📊 同步状态</h4>
+                    <div id="webdavSyncStatusArea">
+                        <div class="webdav-status info" id="webdavSyncStatusDisplay">
+                            <span class="webdav-status-dot"></span>
+                            <span id="webdavSyncStatusMsg">等待操作</span>
+                        </div>
+                    </div>
+                    <div class="setting-hint" id="webdavLastSyncDetail"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline btn-sm" id="webdavResetBtn">清除配置</button>
+                <button class="btn btn-outline btn-sm" id="webdavCancelBtn">取消</button>
+                <button class="btn btn-primary btn-sm" id="webdavSaveBtn">💾 保存设置</button>
             </div>
         </div>
     </div>
@@ -940,13 +1274,21 @@
             'use strict';
             const $ = id => document.getElementById(id);
             const ctxMenu = $('contextMenu');
-            let bookmarks = [], currentCat = '__ALL__', searchQuery = '';
-            let categoryAliases = {}, customGroups = [];
+            let bookmarks = [],
+                currentCat = '__ALL__',
+                searchQuery = '';
+            let categoryAliases = {},
+                customGroups = [];
             let editingBm = null;
             let isDarkMode = false;
-            let trash = [], backups = [], autoBackup = true;
+            let trash = [],
+                backups = [],
+                autoBackup = true;
             const colorCache = new Map();
-            const iconPresetColors = ['#F44336','#E91E63','#9C27B0','#673AB7','#3F51B5','#2196F3','#03A9F4','#00BCD4','#009688','#4CAF50','#8BC34A','#CDDC39','#FFC107','#FF9800','#FF5722','#795548','#607D8B','#9E9E9E'];
+            const iconPresetColors = ['#F44336', '#E91E63', '#9C27B0', '#673AB7', '#3F51B5', '#2196F3', '#03A9F4',
+                '#00BCD4', '#009688', '#4CAF50', '#8BC34A', '#CDDC39', '#FFC107', '#FF9800', '#FF5722', '#795548',
+                '#607D8B', '#9E9E9E'
+            ];
             const defaultEngines = [
                 { name: 'Bing', url: 'https://www.bing.com/search?q={query}' },
                 { name: '百度', url: 'https://www.baidu.com/s?wd={query}' },
@@ -957,73 +1299,453 @@
             let searchEngines = JSON.parse(JSON.stringify(defaultEngines));
             let selectedEngine = '';
             let siteTitle = '我的收藏夹';
-            const presetBgColors = ['#ffffff','#f5f5f5','#e8f5e9','#e3f2fd','#fff3e0','#a1c4fd','#fbc2eb','#84fab0','#ffecd2'];
+            const presetBgColors = ['#ffffff', '#f5f5f5', '#e8f5e9', '#e3f2fd', '#fff3e0', '#a1c4fd', '#fbc2eb',
+                '#84fab0', '#ffecd2'
+            ];
             const defaultLayout = {
-                pageWidth: 1200, borderRadius: 20,
+                pageWidth: 1200,
+                borderRadius: 20,
                 freqBg: { type: 'preset', value: '#ffffff', image: null },
                 globalBg: { type: 'preset', value: '#ffffff', image: null },
                 iconNameColor: '#000000'
             };
             let layoutConfig = JSON.parse(JSON.stringify(defaultLayout));
+
+            // ============ WebDAV 配置 ============
+            const defaultWebDAVConfig = {
+                enabled: false,
+                url: '',
+                username: '',
+                password: '',
+                remotePath: '/bookmarks.json',
+                autoSync: true,
+                syncOnOpen: false,
+                syncOnClose: false,
+                syncInterval: 0,
+                lastSyncTime: null,
+                lastSyncStatus: null
+            };
+            let webdavConfig = JSON.parse(JSON.stringify(defaultWebDAVConfig));
+            let webdavSyncTimer = null;
+            let webdavAutoSyncDebounce = null;
+            const WEBDAB_CONFIG_KEY = 'bm-webdav-config';
+            const LAST_MODIFIED_KEY = 'bm-last-modified';
+
+            function getLastModified() {
+                const v = localStorage.getItem(LAST_MODIFIED_KEY);
+                return v ? parseInt(v) : 0;
+            }
+
+            function setLastModified(ts) {
+                localStorage.setItem(LAST_MODIFIED_KEY, (ts || Date.now()).toString());
+            }
+
+            function loadWebDAVConfig() {
+                try {
+                    const saved = JSON.parse(localStorage.getItem(WEBDAB_CONFIG_KEY) || '{}');
+                    if (saved && typeof saved === 'object') {
+                        Object.keys(defaultWebDAVConfig).forEach(k => {
+                            if (saved.hasOwnProperty(k)) webdavConfig[k] = saved[k];
+                        });
+                    }
+                } catch (e) {
+                    webdavConfig = JSON.parse(JSON.stringify(defaultWebDAVConfig));
+                }
+            }
+
+            function saveWebDAVConfig() {
+                try {
+                    localStorage.setItem(WEBDAB_CONFIG_KEY, JSON.stringify(webdavConfig));
+                } catch (e) { /* ignore */ }
+            }
+
+            function getWebDAVFullUrl() {
+                let base = (webdavConfig.url || '').trim();
+                let path = (webdavConfig.remotePath || '/bookmarks.json').trim();
+                if (!base) return '';
+                if (!base.endsWith('/')) base += '/';
+                if (path.startsWith('/')) path = path.substring(1);
+                return base + path;
+            }
+
+            function getWebDAVAuthHeaders() {
+                const headers = {};
+                if (webdavConfig.username && webdavConfig.password) {
+                    headers['Authorization'] = 'Basic ' + btoa(webdavConfig.username + ':' + webdavConfig.password);
+                }
+                return headers;
+            }
+
+            async function webdavTestConnection() {
+                const fullUrl = getWebDAVFullUrl();
+                if (!fullUrl) throw new Error('请填写完整的服务器地址和文件路径');
+
+                const headers = { ...getWebDAVAuthHeaders() };
+                const response = await fetch(fullUrl, {
+                    method: 'GET',
+                    headers: headers,
+                    mode: 'cors'
+                });
+
+                // 2xx 或 404 都认为服务器可达
+                if (response.ok || response.status === 404) {
+                    return true;
+                } else {
+                    throw new Error('服务器返回异常状态码: ' + response.status);
+                }
+            }
+
+            async function webdavUpload() {
+                const fullUrl = getWebDAVFullUrl();
+                if (!fullUrl) throw new Error('WebDAV地址未配置');
+                const payload = {
+                    lastModified: Date.now(),
+                    data: {
+                        bookmarks: JSON.parse(JSON.stringify(bookmarks)),
+                        aliases: { ...categoryAliases },
+                        customGroups: [...customGroups],
+                        engines: JSON.parse(JSON.stringify(searchEngines)),
+                        selectedEngine,
+                        siteTitle,
+                        layoutConfig: JSON.parse(JSON.stringify(layoutConfig)),
+                        trash: JSON.parse(JSON.stringify(trash)),
+                        backups: JSON.parse(JSON.stringify(backups)),
+                        autoBackup
+                    }
+                };
+                const body = JSON.stringify(payload);
+                const headers = {
+                    ...getWebDAVAuthHeaders(),
+                    'Content-Type': 'application/json; charset=utf-8'
+                };
+                const response = await fetch(fullUrl, {
+                    method: 'PUT',
+                    headers: headers,
+                    body: body,
+                    mode: 'cors'
+                });
+                if (!response.ok && response.status !== 201 && response.status !== 204) {
+                    throw new Error('上传失败，HTTP ' + response.status);
+                }
+                setLastModified(payload.lastModified);
+                webdavConfig.lastSyncTime = Date.now();
+                webdavConfig.lastSyncStatus = 'success';
+                saveWebDAVConfig();
+                return true;
+            }
+
+            async function webdavDownload(silent = false) {
+                const fullUrl = getWebDAVFullUrl();
+                if (!fullUrl) throw new Error('WebDAV地址未配置');
+                const headers = { ...getWebDAVAuthHeaders() };
+                const response = await fetch(fullUrl, {
+                    method: 'GET',
+                    headers: headers,
+                    mode: 'cors'
+                });
+                if (!response.ok) {
+                    if (response.status === 404) throw new Error('远程文件不存在（404）');
+                    throw new Error('下载失败，HTTP ' + response.status);
+                }
+                const text = await response.text();
+                let parsed;
+                try {
+                    parsed = JSON.parse(text);
+                } catch (e) {
+                    throw new Error('远程数据格式错误，无法解析JSON');
+                }
+                const remoteLastModified = parsed.lastModified || 0;
+                const remoteData = parsed.data || parsed;
+                const localLastModified = getLastModified();
+
+                if (silent) {
+                    if (remoteLastModified <= localLastModified) {
+                        return false;
+                    }
+                } else {
+                    if (remoteLastModified > 0 && localLastModified > 0 && remoteLastModified <= localLastModified) {
+                        const remoteTime = new Date(remoteLastModified).toLocaleString('zh-CN');
+                        const localTime = new Date(localLastModified).toLocaleString('zh-CN');
+                        if (!confirm('远程数据时间(' + remoteTime + ')不晚于本地数据(' + localTime + ')，确定要用远程数据覆盖本地吗？')) {
+                            throw new Error('用户取消下载');
+                        }
+                    }
+                }
+
+                if (remoteData.bookmarks) bookmarks = remoteData.bookmarks.map(b => ({ ...b, clicks: b.clicks || 0 }));
+                if (remoteData.aliases) categoryAliases = remoteData.aliases;
+                if (remoteData.customGroups) customGroups = remoteData.customGroups;
+                if (remoteData.engines) searchEngines = remoteData.engines;
+                if (remoteData.selectedEngine !== undefined) selectedEngine = remoteData.selectedEngine;
+                if (remoteData.siteTitle) siteTitle = remoteData.siteTitle;
+                if (remoteData.layoutConfig) Object.assign(layoutConfig, remoteData.layoutConfig);
+                if (remoteData.trash) trash = remoteData.trash;
+                if (remoteData.backups) backups = remoteData.backups;
+                if (remoteData.autoBackup !== undefined) autoBackup = remoteData.autoBackup;
+                if (remoteLastModified > 0) setLastModified(remoteLastModified);
+                webdavConfig.lastSyncTime = Date.now();
+                webdavConfig.lastSyncStatus = 'success';
+                saveWebDAVConfig();
+                colorCache.clear();
+                save();
+                applyLayout();
+                updateUI();
+                updateEngineSelect();
+                renderAll();
+                return true;
+            }
+
+            function updateWebDAVStatusDisplay(msg, type) {
+                const display = $('webdavSyncStatusDisplay');
+                const msgEl = $('webdavSyncStatusMsg');
+                if (display && msgEl) {
+                    display.className = 'webdav-status ' + (type || 'info');
+                    msgEl.textContent = msg || '等待操作';
+                }
+                const detail = $('webdavLastSyncDetail');
+                if (detail) {
+                    if (webdavConfig.lastSyncTime) {
+                        const ts = new Date(webdavConfig.lastSyncTime).toLocaleString('zh-CN');
+                        const status = webdavConfig.lastSyncStatus === 'success' ? '✅ 成功' : '❌ 失败';
+                        detail.textContent = '上次同步：' + ts + ' ' + status;
+                    } else {
+                        detail.textContent = '尚未进行过同步';
+                    }
+                }
+            }
+
+            function updateWebDAVCardSummary() {
+                const statusText = $('webdavStatusText');
+                const lastSyncText = $('webdavLastSyncText');
+                if (statusText) {
+                    if (webdavConfig.enabled && webdavConfig.url) {
+                        const shortUrl = webdavConfig.url.replace(/^https?:\/\//, '').replace(/\/+$/, '');
+                        statusText.textContent = '已配置 · ' + (shortUrl.length > 28 ? shortUrl.substring(0, 28) +
+                            '...' : shortUrl);
+                        statusText.className = 'status-text connected';
+                    } else {
+                        statusText.textContent = '未配置';
+                        statusText.className = 'status-text disconnected';
+                    }
+                }
+                if (lastSyncText) {
+                    if (webdavConfig.lastSyncTime) {
+                        const ts = new Date(webdavConfig.lastSyncTime).toLocaleString('zh-CN');
+                        const status = webdavConfig.lastSyncStatus === 'success' ? '✅' : '❌';
+                        lastSyncText.textContent = '上次同步：' + ts + ' ' + status;
+                    } else {
+                        lastSyncText.textContent = '';
+                    }
+                }
+            }
+
+            function triggerAutoSyncUpload() {
+                if (!webdavConfig.enabled || !webdavConfig.autoSync) return;
+                if (!webdavConfig.url) return;
+                if (webdavAutoSyncDebounce) clearTimeout(webdavAutoSyncDebounce);
+                webdavAutoSyncDebounce = setTimeout(async () => {
+                    try {
+                        updateWebDAVStatusDisplay('自动同步中...', 'pending');
+                        await webdavUpload();
+                        updateWebDAVStatusDisplay('自动同步成功', 'success');
+                        updateWebDAVCardSummary();
+                    } catch (e) {
+                        webdavConfig.lastSyncStatus = 'failed';
+                        webdavConfig.lastSyncTime = Date.now();
+                        saveWebDAVConfig();
+                        updateWebDAVStatusDisplay('自动同步失败：' + e.message, 'error');
+                        updateWebDAVCardSummary();
+                    }
+                }, 2500);
+            }
+
+            function startWebDAVSyncTimer() {
+                stopWebDAVSyncTimer();
+                if (!webdavConfig.enabled) return;
+                const interval = webdavConfig.syncInterval;
+                if (interval > 0) {
+                    webdavSyncTimer = setInterval(async () => {
+                        try {
+                            updateWebDAVStatusDisplay('定时同步中...', 'pending');
+                            await webdavUpload();
+                            updateWebDAVStatusDisplay('定时同步成功', 'success');
+                            updateWebDAVCardSummary();
+                        } catch (e) {
+                            webdavConfig.lastSyncStatus = 'failed';
+                            webdavConfig.lastSyncTime = Date.now();
+                            saveWebDAVConfig();
+                            updateWebDAVStatusDisplay('定时同步失败：' + e.message, 'error');
+                            updateWebDAVCardSummary();
+                        }
+                    }, interval * 60 * 1000);
+                }
+            }
+
+            function stopWebDAVSyncTimer() {
+                if (webdavSyncTimer) {
+                    clearInterval(webdavSyncTimer);
+                    webdavSyncTimer = null;
+                }
+            }
+
+            async function performSyncOnOpen() {
+                if (!webdavConfig.enabled || !webdavConfig.syncOnOpen) return;
+                if (!webdavConfig.url) return;
+                try {
+                    updateWebDAVStatusDisplay('打开时同步中...', 'pending');
+                    await webdavDownload(true);
+                    updateWebDAVStatusDisplay('打开时同步成功', 'success');
+                    updateWebDAVCardSummary();
+                } catch (e) {
+                    if (e.message !== '用户取消下载') {
+                        webdavConfig.lastSyncStatus = 'failed';
+                        webdavConfig.lastSyncTime = Date.now();
+                        saveWebDAVConfig();
+                        updateWebDAVStatusDisplay('打开时同步失败：' + e.message, 'error');
+                        updateWebDAVCardSummary();
+                    }
+                }
+            }
+
+            function setupSyncOnClose() {
+                window.addEventListener('beforeunload', function(e) {
+                    if (!webdavConfig.enabled || !webdavConfig.syncOnClose) return;
+                    if (!webdavConfig.url) return;
+                    const fullUrl = getWebDAVFullUrl();
+                    if (!fullUrl) return;
+                    const payload = {
+                        lastModified: Date.now(),
+                        data: {
+                            bookmarks: JSON.parse(JSON.stringify(bookmarks)),
+                            aliases: { ...categoryAliases },
+                            customGroups: [...customGroups],
+                            engines: JSON.parse(JSON.stringify(searchEngines)),
+                            selectedEngine,
+                            siteTitle,
+                            layoutConfig: JSON.parse(JSON.stringify(layoutConfig)),
+                            trash: JSON.parse(JSON.stringify(trash)),
+                            backups: JSON.parse(JSON.stringify(backups)),
+                            autoBackup
+                        }
+                    };
+                    const body = JSON.stringify(payload);
+                    if (body.length > 60000) return;
+                    const headers = {
+                        ...getWebDAVAuthHeaders(),
+                        'Content-Type': 'application/json; charset=utf-8'
+                    };
+                    fetch(fullUrl, {
+                        method: 'PUT',
+                        headers: headers,
+                        body: body,
+                        mode: 'cors',
+                        keepalive: true
+                    }).catch(() => {});
+                });
+            }
+
+            // ============ 原有分类规则 ============
             const categoryRules = [
-                { name: '视频', keys: ['bilibili','youtube','youku','iqiyi','v.qq.com','douyin','tiktok','西瓜视频','movie','film','tv','直播'] },
-                { name: '社交', keys: ['weibo','twitter','facebook','reddit','tieba','zhihu','douban','t.me','discord','社区','bbs','v2ex'] },
-                { name: '购物', keys: ['taobao','tmall','jd.com','pinduoduo','amazon','ebay','shop','mall','buy','suning'] },
-                { name: '设计开发', keys: ['github','gitlab','gitee','stackoverflow','figma','dribbble','behance','zcool','站酷','ui.cn','code','编程','css','js','dev'] },
-                { name: '新闻资讯', keys: ['news','toutiao','thepaper','sina.com.cn','163.com','ifeng','xinhuanet','36kr','虎嗅','huxiu'] },
-                { name: '教育', keys: ['edu','course','mooc','wiki','baike','wikipedia','大学','图书馆','读书','学习'] },
-                { name: '工具', keys: ['tool','translate','fanyi','map','mail','pan','drive','office','pdf','压缩','计算器','天气'] },
-                { name: '音乐', keys: ['music','kugou','spotify','网易云','qq音乐','sound','专辑','电台','fm'] },
-                { name: '阅读', keys: ['book','read','起点','qidian','kindle','小说','漫画','动漫','anime','manga'] },
-                { name: '游戏', keys: ['game','steam','epic','taptap','电竞','huya','douyu','战网','playstation','xbox'] },
-                { name: '生活旅行', keys: ['travel','携程','ctrip','qunar','飞猪','酒店','机票','火车票','银行','支付','alipay','医院','社保'] }
+                { name: '视频', keys: ['bilibili', 'youtube', 'youku', 'iqiyi', 'v.qq.com', 'douyin', 'tiktok',
+                        '西瓜视频', 'movie', 'film', 'tv', '直播'
+                    ] },
+                { name: '社交', keys: ['weibo', 'twitter', 'facebook', 'reddit', 'tieba', 'zhihu', 'douban', 't.me',
+                        'discord', '社区', 'bbs', 'v2ex'
+                    ] },
+                { name: '购物', keys: ['taobao', 'tmall', 'jd.com', 'pinduoduo', 'amazon', 'ebay', 'shop', 'mall',
+                        'buy', 'suning'
+                    ] },
+                { name: '设计开发', keys: ['github', 'gitlab', 'gitee', 'stackoverflow', 'figma', 'dribbble', 'behance',
+                        'zcool', '站酷', 'ui.cn', 'code', '编程', 'css', 'js', 'dev'
+                    ] },
+                { name: '新闻资讯', keys: ['news', 'toutiao', 'thepaper', 'sina.com.cn', '163.com', 'ifeng',
+                        'xinhuanet', '36kr', '虎嗅', 'huxiu'
+                    ] },
+                { name: '教育', keys: ['edu', 'course', 'mooc', 'wiki', 'baike', 'wikipedia', '大学', '图书馆', '读书',
+                        '学习'
+                    ] },
+                { name: '工具', keys: ['tool', 'translate', 'fanyi', 'map', 'mail', 'pan', 'drive', 'office', 'pdf',
+                        '压缩', '计算器', '天气'
+                    ] },
+                { name: '音乐', keys: ['music', 'kugou', 'spotify', '网易云', 'qq音乐', 'sound', '专辑', '电台', 'fm'] },
+                { name: '阅读', keys: ['book', 'read', '起点', 'qidian', 'kindle', '小说', '漫画', '动漫', 'anime',
+                        'manga'
+                    ] },
+                { name: '游戏', keys: ['game', 'steam', 'epic', 'taptap', '电竞', 'huya', 'douyu', '战网', 'playstation',
+                        'xbox'
+                    ] },
+                { name: '生活旅行', keys: ['travel', '携程', 'ctrip', 'qunar', '飞猪', '酒店', '机票', '火车票', '银行',
+                        '支付', 'alipay', '医院', '社保'
+                    ] }
             ];
 
             function classify(bm) {
                 if (bm.manualGroup) return bm.manualGroup;
-                const h = (getDomain(bm.url) || '').toLowerCase(), t = bm.title.toLowerCase();
-                for (let r of categoryRules) for (let k of r.keys) if (h.includes(k) || t.includes(k)) return r.name;
+                const h = (getDomain(bm.url) || '').toLowerCase(),
+                    t = bm.title.toLowerCase();
+                for (let r of categoryRules)
+                    for (let k of r.keys)
+                        if (h.includes(k) || t.includes(k)) return r.name;
                 return '工具';
             }
+
             function getDomain(url) { try { return new URL(url).hostname; } catch (e) { return null; } }
-            function hash(s) { let h = 0; for (let i = 0; i < s.length; i++) h = ((h << 5) - h) + s.charCodeAt(i); return Math.abs(h); }
+
+            function hash(s) { let h = 0; for (let i = 0; i < s.length; i++) h = ((h << 5) - h) + s.charCodeAt(
+                i); return Math.abs(h); }
+
             function getColor(s, forceDark) {
                 const key = s + '|' + (forceDark !== undefined ? forceDark : isDarkMode);
                 if (colorCache.has(key)) return colorCache.get(key);
                 const dark = (forceDark !== undefined) ? forceDark : isDarkMode;
-                const h = hash(s) % 360, l = dark ? 22 : 55, sVal = dark ? 55 : 60;
+                const h = hash(s) % 360,
+                    l = dark ? 22 : 55,
+                    sVal = dark ? 55 : 60;
                 const result = 'hsl(' + h + ',' + sVal + '%,' + l + '%)';
                 colorCache.set(key, result);
                 return result;
             }
+
             function toDarkColor(color) {
                 if (!color) return '#2a2a44';
                 const hslMatch = color.match(/hsl\((\d+)\s*,\s*(\d+)%\s*,\s*(\d+)%\s*\)/i);
                 if (hslMatch) {
-                    const h = parseInt(hslMatch[1]), s = parseInt(hslMatch[2]), l = Math.max(12, Math.min(28, parseInt(hslMatch[3]) - 30));
+                    const h = parseInt(hslMatch[1]),
+                        s = parseInt(hslMatch[2]),
+                        l = Math.max(12, Math.min(28, parseInt(hslMatch[3]) - 30));
                     return 'hsl(' + h + ',' + s + '%,' + l + '%)';
                 }
-                let r,g,b;
+                let r, g, b;
                 const hexMatch = color.match(/^#([a-f0-9]{2})([a-f0-9]{2})([a-f0-9]{2})$/i);
-                if (hexMatch) { r = parseInt(hexMatch[1],16); g = parseInt(hexMatch[2],16); b = parseInt(hexMatch[3],16); }
-                else {
+                if (hexMatch) { r = parseInt(hexMatch[1], 16);
+                    g = parseInt(hexMatch[2], 16);
+                    b = parseInt(hexMatch[3], 16); } else {
                     const rgbMatch = color.match(/rgb\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)/i);
-                    if (rgbMatch) { r = parseInt(rgbMatch[1]); g = parseInt(rgbMatch[2]); b = parseInt(rgbMatch[3]); } else return '#2a2a44';
+                    if (rgbMatch) { r = parseInt(rgbMatch[1]);
+                        g = parseInt(rgbMatch[2]);
+                        b = parseInt(rgbMatch[3]); } else return '#2a2a44';
                 }
-                const r1 = r/255, g1 = g/255, b1 = b/255;
-                const max = Math.max(r1,g1,b1), min = Math.min(r1,g1,b1);
-                let h,s,l = (max+min)/2;
-                if (max === min) { h = 0; s = 0; } else {
-                    const d = max-min;
-                    s = l > 0.5 ? d/(2-max-min) : d/(max+min);
-                    if (max === r1) h = ((g1-b1)/d + (g1<b1?6:0))/6;
-                    else if (max === g1) h = ((b1-r1)/d + 2)/6;
-                    else h = ((r1-g1)/d + 4)/6;
+                const r1 = r / 255,
+                    g1 = g / 255,
+                    b1 = b / 255;
+                const max = Math.max(r1, g1, b1),
+                    min = Math.min(r1, g1, b1);
+                let h, s, l = (max + min) / 2;
+                if (max === min) { h = 0;
+                    s = 0; } else {
+                    const d = max - min;
+                    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+                    if (max === r1) h = ((g1 - b1) / d + (g1 < b1 ? 6 : 0)) / 6;
+                    else if (max === g1) h = ((b1 - r1) / d + 2) / 6;
+                    else h = ((r1 - g1) / d + 4) / 6;
                 }
-                const darkL = Math.max(12, Math.min(28, l*100 - 30));
-                return 'hsl(' + Math.round(h*360) + ',' + Math.round(s*100) + '%,' + Math.round(darkL) + '%)';
+                const darkL = Math.max(12, Math.min(28, l * 100 - 30));
+                return 'hsl(' + Math.round(h * 360) + ',' + Math.round(s * 100) + '%,' + Math.round(darkL) + '%)';
             }
-            function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+            function esc(s) { const d = document.createElement('div');
+                d.textContent = s; return d.innerHTML; }
+
             function getIconBackground(bm) {
                 if (bm.customImage) return 'url(' + esc(bm.customImage) + ') center/cover no-repeat';
                 let color = bm.customColor || getColor(getDomain(bm.url) || bm.title);
@@ -1031,6 +1753,7 @@
                 else if (isDarkMode && !bm.customColor) color = getColor(getDomain(bm.url) || bm.title, true);
                 return color;
             }
+
             function formatIconContent(bm) {
                 if (bm.customImage) return '';
                 const text = bm.title;
@@ -1039,59 +1762,95 @@
                 const getCharWidth = c => /[^\x00-\xff]/.test(c) ? 2 : 1;
                 if (!hasAlphaNum) {
                     const chars = clean.slice(0, 4);
-                    if (chars.length === 1) return '<span style="font-size:calc(var(--icon-size)*0.45);line-height:1.2;white-space:nowrap;">' + esc(chars) + '</span>';
-                    if (chars.length === 2) return '<span style="font-size:calc(var(--icon-size)*0.32);line-height:1.2;white-space:nowrap;">' + esc(chars) + '</span>';
-                    if (chars.length === 3) return '<span style="font-size:calc(var(--icon-size)*0.28);line-height:1.2;white-space:nowrap;">' + esc(chars) + '</span>';
+                    if (chars.length === 1)
+                        return '<span style="font-size:calc(var(--icon-size)*0.45);line-height:1.2;white-space:nowrap;">' +
+                            esc(chars) + '</span>';
+                    if (chars.length === 2)
+                        return '<span style="font-size:calc(var(--icon-size)*0.32);line-height:1.2;white-space:nowrap;">' +
+                            esc(chars) + '</span>';
+                    if (chars.length === 3)
+                        return '<span style="font-size:calc(var(--icon-size)*0.28);line-height:1.2;white-space:nowrap;">' +
+                            esc(chars) + '</span>';
                     const fs = 'calc(var(--icon-size)*0.28)';
-                    return '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.2;width:100%;height:100%;"><span style="font-size:'+fs+';"><span style="font-size:'+fs+';">'+esc(chars[0])+'</span><span style="font-size:'+fs+';">'+esc(chars[1])+'</span></span><span style="font-size:'+fs+';"><span style="font-size:'+fs+';">'+esc(chars[2])+'</span><span style="font-size:'+fs+';">'+esc(chars[3])+'</span></span></div>';
+                    return '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.2;width:100%;height:100%;"><span style="font-size:' +
+                        fs + ';"><span style="font-size:' + fs + ';">' + esc(chars[0]) +
+                        '</span><span style="font-size:' + fs + ';">' + esc(chars[1]) +
+                        '</span></span><span style="font-size:' + fs + ';"><span style="font-size:' + fs + ';">' +
+                        esc(chars[2]) + '</span><span style="font-size:' + fs + ';">' + esc(chars[3]) +
+                        '</span></span></div>';
                 } else {
                     const charsArr = clean.split('');
                     const allEnglish = charsArr.every(c => /[A-Za-z0-9]/.test(c));
                     if (allEnglish) {
                         const chars = clean.slice(0, 12);
-                        if (chars.length <= 6) { const fs = chars.length <= 3 ? 'calc(var(--icon-size)*0.35)' : 'calc(var(--icon-size)*0.28)'; return '<span style="font-size:'+fs+';line-height:1.2;white-space:nowrap;">'+esc(chars)+'</span>'; }
-                        const mid = Math.ceil(chars.length/2), line1 = chars.slice(0,mid), line2 = chars.slice(mid);
+                        if (chars.length <= 6) { const fs = chars.length <= 3 ? 'calc(var(--icon-size)*0.35)' :
+                                'calc(var(--icon-size)*0.28)'; return '<span style="font-size:' + fs +
+                                ';line-height:1.2;white-space:nowrap;">' + esc(chars) + '</span>'; }
+                        const mid = Math.ceil(chars.length / 2),
+                            line1 = chars.slice(0, mid),
+                            line2 = chars.slice(mid);
                         const fs = 'calc(var(--icon-size)*0.22)';
-                        return '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.15;"><span style="font-size:'+fs+';">'+esc(line1)+'</span><span style="font-size:'+fs+';">'+esc(line2)+'</span></div>';
+                        return '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.15;"><span style="font-size:' +
+                            fs + ';">' + esc(line1) + '</span><span style="font-size:' + fs + ';">' + esc(
+                                line2) + '</span></div>';
                     } else {
-                        let chars = '', totalWidth = 0;
-                        for (const c of clean) { const cw = getCharWidth(c); if (totalWidth+cw > 8) break; chars += c; totalWidth += cw; }
-                        if (!chars) chars = clean.slice(0,1);
-                        if (totalWidth <= 6) { const fs = totalWidth <= 4 ? 'calc(var(--icon-size)*0.30)' : 'calc(var(--icon-size)*0.26)'; return '<span style="font-size:'+fs+';line-height:1.2;white-space:nowrap;">'+esc(chars)+'</span>'; }
-                        let splitIdx = 1, bestDiff = Infinity;
-                        for (let j=1; j<chars.length; j++) {
-                            const line1 = chars.slice(0,j), line2 = chars.slice(j);
-                            let w1=0,w2=0;
+                        let chars = '',
+                            totalWidth = 0;
+                        for (const c of clean) { const cw = getCharWidth(c); if (totalWidth + cw > 8)
+                                break;
+                            chars += c;
+                            totalWidth += cw; }
+                        if (!chars) chars = clean.slice(0, 1);
+                        if (totalWidth <= 6) { const fs = totalWidth <= 4 ? 'calc(var(--icon-size)*0.30)' :
+                                'calc(var(--icon-size)*0.26)'; return '<span style="font-size:' + fs +
+                                ';line-height:1.2;white-space:nowrap;">' + esc(chars) + '</span>'; }
+                        let splitIdx = 1,
+                            bestDiff = Infinity;
+                        for (let j = 1; j < chars.length; j++) {
+                            const line1 = chars.slice(0, j),
+                                line2 = chars.slice(j);
+                            let w1 = 0,
+                                w2 = 0;
                             for (const c of line1) w1 += getCharWidth(c);
                             for (const c of line2) w2 += getCharWidth(c);
-                            if (w1>8 || w2>8) continue;
-                            const diff = Math.abs(w1-w2);
-                            if (diff < bestDiff) { bestDiff = diff; splitIdx = j; }
+                            if (w1 > 8 || w2 > 8) continue;
+                            const diff = Math.abs(w1 - w2);
+                            if (diff < bestDiff) { bestDiff = diff;
+                                splitIdx = j; }
                         }
-                        const line1 = chars.slice(0,splitIdx), line2 = chars.slice(splitIdx);
-                        let w1=0,w2=0;
+                        const line1 = chars.slice(0, splitIdx),
+                            line2 = chars.slice(splitIdx);
+                        let w1 = 0,
+                            w2 = 0;
                         for (const c of line1) w1 += getCharWidth(c);
                         for (const c of line2) w2 += getCharWidth(c);
-                        const maxW = Math.max(w1,w2);
+                        const maxW = Math.max(w1, w2);
                         const fs = maxW <= 4 ? 'calc(var(--icon-size)*0.28)' : 'calc(var(--icon-size)*0.24)';
-                        return '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.15;"><span style="font-size:'+fs+';white-space:nowrap;">'+esc(line1)+'</span><span style="font-size:'+fs+';white-space:nowrap;">'+esc(line2)+'</span></div>';
+                        return '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.15;"><span style="font-size:' +
+                            fs + ';white-space:nowrap;">' + esc(line1) +
+                            '</span><span style="font-size:' + fs + ';white-space:nowrap;">' + esc(line2) +
+                            '</span></div>';
                     }
                 }
             }
-            function getCurrentColumns() { return parseInt(getComputedStyle(document.documentElement).getPropertyValue('--grid-columns').trim()) || 9; }
+
+            function getCurrentColumns() { return parseInt(getComputedStyle(document.documentElement).getPropertyValue(
+                    '--grid-columns').trim()) || 9; }
 
             function applyLayout() {
                 const r = document.documentElement.style;
                 const w = window.innerWidth;
                 let displayWidth = w < 768 ? '100%' : Math.min(layoutConfig.pageWidth, w) + 'px';
                 const usableWidth = displayWidth === '100%' ? w - 32 : Math.min(layoutConfig.pageWidth, w) - 32;
-                let bestCols = 4, bestSize = 80;
+                let bestCols = 4,
+                    bestSize = 80;
                 const maxCols = w < 768 ? 4 : (w < 1024 ? 6 : 24);
                 for (let c = maxCols; c >= 4; c--) {
-                    const maxPossible = Math.floor((usableWidth - (c-1)*22) / c);
+                    const maxPossible = Math.floor((usableWidth - (c - 1) * 22) / c);
                     if (maxPossible >= 80) {
                         const icon = Math.min(90, maxPossible);
-                        if ((usableWidth - c*icon) / (c-1) >= 22) { bestCols = c; bestSize = icon; break; }
+                        if ((usableWidth - c * icon) / (c - 1) >= 22) { bestCols = c;
+                            bestSize = icon; break; }
                     }
                 }
                 r.setProperty('--page-width', displayWidth);
@@ -1099,7 +1858,6 @@
                 r.setProperty('--icon-size', bestSize + 'px');
                 r.setProperty('--icon-border-radius', layoutConfig.borderRadius + '%');
                 r.setProperty('--border-radius', layoutConfig.borderRadius + 'px');
-                // 名称颜色：暗色模式默认使用浅色，用户自定义则保持
                 if (layoutConfig.iconNameColor) {
                     if (isDarkMode && layoutConfig.iconNameColor === '#000000') {
                         r.setProperty('--icon-name-color', '#f0f0f8');
@@ -1109,15 +1867,21 @@
                 } else {
                     r.removeProperty('--icon-name-color');
                 }
-                ['headerSection','topSection','frequentSection','mainContainer'].forEach(id => {
+                ['headerSection', 'topSection', 'frequentSection', 'mainContainer'].forEach(id => {
                     const el = document.getElementById(id);
-                    if (el) { el.style.width = displayWidth; el.style.maxWidth = displayWidth; el.style.marginLeft = 'auto'; el.style.marginRight = 'auto'; }
+                    if (el) { el.style.width = displayWidth;
+                        el.style.maxWidth = displayWidth;
+                        el.style.marginLeft = 'auto';
+                        el.style.marginRight = 'auto'; }
                 });
-                applyBodyBg(); applyFrequentBg();
+                applyBodyBg();
+                applyFrequentBg();
             }
+
             function applyBodyBg() {
                 const bg = layoutConfig.globalBg;
-                const header = document.querySelector('.header'), top = document.querySelector('.top-section');
+                const header = document.querySelector('.header'),
+                    top = document.querySelector('.top-section');
                 document.body.classList.remove('has-bg-image');
                 if (header) header.classList.remove('has-bg-image');
                 if (top) top.classList.remove('has-bg-image');
@@ -1126,21 +1890,31 @@
                     document.documentElement.style.setProperty('--global-bg', val);
                     document.body.style.background = val;
                     document.body.classList.add('has-bg-image');
-                    if (header) { header.style.background = val; header.classList.add('has-bg-image'); }
-                    if (top) { top.style.background = val; top.classList.add('has-bg-image'); }
-                    if (isDarkMode) { document.body.style.backgroundColor = 'rgba(0,0,0,0.5)'; document.body.style.backgroundBlendMode = 'overlay'; }
-                    else { document.body.style.backgroundColor = 'transparent'; document.body.style.backgroundBlendMode = 'normal'; }
+                    if (header) { header.style.background = val;
+                        header.classList.add('has-bg-image'); }
+                    if (top) { top.style.background = val;
+                        top.classList.add('has-bg-image'); }
+                    if (isDarkMode) { document.body.style.backgroundColor = 'rgba(0,0,0,0.5)';
+                        document.body.style.backgroundBlendMode = 'overlay'; } else { document.body.style
+                            .backgroundColor = 'transparent';
+                        document.body.style.backgroundBlendMode = 'normal'; }
                 } else {
                     let color = bg.value || '#ffffff';
                     if (isDarkMode && color !== '#ffffff') color = toDarkColor(color);
                     document.documentElement.style.removeProperty('--global-bg');
-                    document.body.style.background = ''; document.body.style.backgroundColor = ''; document.body.style.backgroundBlendMode = 'normal';
+                    document.body.style.background = '';
+                    document.body.style.backgroundColor = '';
+                    document.body.style.backgroundBlendMode = 'normal';
                     if (header) header.style.background = '';
                     if (top) top.style.background = '';
-                    if (color !== '#ffffff') { document.documentElement.style.setProperty('--global-bg', color); if (header) header.style.background = color; if (top) top.style.background = color; }
-                    else if (isDarkMode) { const darkBg = '#0d0d1a'; document.documentElement.style.setProperty('--global-bg', darkBg); if (header) header.style.background = darkBg; if (top) top.style.background = darkBg; }
+                    if (color !== '#ffffff') { document.documentElement.style.setProperty('--global-bg',
+                        color); if (header) header.style.background = color; if (top) top.style
+                            .background = color; } else if (isDarkMode) { const darkBg = '#0d0d1a'; document
+                            .documentElement.style.setProperty('--global-bg', darkBg); if (header) header.style
+                            .background = darkBg; if (top) top.style.background = darkBg; }
                 }
             }
+
             function applyFrequentBg() {
                 const bg = layoutConfig.freqBg;
                 const el = $('frequentSection');
@@ -1148,12 +1922,19 @@
                 if (bg.type === 'image' && bg.image) {
                     el.style.background = 'url(' + bg.image + ') center/cover no-repeat';
                     el.classList.add('has-bg-image');
-                    if (isDarkMode) { el.style.backgroundBlendMode = 'overlay'; el.style.backgroundColor = 'rgba(0,0,0,0.3)'; }
-                    else { el.style.backgroundBlendMode = 'normal'; el.style.backgroundColor = 'transparent'; }
-                } else if (bg.value === '#ffffff' && !isDarkMode) { el.style.background = ''; el.style.backgroundBlendMode = 'normal'; }
-                else if (bg.value === '#ffffff' && isDarkMode) { el.style.background = '#0d0d1a'; el.style.backgroundBlendMode = 'normal'; }
-                else { let color = bg.value || '#ffffff'; if (isDarkMode && color !== '#ffffff') color = toDarkColor(color); el.style.background = color; el.style.backgroundBlendMode = 'normal'; }
+                    if (isDarkMode) { el.style.backgroundBlendMode = 'overlay';
+                        el.style.backgroundColor = 'rgba(0,0,0,0.3)'; } else { el.style
+                            .backgroundBlendMode = 'normal';
+                        el.style.backgroundColor = 'transparent'; }
+                } else if (bg.value === '#ffffff' && !isDarkMode) { el.style.background = '';
+                    el.style.backgroundBlendMode = 'normal'; } else if (bg.value === '#ffffff' && isDarkMode) { el
+                        .style.background = '#0d0d1a';
+                    el.style.backgroundBlendMode = 'normal'; } else { let color = bg.value || '#ffffff'; if (
+                        isDarkMode && color !== '#ffffff') color = toDarkColor(color);
+                    el.style.background = color;
+                    el.style.backgroundBlendMode = 'normal'; }
             }
+
             function applySmartTheme(enableDark) {
                 isDarkMode = enableDark;
                 document.documentElement.setAttribute('data-theme', enableDark ? 'smart-dark' : '');
@@ -1168,52 +1949,106 @@
             $('themeToggle').onclick = () => applySmartTheme(!isDarkMode);
 
             const LunarCalendar = (function() {
-                const lunarInfo = [0x04bd8,0x04ae0,0x0a570,0x054d5,0x0d260,0x0d950,0x16554,0x056a0,0x09ad0,0x055d2,0x04ae0,0x0a5b6,0x0a4d0,0x0d250,0x1d255,0x0b540,0x0d6a0,0x0ada2,0x095b0,0x14977,0x04970,0x0a4b0,0x0b4b5,0x06a50,0x06d40,0x1ab54,0x02b60,0x09570,0x052f2,0x04970,0x06566,0x0d4a0,0x0ea50,0x06e95,0x05ad0,0x02b60,0x186e3,0x092e0,0x1c8d7,0x0c950,0x0d4a0,0x1d8a6,0x0b550,0x056a0,0x1a5b4,0x025d0,0x092d0,0x0d2b2,0x0a950,0x0b557,0x06ca0,0x0b550,0x15355,0x04da0,0x0a5b0,0x14573,0x052b0,0x0a9a8,0x0e950,0x06aa0,0x0aea6,0x0ab50,0x04b60,0x0aae4,0x0a570,0x05260,0x0f263,0x0d950,0x05b57,0x056a0,0x096d0,0x04dd5,0x04ad0,0x0a4d0,0x0d4d4,0x0d250,0x0d558,0x0b540,0x0b6a0,0x195a6,0x095b0,0x049b0,0x0a974,0x0a4b0,0x0b27a,0x06a50,0x06d40,0x0af46,0x0ab60,0x09570,0x04af5,0x04970,0x064b0,0x074a3,0x0ea50,0x06b58,0x055c0,0x0ab60,0x096d5,0x092e0,0x0c960,0x0d954,0x0d4a0,0x0da50,0x07552,0x056a0,0x0abb7,0x025d0,0x092d0,0x0cab5,0x0a950,0x0b4a0,0x0baa4,0x0ad50,0x055d9,0x04ba0,0x0a5b0,0x15176,0x052b0,0x0a930,0x07954,0x06aa0,0x0ad50,0x05b52,0x04b60,0x0a6e6,0x0a4e0,0x0d260,0x0ea65,0x0d530,0x05aa0,0x076a3,0x096d0,0x04afb,0x04ad0,0x0a4d0,0x1d0b6,0x0d250,0x0d520,0x0dd45,0x0b5a0,0x056d0,0x055b2,0x049b0,0x0a577,0x0a4b0,0x0aa50,0x1b255,0x06d20,0x0ada0,0x14b63,0x09370,0x049f8,0x04970,0x064b0,0x168a6,0x0ea50,0x06b20,0x1a6c4,0x0aae0,0x0a2e0,0x0d2e3,0x0c960,0x0d557,0x0d4a0,0x0da50,0x05d55,0x056a0,0x0a6d0,0x055d4,0x052d0,0x0a9b8,0x0a950,0x0b4a0,0x0b6a6,0x0ad50,0x055a0,0x0aba4,0x0a5b0,0x052b0,0x0b273,0x06930,0x07337,0x06aa0,0x0ad50,0x14b55,0x04b60,0x0a570,0x054e4,0x0d160,0x0e968,0x0d520,0x0daa0,0x16aa6,0x056d0,0x04ae0,0x0a9d4,0x0a4d0,0x0d150,0x0f252,0x0d520];
-                const solarMonth = [31,28,31,30,31,30,31,31,30,31,30,31];
-                const lunarMonthNames = ['','正月','二月','三月','四月','五月','六月','七月','八月','九月','十月','冬月','腊月'];
-                const lunarDayNames = ['','初一','初二','初三','初四','初五','初六','初七','初八','初九','初十','十一','十二','十三','十四','十五','十六','十七','十八','十九','二十','廿一','廿二','廿三','廿四','廿五','廿六','廿七','廿八','廿九','三十'];
-                function leapMonth(y) { return lunarInfo[y-1900] & 0xf; }
-                function leapDays(y) { return leapMonth(y) ? ((lunarInfo[y-1900] & 0x10000) ? 30 : 29) : 0; }
-                function monthDays(y,m) { return (lunarInfo[y-1900] & (0x10000 >> m)) ? 30 : 29; }
-                function yearDays(y) { let sum=348; for(let i=0x8000; i>0x8; i>>=1) sum += (lunarInfo[y-1900] & i) ? 1 : 0; return sum+leapDays(y); }
-                function solarDays(y,m) { if(m===2) return ((y%4===0 && y%100!==0) || (y%400===0)) ? 29 : 28; return solarMonth[m-1]; }
+                const lunarInfo = [0x04bd8, 0x04ae0, 0x0a570, 0x054d5, 0x0d260, 0x0d950, 0x16554, 0x056a0, 0x09ad0,
+                    0x055d2, 0x04ae0, 0x0a5b6, 0x0a4d0, 0x0d250, 0x1d255, 0x0b540, 0x0d6a0, 0x0ada2, 0x095b0,
+                    0x14977, 0x04970, 0x0a4b0, 0x0b4b5, 0x06a50, 0x06d40, 0x1ab54, 0x02b60, 0x09570, 0x052f2,
+                    0x04970, 0x06566, 0x0d4a0, 0x0ea50, 0x06e95, 0x05ad0, 0x02b60, 0x186e3, 0x092e0, 0x1c8d7,
+                    0x0c950, 0x0d4a0, 0x1d8a6, 0x0b550, 0x056a0, 0x1a5b4, 0x025d0, 0x092d0, 0x0d2b2, 0x0a950,
+                    0x0b557, 0x06ca0, 0x0b550, 0x15355, 0x04da0, 0x0a5b0, 0x14573, 0x052b0, 0x0a9a8, 0x0e950,
+                    0x06aa0, 0x0aea6, 0x0ab50, 0x04b60, 0x0aae4, 0x0a570, 0x05260, 0x0f263, 0x0d950, 0x05b57,
+                    0x056a0, 0x096d0, 0x04dd5, 0x04ad0, 0x0a4d0, 0x0d4d4, 0x0d250, 0x0d558, 0x0b540, 0x0b6a0,
+                    0x195a6, 0x095b0, 0x049b0, 0x0a974, 0x0a4b0, 0x0b27a, 0x06a50, 0x06d40, 0x0af46, 0x0ab60,
+                    0x09570, 0x04af5, 0x04970, 0x064b0, 0x074a3, 0x0ea50, 0x06b58, 0x055c0, 0x0ab60, 0x096d5,
+                    0x092e0, 0x0c960, 0x0d954, 0x0d4a0, 0x0da50, 0x07552, 0x056a0, 0x0abb7, 0x025d0, 0x092d0,
+                    0x0cab5, 0x0a950, 0x0b4a0, 0x0baa4, 0x0ad50, 0x055d9, 0x04ba0, 0x0a5b0, 0x15176, 0x052b0,
+                    0x0a930, 0x07954, 0x06aa0, 0x0ad50, 0x05b52, 0x04b60, 0x0a6e6, 0x0a4e0, 0x0d260, 0x0ea65,
+                    0x0d530, 0x05aa0, 0x076a3, 0x096d0, 0x04afb, 0x04ad0, 0x0a4d0, 0x1d0b6, 0x0d250, 0x0d520,
+                    0x0dd45, 0x0b5a0, 0x056d0, 0x055b2, 0x049b0, 0x0a577, 0x0a4b0, 0x0aa50, 0x1b255, 0x06d20,
+                    0x0ada0, 0x14b63, 0x09370, 0x049f8, 0x04970, 0x064b0, 0x168a6, 0x0ea50, 0x06b20, 0x1a6c4,
+                    0x0aae0, 0x0a2e0, 0x0d2e3, 0x0c960, 0x0d557, 0x0d4a0, 0x0da50, 0x05d55, 0x056a0, 0x0a6d0,
+                    0x055d4, 0x052d0, 0x0a9b8, 0x0a950, 0x0b4a0, 0x0b6a6, 0x0ad50, 0x055a0, 0x0aba4, 0x0a5b0,
+                    0x052b0, 0x0b273, 0x06930, 0x07337, 0x06aa0, 0x0ad50, 0x14b55, 0x04b60, 0x0a570, 0x054e4,
+                    0x0d160, 0x0e968, 0x0d520, 0x0daa0, 0x16aa6, 0x056d0, 0x04ae0, 0x0a9d4, 0x0a4d0, 0x0d150,
+                    0x0f252, 0x0d520
+                ];
+                const solarMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+                const lunarMonthNames = ['', '正月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '冬月',
+                '腊月'];
+                const lunarDayNames = ['', '初一', '初二', '初三', '初四', '初五', '初六', '初七', '初八', '初九', '初十', '十一', '十二',
+                    '十三', '十四', '十五', '十六', '十七', '十八', '十九', '二十', '廿一', '廿二', '廿三', '廿四', '廿五', '廿六',
+                    '廿七', '廿八', '廿九', '三十'
+                ];
+
+                function leapMonth(y) { return lunarInfo[y - 1900] & 0xf; }
+
+                function leapDays(y) { return leapMonth(y) ? ((lunarInfo[y - 1900] & 0x10000) ? 30 : 29) : 0; }
+
+                function monthDays(y, m) { return (lunarInfo[y - 1900] & (0x10000 >> m)) ? 30 : 29; }
+
+                function yearDays(y) { let sum = 348; for (let i = 0x8000; i > 0x8; i >>= 1) sum += (lunarInfo[y -
+                        1900] & i) ? 1 : 0; return sum + leapDays(y); }
+
+                function solarDays(y, m) { if (m === 2) return ((y % 4 === 0 && y % 100 !== 0) || (y % 400 === 0)) ?
+                        29 : 28; return solarMonth[m - 1]; }
                 return {
                     toLunar(date) {
-                        let y=date.getFullYear(), m=date.getMonth()+1, d=date.getDate(), offset=0;
-                        for(let i=1900;i<y;i++) offset += yearDays(i);
-                        for(let i=1;i<m;i++) offset += solarDays(y,i);
+                        let y = date.getFullYear(),
+                            m = date.getMonth() + 1,
+                            d = date.getDate(),
+                            offset = 0;
+                        for (let i = 1900; i < y; i++) offset += yearDays(i);
+                        for (let i = 1; i < m; i++) offset += solarDays(y, i);
                         offset += d;
-                        let ly=y, days=0;
-                        for(ly=y; ly<2100; ly++) { days=yearDays(ly); if(offset<=days) break; offset-=days; }
-                        let lm=1, ld=1, isLeap=false, leap=leapMonth(ly);
-                        for(let i=1;i<=12;i++) { if(leap>0 && i===leap+1 && !isLeap) { --i; isLeap=true; days=leapDays(ly); } else days=monthDays(ly,i); if(offset<=days) { lm=i; ld=offset; break; } offset-=days; if(isLeap && i===leap) isLeap=false; }
-                        return { monthStr: (isLeap?'闰':'') + lunarMonthNames[lm], dayStr: lunarDayNames[ld] };
+                        let ly = y,
+                            days = 0;
+                        for (ly = y; ly < 2100; ly++) { days = yearDays(ly); if (offset <= days) break;
+                            offset -= days; }
+                        let lm = 1,
+                            ld = 1,
+                            isLeap = false,
+                            leap = leapMonth(ly);
+                        for (let i = 1; i <= 12; i++) { if (leap > 0 && i === leap + 1 && !isLeap) { --i;
+                                isLeap = true;
+                                days = leapDays(ly); } else days = monthDays(ly, i); if (offset <= days) { lm =
+                                    i;
+                                ld = offset; break; }
+                            offset -= days; if (isLeap && i === leap) isLeap = false; }
+                        return { monthStr: (isLeap ? '闰' : '') + lunarMonthNames[lm], dayStr: lunarDayNames[
+                            ld] };
                     }
                 };
             })();
+
             function updateClock() {
                 const now = new Date();
-                $('clockTime').textContent = now.toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
-                $('clockWeek').textContent = now.toLocaleDateString('zh-CN',{weekday:'long'});
-                $('clockDateText').textContent = now.toLocaleDateString('zh-CN',{year:'numeric',month:'long',day:'numeric'});
+                $('clockTime').textContent = now.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit',
+                    second: '2-digit' });
+                $('clockWeek').textContent = now.toLocaleDateString('zh-CN', { weekday: 'long' });
+                $('clockDateText').textContent = now.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long',
+                    day: 'numeric' });
                 const lunar = LunarCalendar.toLunar(now);
                 $('clockLunar').textContent = '农历' + lunar.monthStr + lunar.dayStr;
             }
-            setInterval(updateClock,1000); updateClock();
+            setInterval(updateClock, 1000);
+            updateClock();
 
             function getFrequent() {
                 const cols = getCurrentColumns();
                 const all = bookmarks.filter(b => b.clicks > 0);
-                const pinned = all.filter(b => b.pinned).sort((a,b) => (a.pinOrder||0) - (b.pinOrder||0));
-                const unpinned = all.filter(b => !b.pinned).sort((a,b) => b.clicks - a.clicks);
+                const pinned = all.filter(b => b.pinned).sort((a, b) => (a.pinOrder || 0) - (b.pinOrder || 0));
+                const unpinned = all.filter(b => !b.pinned).sort((a, b) => b.clicks - a.clicks);
                 return pinned.concat(unpinned).slice(0, cols);
             }
+
             function getCategoryGroups() {
                 const groups = {};
-                bookmarks.forEach(b => { const cat = classify(b); if (!groups[cat]) groups[cat] = []; groups[cat].push(b); });
+                bookmarks.forEach(b => { const cat = classify(b); if (!groups[cat]) groups[cat] = [];
+                    groups[cat].push(b); });
                 const names = categoryRules.map(r => r.name).concat(Object.keys(groups), customGroups);
-                return [...new Set(names)].map(n => ({ name: n, bookmarks: groups[n]||[], count: (groups[n]||[]).length }));
+                return [...new Set(names)].map(n => ({ name: n, bookmarks: groups[n] || [], count: (groups[n] || [])
+                        .length }));
             }
+
             function renderIconHtml(bm) {
                 const bg = getIconBackground(bm);
                 const content = formatIconContent(bm);
@@ -1223,97 +2058,152 @@
                     <span class="icon-name">${esc(bm.title)}</span>
                 </a>`;
             }
+
             function renderFrequent() {
                 const freq = getFrequent();
-                $('frequentIcons').innerHTML = freq.length ? freq.map(b => renderIconHtml(b)).join('') : '<span style="color:var(--text);opacity:0.6;">点击书签越多，越常出现在这里</span>';
+                $('frequentIcons').innerHTML = freq.length ? freq.map(b => renderIconHtml(b)).join('') :
+                    '<span style="color:var(--text);opacity:0.6;">点击书签越多，越常出现在这里</span>';
                 bindIconEvents('#frequentIcons .icon-item', true);
             }
+
             function renderBookmarks() {
-                let list = currentCat === '__ALL__' ? bookmarks.slice() : bookmarks.filter(b => classify(b) === currentCat);
-                list.sort((a,b) => a.order - b.order);
-                if (searchQuery) list = list.filter(b => b.title.toLowerCase().includes(searchQuery) || b.url.toLowerCase().includes(searchQuery));
+                let list = currentCat === '__ALL__' ? bookmarks.slice() : bookmarks.filter(b => classify(b) ===
+                    currentCat);
+                list.sort((a, b) => a.order - b.order);
+                if (searchQuery) list = list.filter(b => b.title.toLowerCase().includes(searchQuery) || b.url
+                    .toLowerCase().includes(searchQuery));
                 $('bookmarkGrid').innerHTML = list.map(b => renderIconHtml(b)).join('');
                 bindIconEvents('#bookmarkGrid .icon-item', false);
             }
+
             function bindIconEvents(selector, isFreq) {
                 const items = document.querySelectorAll(selector);
                 let longPressTimer = null;
                 items.forEach(item => {
-                    item.addEventListener('dragstart', e => { e.dataTransfer.setData('text/plain', item.dataset.url); });
+                    item.addEventListener('dragstart', e => { e.dataTransfer.setData('text/plain', item.dataset
+                            .url); });
                     item.addEventListener('dragover', e => e.preventDefault());
                     item.addEventListener('drop', e => {
                         e.preventDefault();
-                        const from = e.dataTransfer.getData('text/plain'), to = item.dataset.url;
+                        const from = e.dataTransfer.getData('text/plain'),
+                            to = item.dataset.url;
                         if (from === to) return;
-                        const a = bookmarks.find(b => b.url === from), b = bookmarks.find(b => b.url === to);
+                        const a = bookmarks.find(b => b.url === from),
+                            b = bookmarks.find(b => b.url === to);
                         if (!a || !b) return;
                         if (isFreq) {
-                            if (a.pinned && b.pinned) { [a.pinOrder, b.pinOrder] = [b.pinOrder, a.pinOrder]; }
-                            else if (!a.pinned && !b.pinned) { [a.clicks, b.clicks] = [b.clicks, a.clicks]; }
-                            else if (a.pinned && !b.pinned) { a.pinned = false; a.clicks = b.clicks+1; }
-                            else { a.pinned = true; a.pinOrder = b.pinOrder; b.pinOrder = (b.pinOrder||0)+1; }
+                            if (a.pinned && b.pinned) { [a.pinOrder, b.pinOrder] = [b.pinOrder, a
+                                .pinOrder
+                            ]; } else if (!a.pinned && !b.pinned) { [a.clicks, b.clicks] = [b.clicks,
+                                a.clicks
+                            ]; } else if (a.pinned && !b.pinned) { a.pinned = false;
+                                a.clicks = b.clicks + 1; } else { a.pinned = true;
+                                a.pinOrder = b.pinOrder;
+                                b.pinOrder = (b.pinOrder || 0) + 1; }
                         } else { [a.order, b.order] = [b.order, a.order]; }
-                        save(); renderAll();
+                        save();
+                        renderAll();
                     });
                     item.addEventListener('click', function(e) {
                         if (this.dataset.longPressTriggered) { delete this.dataset.longPressTriggered; return; }
                         const bm = bookmarks.find(b => b.url === this.dataset.url);
-                        if (bm) { bm.clicks = (bm.clicks||0)+1; save(); renderFrequent(); }
+                        if (bm) { bm.clicks = (bm.clicks || 0) + 1;
+                            save();
+                            renderFrequent(); }
                     });
                     item.addEventListener('keydown', function(e) {
-                        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); }
-                        if (e.key === 'ContextMenu' || (e.shiftKey && e.key === 'F10')) { e.preventDefault(); const bm = bookmarks.find(b => b.url === this.dataset.url); if(bm) showContextMenuForBm(this, bm, isFreq); }
+                        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault();
+                            this.click(); }
+                        if (e.key === 'ContextMenu' || (e.shiftKey && e.key === 'F10')) { e.preventDefault();
+                            const bm = bookmarks.find(b => b.url === this.dataset.url); if (bm)
+                                showContextMenuForBm(this, bm, isFreq); }
                     });
                     const startLongPress = (e) => {
                         longPressTimer = setTimeout(() => {
                             const bm = bookmarks.find(b => b.url === item.dataset.url);
-                            if (bm) { item.dataset.longPressTriggered = 'true'; showContextMenuForBm(item, bm, isFreq); if(navigator.vibrate) navigator.vibrate(15); }
+                            if (bm) { item.dataset.longPressTriggered = 'true';
+                                showContextMenuForBm(item, bm, isFreq); if (navigator.vibrate)
+                                    navigator.vibrate(15); }
                             longPressTimer = null;
                         }, 500);
                     };
-                    const cancelLongPress = () => { if(longPressTimer){ clearTimeout(longPressTimer); longPressTimer=null; } };
-                    item.addEventListener('touchstart', startLongPress, {passive:true});
-                    item.addEventListener('touchmove', cancelLongPress, {passive:true});
-                    item.addEventListener('touchend', cancelLongPress, {passive:true});
-                    item.addEventListener('touchcancel', cancelLongPress, {passive:true});
-                    item.addEventListener('contextmenu', function(e) { e.preventDefault(); const bm = bookmarks.find(b => b.url === this.dataset.url); if(bm) showContextMenuForBm(this, bm, isFreq); });
+                    const cancelLongPress = () => { if (longPressTimer) { clearTimeout(longPressTimer);
+                            longPressTimer = null; } };
+                    item.addEventListener('touchstart', startLongPress, { passive: true });
+                    item.addEventListener('touchmove', cancelLongPress, { passive: true });
+                    item.addEventListener('touchend', cancelLongPress, { passive: true });
+                    item.addEventListener('touchcancel', cancelLongPress, { passive: true });
+                    item.addEventListener('contextmenu', function(e) { e.preventDefault(); const bm = bookmarks
+                            .find(b => b.url === this.dataset.url); if (bm)
+                            showContextMenuForBm(this, bm, isFreq); });
                 });
             }
+
             function showContextMenuForBm(element, bm, isFreq) {
                 const items = [];
                 items.push({ label: '添加书签', action: openAddModal });
                 if (isFreq) {
-                    items.push(bm.pinned ? { label: '取消固定', action: () => { bm.pinned=false; save(); renderFrequent(); } } : { label: '固定位置', action: () => { bm.pinned=true; bm.pinOrder=Date.now(); save(); renderFrequent(); } });
-                    items.push({ label: '从常用移除', action: () => { bm.clicks=0; save(); renderFrequent(); } });
+                    items.push(bm.pinned ? { label: '取消固定', action: () => { bm.pinned = false;
+                            save();
+                            renderFrequent(); } } : { label: '固定位置', action: () => { bm.pinned = true;
+                            bm.pinOrder = Date.now();
+                            save();
+                            renderFrequent(); } });
+                    items.push({ label: '从常用移除', action: () => { bm.clicks = 0;
+                            save();
+                            renderFrequent(); } });
                 }
                 items.push({ label: '编辑', action: () => openEditModal(bm) });
-                items.push({ label: '删除', action: () => { showConfirm('确定删除「'+bm.title+'」？', () => moveToTrash(bm.url)); } });
+                items.push({ label: '删除', action: () => { showConfirm('确定删除「' + bm.title + '」？', () => moveToTrash(bm
+                        .url)); } });
                 const rect = element.getBoundingClientRect();
-                const e = { clientX: rect.left+rect.width/2, clientY: rect.top+rect.height/2, preventDefault: () => {} };
+                const e = { clientX: rect.left + rect.width / 2, clientY: rect.top + rect.height / 2,
+                    preventDefault: () => {} };
                 showContextMenu(e, items, element);
             }
+
             function renderCategoryTabs() {
                 const groups = getCategoryGroups();
                 let tabs = [{ id: '__ALL__', label: '全部', count: bookmarks.length }];
-                groups.forEach(g => tabs.push({ id: g.name, label: categoryAliases[g.name] || g.name, count: g.count }));
+                groups.forEach(g => tabs.push({ id: g.name, label: categoryAliases[g.name] || g.name, count: g
+                        .count }));
                 if (!tabs.some(t => t.id === currentCat)) currentCat = '__ALL__';
                 $('categoryTabs').innerHTML = tabs.map(t => {
                     const bgColor = t.id === '__ALL__' ? (isDarkMode ? '#4a4a6a' : '#6c757d') : getColor(t.label);
                     return `<div class="category-tab${t.id===currentCat?' active':''}" data-id="${t.id}" style="background:${bgColor}" role="tab" aria-selected="${t.id===currentCat}" tabindex="0">${t.label}<span style="font-size:0.65rem;opacity:0.85;margin-left:4px;">${t.count}</span></div>`;
                 }).join('');
                 document.querySelectorAll('.category-tab').forEach(tab => {
-                    tab.addEventListener('click', () => { currentCat = tab.dataset.id; searchQuery = ''; renderAll(); });
-                    tab.addEventListener('keydown', function(e) { if(e.key==='Enter'||e.key===' '){ e.preventDefault(); this.click(); } });
+                    tab.addEventListener('click', () => { currentCat = tab.dataset.id;
+                        searchQuery = '';
+                        renderAll(); });
+                    tab.addEventListener('keydown', function(e) { if (e.key === 'Enter' || e.key === ' ') { e
+                            .preventDefault();
+                            this.click(); } });
                     tab.addEventListener('contextmenu', function(e) {
                         e.preventDefault();
                         const gid = this.dataset.id;
-                        const canDelete = customGroups.includes(gid) || !categoryRules.some(r => r.name === gid);
+                        const canDelete = customGroups.includes(gid) || !categoryRules.some(r => r.name ===
+                            gid);
                         const items = [
                             { label: '添加书签', action: openAddModal },
-                            { label: '添加分组', action: () => { const n = prompt('新分组名称：'); if(n && n.trim()){ customGroups.push(n.trim()); save(); renderAll(); } } }
+                            { label: '添加分组', action: () => { const n = prompt('新分组名称：'); if (n && n
+                                    .trim()) { customGroups.push(n.trim());
+                                    save();
+                                    renderAll(); } } }
                         ];
-                        if (gid !== '__ALL__') items.push({ label: '重命名分组', action: () => { const cur = categoryAliases[gid] || gid; const n = prompt('新名称：', cur); if(n && n.trim() && n!==gid){ categoryAliases[gid] = n.trim(); save(); renderAll(); } } });
-                        if (canDelete) items.push({ label: '删除分组', action: () => { showConfirm('确定删除「'+(categoryAliases[gid]||gid)+'」？', () => { customGroups = customGroups.filter(g => g!==gid); bookmarks.forEach(b => { if(b.manualGroup===gid) delete b.manualGroup; }); save(); renderAll(); }); } });
+                        if (gid !== '__ALL__') items.push({ label: '重命名分组', action: () => { const cur =
+                                categoryAliases[gid] || gid;
+                                const n = prompt('新名称：', cur); if (n && n.trim() && n !== gid) {
+                                    categoryAliases[gid] = n.trim();
+                                    save();
+                                    renderAll(); } } });
+                        if (canDelete) items.push({ label: '删除分组', action: () => { showConfirm('确定删除「' + (
+                                    categoryAliases[gid] || gid) + '」？', () => { customGroups =
+                                    customGroups.filter(g => g !== gid);
+                                    bookmarks.forEach(b => { if (b.manualGroup === gid) delete b
+                                        .manualGroup; });
+                                    save();
+                                    renderAll(); }); } });
                         showContextMenu(e, items, this);
                     });
                 });
@@ -1321,117 +2211,164 @@
 
             function openEditModal(bm) {
                 editingBm = bm;
-                $('editTitle').value = bm.title; $('editUrl').value = bm.url;
-                $('editIconColor').value = bm.customColor || getColor(getDomain(bm.url)||bm.title);
+                $('editTitle').value = bm.title;
+                $('editUrl').value = bm.url;
+                $('editIconColor').value = bm.customColor || getColor(getDomain(bm.url) || bm.title);
                 $('editImageInfo').textContent = bm.customImage ? '已设置图片' : '';
                 renderIconColorPresets();
                 openModal('editModal');
             }
+
             function renderIconColorPresets() {
                 const container = $('iconColorPresets');
                 const current = $('editIconColor').value;
-                container.innerHTML = iconPresetColors.map(c => `<div class="color-preset${c===current?' active':''}" style="background:${c}" data-color="${c}"></div>`).join('');
+                container.innerHTML = iconPresetColors.map(c =>
+                    `<div class="color-preset${c===current?' active':''}" style="background:${c}" data-color="${c}"></div>`
+                    ).join('');
                 container.querySelectorAll('.color-preset').forEach(el => {
-                    el.addEventListener('click', () => { $('editIconColor').value = el.dataset.color; renderIconColorPresets(); });
+                    el.addEventListener('click', () => { $('editIconColor').value = el.dataset.color;
+                        renderIconColorPresets(); });
                 });
             }
             $('editIconColor').addEventListener('input', renderIconColorPresets);
             $('editIconImage').addEventListener('change', function() {
-                const file = this.files[0]; if(!file) return;
-                if(file.size > 15*1024*1024) { alert('图片不超过15MB'); this.value=''; return; }
+                const file = this.files[0];
+                if (!file) return;
+                if (file.size > 15 * 1024 * 1024) { alert('图片不超过15MB');
+                    this.value = ''; return; }
                 const reader = new FileReader();
-                reader.onload = function(e) { $('editImageInfo').textContent = file.name; if(editingBm) editingBm._tempImage = e.target.result; };
+                reader.onload = function(e) { $('editImageInfo').textContent = file.name; if (editingBm) editingBm
+                        ._tempImage = e.target.result; };
                 reader.readAsDataURL(file);
             });
-            $('clearEditImageBtn').addEventListener('click', () => { $('editIconImage').value=''; $('editImageInfo').textContent=''; if(editingBm) editingBm._tempImage=null; });
-            $('editCancel').onclick = () => { closeModal('editModal'); editingBm=null; };
-            $('editModalClose').onclick = () => { closeModal('editModal'); editingBm=null; };
+            $('clearEditImageBtn').addEventListener('click', () => { $('editIconImage').value = '';
+                $('editImageInfo').textContent = ''; if (editingBm) editingBm._tempImage = null; });
+            $('editCancel').onclick = () => { closeModal('editModal');
+                editingBm = null; };
+            $('editModalClose').onclick = () => { closeModal('editModal');
+                editingBm = null; };
             $('editConfirm').onclick = () => {
-                if(!editingBm) return;
-                const title = $('editTitle').value.trim(), url = $('editUrl').value.trim();
-                if(!title||!url) return;
-                editingBm.title = title; editingBm.url = url;
+                if (!editingBm) return;
+                const title = $('editTitle').value.trim(),
+                    url = $('editUrl').value.trim();
+                if (!title || !url) return;
+                editingBm.title = title;
+                editingBm.url = url;
                 editingBm.customColor = $('editIconColor').value;
-                if(editingBm._tempImage) { editingBm.customImage = editingBm._tempImage; delete editingBm._tempImage; }
-                else if(editingBm._tempImage === null) { delete editingBm.customImage; }
-                colorCache.clear(); save(); renderAll(); closeModal('editModal'); editingBm=null;
+                if (editingBm._tempImage) { editingBm.customImage = editingBm._tempImage;
+                    delete editingBm._tempImage; } else if (editingBm._tempImage === null) { delete editingBm
+                    .customImage; }
+                colorCache.clear();
+                save();
+                renderAll();
+                closeModal('editModal');
+                editingBm = null;
             };
 
-            let menuTriggerElement = null, menuCloseTimer = null;
+            let menuTriggerElement = null,
+                menuCloseTimer = null;
+
             function handleMenuMouseMove(e) {
                 if (!menuTriggerElement) return;
                 const onMenu = ctxMenu.contains(e.target);
                 const onTrigger = menuTriggerElement.contains(e.target);
                 if (onMenu || onTrigger) {
-                    if (menuCloseTimer) { clearTimeout(menuCloseTimer); menuCloseTimer = null; }
+                    if (menuCloseTimer) { clearTimeout(menuCloseTimer);
+                        menuCloseTimer = null; }
                 } else {
                     if (!menuCloseTimer) {
                         menuCloseTimer = setTimeout(() => hideCtx(), 200);
                     }
                 }
             }
+
             function showContextMenu(e, items, triggerEl) {
-                if (menuCloseTimer) { clearTimeout(menuCloseTimer); menuCloseTimer = null; }
-                ctxMenu.innerHTML = items.map(item => `<div class="context-menu-item" role="menuitem" tabindex="0">${item.label}</div>`).join('');
-                ctxMenu.querySelectorAll('.context-menu-item').forEach((mi,i) => {
-                    mi.onclick = (ev) => { ev.stopPropagation(); hideCtx(); items[i].action(); };
-                    mi.addEventListener('keydown', function(ev) { if(ev.key==='Enter'||ev.key===' '){ ev.preventDefault(); this.click(); } if(ev.key==='Escape') hideCtx(); });
+                if (menuCloseTimer) { clearTimeout(menuCloseTimer);
+                    menuCloseTimer = null; }
+                ctxMenu.innerHTML = items.map(item =>
+                    `<div class="context-menu-item" role="menuitem" tabindex="0">${item.label}</div>`).join('');
+                ctxMenu.querySelectorAll('.context-menu-item').forEach((mi, i) => {
+                    mi.onclick = (ev) => { ev.stopPropagation();
+                        hideCtx();
+                        items[i].action(); };
+                    mi.addEventListener('keydown', function(ev) { if (ev.key === 'Enter' || ev.key === ' ') { ev
+                            .preventDefault();
+                            this.click(); } if (ev.key === 'Escape') hideCtx(); });
                 });
-                const x = e.clientX || 0, y = e.clientY || 0;
+                const x = e.clientX || 0,
+                    y = e.clientY || 0;
                 ctxMenu.style.display = 'block';
-                const w = ctxMenu.offsetWidth || 160, h = ctxMenu.offsetHeight || 200;
+                const w = ctxMenu.offsetWidth || 160,
+                    h = ctxMenu.offsetHeight || 200;
                 ctxMenu.style.left = Math.max(5, Math.min(x, window.innerWidth - w - 10)) + 'px';
                 ctxMenu.style.top = Math.max(5, Math.min(y, window.innerHeight - h - 10)) + 'px';
                 ctxMenu.classList.add('show');
                 menuTriggerElement = triggerEl || null;
                 document.addEventListener('mousemove', handleMenuMouseMove);
-                const first = ctxMenu.querySelector('.context-menu-item'); if(first) first.focus();
+                const first = ctxMenu.querySelector('.context-menu-item');
+                if (first) first.focus();
             }
+
             function hideCtx() {
                 ctxMenu.classList.remove('show');
-                ctxMenu.style.display='none';
-                if (menuCloseTimer) { clearTimeout(menuCloseTimer); menuCloseTimer = null; }
+                ctxMenu.style.display = 'none';
+                if (menuCloseTimer) { clearTimeout(menuCloseTimer);
+                    menuCloseTimer = null; }
                 document.removeEventListener('mousemove', handleMenuMouseMove);
                 menuTriggerElement = null;
             }
             document.addEventListener('mousedown', function(e) {
                 if (ctxMenu.classList.contains('show')) {
-                    if (!ctxMenu.contains(e.target) && (!menuTriggerElement || !menuTriggerElement.contains(e.target))) {
+                    if (!ctxMenu.contains(e.target) && (!menuTriggerElement || !menuTriggerElement.contains(e
+                            .target))) {
                         hideCtx();
                     }
                 }
             }, true);
             document.addEventListener('touchstart', function(e) {
                 if (ctxMenu.classList.contains('show')) {
-                    if (!ctxMenu.contains(e.target) && (!menuTriggerElement || !menuTriggerElement.contains(e.target))) {
+                    if (!ctxMenu.contains(e.target) && (!menuTriggerElement || !menuTriggerElement.contains(e
+                            .target))) {
                         hideCtx();
                     }
                 }
-            }, {passive:true});
-            document.addEventListener('keydown', function(e) { if(e.key==='Escape') hideCtx(); });
+            }, { passive: true });
+            document.addEventListener('keydown', function(e) { if (e.key === 'Escape') hideCtx(); });
 
             function moveToTrash(url) {
                 const idx = bookmarks.findIndex(b => b.url === url);
                 if (idx < 0) return;
                 const bm = bookmarks.splice(idx, 1)[0];
                 trash.push({ title: bm.title, url: bm.url, deletedAt: Date.now(), original: { ...bm } });
-                colorCache.clear(); save(); renderAll();
+                colorCache.clear();
+                save();
+                renderAll();
             }
+
             function restoreFromTrash(index) {
                 if (index < 0 || index >= trash.length) return;
                 const item = trash.splice(index, 1)[0];
                 bookmarks.push(item.original);
-                colorCache.clear(); save(); renderAll();
+                colorCache.clear();
+                save();
+                renderAll();
             }
+
             function deleteForever(index) {
                 if (index < 0 || index >= trash.length) return;
-                trash.splice(index, 1); save();
+                trash.splice(index, 1);
+                save();
             }
-            function emptyTrash() { trash = []; save(); }
+
+            function emptyTrash() { trash = [];
+                save(); }
+
             function cleanOldTrash() {
-                const now = Date.now(), thirtyDays = 30*24*60*60*1000;
+                const now = Date.now(),
+                    thirtyDays = 30 * 24 * 60 * 60 * 1000;
                 trash = trash.filter(item => now - item.deletedAt < thirtyDays);
             }
+
             function createBackup() {
                 backups.unshift({
                     time: Date.now(),
@@ -1441,7 +2378,8 @@
                         aliases: { ...categoryAliases },
                         customGroups: [...customGroups],
                         engines: JSON.parse(JSON.stringify(searchEngines)),
-                        selectedEngine, siteTitle,
+                        selectedEngine,
+                        siteTitle,
                         layoutConfig: JSON.parse(JSON.stringify(layoutConfig)),
                         trash: JSON.parse(JSON.stringify(trash)),
                         autoBackup
@@ -1450,6 +2388,7 @@
                 if (backups.length > 5) backups = backups.slice(0, 5);
                 save();
             }
+
             function restoreBackup(index) {
                 if (index < 0 || index >= backups.length) return;
                 const backup = backups[index].data;
@@ -1462,35 +2401,48 @@
                 layoutConfig = backup.layoutConfig || defaultLayout;
                 trash = backup.trash || [];
                 autoBackup = backup.autoBackup !== undefined ? backup.autoBackup : true;
-                colorCache.clear(); save();
-                applyLayout(); updateUI(); updateEngineSelect(); renderAll();
+                colorCache.clear();
+                save();
+                applyLayout();
+                updateUI();
+                updateEngineSelect();
+                renderAll();
                 closeModal('settingsModal');
                 alert('已恢复备份：' + backups[index].label);
             }
+
             function downloadBackup(index) {
                 if (index < 0 || index >= backups.length) return;
                 const a = document.createElement('a');
                 a.href = URL.createObjectURL(new Blob([JSON.stringify(backups[index].data)], { type: 'application/json' }));
-                a.download = 'backup-' + new Date(backups[index].time).toISOString().slice(0,10) + '.json';
+                a.download = 'backup-' + new Date(backups[index].time).toISOString().slice(0, 10) + '.json';
                 a.click();
             }
+
             function autoBackupIfNeeded() {
                 if (!autoBackup) return;
                 const lastBackup = localStorage.getItem('bm-last-backup-time');
                 const now = Date.now();
-                if (!lastBackup || (now - parseInt(lastBackup)) > 24*60*60*1000) {
+                if (!lastBackup || (now - parseInt(lastBackup)) > 24 * 60 * 60 * 1000) {
                     createBackup();
                     localStorage.setItem('bm-last-backup-time', now.toString());
                 }
             }
+
             function save() {
-                const data = { bookmarks: bookmarks.map(b=>({...b})), aliases: categoryAliases, customGroups, engines: searchEngines, selectedEngine, siteTitle, layoutConfig, trash, backups, autoBackup };
-                try { localStorage.setItem('bm-flat', JSON.stringify(data)); } catch(e) { localStorage.removeItem('bm-flat'); localStorage.setItem('bm-flat', JSON.stringify(data)); }
+                const data = { bookmarks: bookmarks.map(b => ({ ...b })), aliases: categoryAliases, customGroups,
+                    engines: searchEngines, selectedEngine, siteTitle, layoutConfig, trash, backups, autoBackup };
+                try { localStorage.setItem('bm-flat', JSON.stringify(data)); } catch (e) { localStorage.removeItem(
+                        'bm-flat');
+                    localStorage.setItem('bm-flat', JSON.stringify(data)); }
+                setLastModified(Date.now());
+                triggerAutoSyncUpload();
             }
+
             function load() {
                 try {
                     const d = JSON.parse(localStorage.getItem('bm-flat') || '{}');
-                    if (d.bookmarks) bookmarks = d.bookmarks.map(b => ({...b, clicks: b.clicks||0}));
+                    if (d.bookmarks) bookmarks = d.bookmarks.map(b => ({ ...b, clicks: b.clicks || 0 }));
                     if (d.aliases) categoryAliases = d.aliases;
                     if (d.customGroups) customGroups = d.customGroups;
                     if (d.engines) searchEngines = d.engines;
@@ -1500,15 +2452,18 @@
                     if (d.trash) trash = d.trash;
                     if (d.backups) backups = d.backups;
                     if (d.autoBackup !== undefined) autoBackup = d.autoBackup;
-                } catch(e) { console.warn('加载数据失败', e); }
+                } catch (e) { console.warn('加载数据失败', e); }
+                if (!getLastModified()) setLastModified(Date.now());
             }
 
             function updateEngineSelect() {
                 $('engineSelect').innerHTML = searchEngines.map(e => `<option>${e.name}</option>`).join('');
                 $('engineSelect').value = selectedEngine || (searchEngines[0]?.name || '');
                 selectedEngine = $('engineSelect').value;
-                $('engineSelect').onchange = () => { selectedEngine = $('engineSelect').value; save(); };
+                $('engineSelect').onchange = () => { selectedEngine = $('engineSelect').value;
+                    save(); };
             }
+
             function updateUI() {
                 $('siteTitle').textContent = siteTitle;
                 document.title = siteTitle;
@@ -1516,9 +2471,11 @@
             }
 
             function openModal(id) { $(id).classList.add('show'); }
+
             function closeModal(id) { $(id).classList.remove('show'); }
             document.querySelectorAll('.modal-overlay').forEach(el => {
-                el.addEventListener('click', function(e) { if(e.target===this){ this.classList.remove('show'); } });
+                el.addEventListener('click', function(e) { if (e.target === this) { this.classList.remove(
+                        'show'); } });
             });
             window.toggleCollapse = function(cardId) {
                 const card = document.getElementById(cardId);
@@ -1528,9 +2485,14 @@
             function showConfirm(message, onOk) {
                 $('confirmMessage').textContent = message;
                 $('confirmTitle').textContent = '确认';
-                const okBtn = $('confirmOk'), cancelBtn = $('confirmCancel'), closeBtn = $('confirmModalClose');
-                const cleanup = () => { closeModal('confirmModal'); okBtn.onclick=null; cancelBtn.onclick=null; closeBtn.onclick=null; };
-                okBtn.onclick = () => { cleanup(); if(onOk) onOk(); };
+                const okBtn = $('confirmOk'),
+                    cancelBtn = $('confirmCancel'),
+                    closeBtn = $('confirmModalClose');
+                const cleanup = () => { closeModal('confirmModal');
+                    okBtn.onclick = null;
+                    cancelBtn.onclick = null;
+                    closeBtn.onclick = null; };
+                okBtn.onclick = () => { cleanup(); if (onOk) onOk(); };
                 cancelBtn.onclick = cleanup;
                 closeBtn.onclick = cleanup;
                 openModal('confirmModal');
@@ -1542,19 +2504,25 @@
                 const totalBookmarks = bookmarks.length;
                 const groups = getCategoryGroups();
                 const totalGroups = groups.length;
-                const top5 = [...bookmarks].sort((a,b) => (b.clicks||0) - (a.clicks||0)).slice(0,5);
+                const top5 = [...bookmarks].sort((a, b) => (b.clicks || 0) - (a.clicks || 0)).slice(0, 5);
                 const storageSize = JSON.stringify(localStorage).length;
-                const sizeStr = storageSize < 1024 ? storageSize+' B' : storageSize < 1048576 ? (storageSize/1024).toFixed(1)+' KB' : (storageSize/1048576).toFixed(1)+' MB';
+                const sizeStr = storageSize < 1024 ? storageSize + ' B' : storageSize < 1048576 ? (storageSize / 1024)
+                    .toFixed(1) + ' KB' : (storageSize / 1048576).toFixed(1) + ' MB';
                 let html = '<div class="dashboard-grid">';
-                html += `<div class="dashboard-stat"><div class="number">${totalBookmarks}</div><div class="label">🔖 书签总数</div></div>`;
-                html += `<div class="dashboard-stat"><div class="number">${totalGroups}</div><div class="label">📁 分组数</div></div>`;
-                html += `<div class="dashboard-stat"><div class="number">${trash.length}</div><div class="label">🗑️ 回收站</div></div>`;
-                html += `<div class="dashboard-stat"><div class="number">${sizeStr}</div><div class="label">💾 存储占用</div></div>`;
+                html +=
+                    `<div class="dashboard-stat"><div class="number">${totalBookmarks}</div><div class="label">🔖 书签总数</div></div>`;
+                html +=
+                    `<div class="dashboard-stat"><div class="number">${totalGroups}</div><div class="label">📁 分组数</div></div>`;
+                html +=
+                    `<div class="dashboard-stat"><div class="number">${trash.length}</div><div class="label">🗑️ 回收站</div></div>`;
+                html +=
+                    `<div class="dashboard-stat"><div class="number">${sizeStr}</div><div class="label">💾 存储占用</div></div>`;
                 html += '</div>';
                 html += '<div class="top-list"><h5>🔥 最常点击 Top 5</h5>';
                 if (top5.length) {
                     html += '<ol>';
-                    top5.forEach(b => html += `<li><span>${esc(b.title)}</span> <span>${b.clicks||0}次</span></li>`);
+                    top5.forEach(b => html +=
+                        `<li><span>${esc(b.title)}</span> <span>${b.clicks||0}次</span></li>`);
                     html += '</ol>';
                 } else {
                     html += '<div style="color:var(--text-secondary); font-size:0.8rem;">暂无数据</div>';
@@ -1562,6 +2530,7 @@
                 html += '</div>';
                 content.innerHTML = html;
             }
+
             function renderTrashUI() {
                 const content = $('trashContent');
                 const countSpan = $('trashCount');
@@ -1590,11 +2559,14 @@
                 </div>`;
                 content.innerHTML = html;
             }
+
             function renderBackupUI() {
                 const content = $('backupContent');
-                let html = '<div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">';
+                let html =
+                    '<div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">';
                 html += '<button class="btn btn-primary btn-sm" onclick="createBackup()">💾 立即备份</button>';
-                html += '<label style="font-size:0.85rem;"><input type="checkbox" id="autoBackupCheck" ' + (autoBackup?'checked':'') + '> 每日自动备份</label>';
+                html += '<label style="font-size:0.85rem;"><input type="checkbox" id="autoBackupCheck" ' + (autoBackup ?
+                    'checked' : '') + '> 每日自动备份</label>';
                 html += '<span class="trash-tip">(每天首次打开时自动备份)</span>';
                 html += '</div>';
                 if (backups.length === 0) {
@@ -1613,15 +2585,241 @@
                 content.innerHTML = html;
                 setTimeout(() => {
                     const cb = document.getElementById('autoBackupCheck');
-                    if (cb) cb.onchange = function() { autoBackup = this.checked; save(); };
+                    if (cb) cb.onchange = function() { autoBackup = this.checked;
+                        save(); };
                 }, 0);
             }
+
             function refreshSettingsData() {
                 if ($('settingsModal').classList.contains('show')) {
-                    renderDashboard(); renderTrashUI(); renderBackupUI();
+                    renderDashboard();
+                    renderTrashUI();
+                    renderBackupUI();
+                    updateWebDAVCardSummary();
                 }
             }
 
+            // ============ WebDAV 弹窗逻辑 ============
+            function openWebdavModal() {
+                $('webdavEnabled').checked = webdavConfig.enabled;
+                $('webdavUrl').value = webdavConfig.url || '';
+                $('webdavUsername').value = webdavConfig.username || '';
+                $('webdavPassword').value = webdavConfig.password || '';
+                $('webdavRemotePath').value = webdavConfig.remotePath || '/bookmarks.json';
+                $('webdavAutoSync').checked = webdavConfig.autoSync;
+                $('webdavSyncOnOpen').checked = webdavConfig.syncOnOpen;
+                $('webdavSyncOnClose').checked = webdavConfig.syncOnClose;
+                $('webdavSyncInterval').value = webdavConfig.syncInterval || 0;
+                $('webdavTestResult').classList.remove('show', 'success', 'error');
+                $('webdavTestResult').textContent = '';
+                updateWebDAVStatusDisplay('等待操作', 'info');
+                const detail = $('webdavLastSyncDetail');
+                if (detail) {
+                    if (webdavConfig.lastSyncTime) {
+                        const ts = new Date(webdavConfig.lastSyncTime).toLocaleString('zh-CN');
+                        const status = webdavConfig.lastSyncStatus === 'success' ? '✅ 成功' : '❌ 失败';
+                        detail.textContent = '上次同步：' + ts + ' ' + status;
+                    } else {
+                        detail.textContent = '尚未进行过同步';
+                    }
+                }
+                $('webdavPassword').setAttribute('type', 'password');
+                $('webdavTogglePwd').textContent = '👁️';
+                openModal('webdavModal');
+            }
+
+            function closeWebdavModal() {
+                closeModal('webdavModal');
+            }
+
+            function saveWebdavSettings() {
+                webdavConfig.enabled = $('webdavEnabled').checked;
+                webdavConfig.url = $('webdavUrl').value.trim();
+                webdavConfig.username = $('webdavUsername').value.trim();
+                webdavConfig.password = $('webdavPassword').value;
+                webdavConfig.remotePath = $('webdavRemotePath').value.trim() || '/bookmarks.json';
+                webdavConfig.autoSync = $('webdavAutoSync').checked;
+                webdavConfig.syncOnOpen = $('webdavSyncOnOpen').checked;
+                webdavConfig.syncOnClose = $('webdavSyncOnClose').checked;
+                webdavConfig.syncInterval = parseInt($('webdavSyncInterval').value) || 0;
+                saveWebDAVConfig();
+                startWebDAVSyncTimer();
+                updateWebDAVCardSummary();
+                closeWebdavModal();
+            }
+
+            function resetWebdavSettings() {
+                showConfirm('确定清除所有WebDAV配置吗？', () => {
+                    webdavConfig = JSON.parse(JSON.stringify(defaultWebDAVConfig));
+                    saveWebDAVConfig();
+                    stopWebDAVSyncTimer();
+                    updateWebDAVCardSummary();
+                    closeWebdavModal();
+                });
+            }
+
+            // WebDAV 弹窗事件绑定
+            $('openWebdavSettingsBtn').onclick = openWebdavModal;
+            $('webdavModalClose').onclick = closeWebdavModal;
+            $('webdavCancelBtn').onclick = closeWebdavModal;
+            $('webdavSaveBtn').onclick = saveWebdavSettings;
+            $('webdavResetBtn').onclick = resetWebdavSettings;
+            $('webdavTogglePwd').onclick = () => {
+                const pwdInput = $('webdavPassword');
+                const isPassword = pwdInput.getAttribute('type') === 'password';
+                pwdInput.setAttribute('type', isPassword ? 'text' : 'password');
+                $('webdavTogglePwd').textContent = isPassword ? '🙈' : '👁️';
+            };
+
+            $('webdavTestBtn').onclick = async () => {
+                const url = $('webdavUrl').value.trim();
+                const username = $('webdavUsername').value.trim();
+                const password = $('webdavPassword').value;
+                const tempConfig = {
+                    url,
+                    username,
+                    password,
+                    remotePath: $('webdavRemotePath').value.trim() || '/bookmarks.json'
+                };
+                const originalUrl = webdavConfig.url;
+                const originalUsername = webdavConfig.username;
+                const originalPassword = webdavConfig.password;
+                const originalRemotePath = webdavConfig.remotePath;
+                webdavConfig.url = tempConfig.url;
+                webdavConfig.username = tempConfig.username;
+                webdavConfig.password = tempConfig.password;
+                webdavConfig.remotePath = tempConfig.remotePath;
+                const resultEl = $('webdavTestResult');
+                resultEl.classList.add('show');
+                resultEl.className = 'webdav-test-result show';
+                resultEl.textContent = '⏳ 正在测试连接...';
+                try {
+                    await webdavTestConnection();
+                    resultEl.className = 'webdav-test-result show success';
+                    resultEl.textContent = '✅ 连接成功！WebDAV服务器可达';
+                } catch (e) {
+                    resultEl.className = 'webdav-test-result show error';
+                    resultEl.textContent = '❌ 连接失败：' + e.message;
+                } finally {
+                    webdavConfig.url = originalUrl;
+                    webdavConfig.username = originalUsername;
+                    webdavConfig.password = originalPassword;
+                    webdavConfig.remotePath = originalRemotePath;
+                }
+            };
+
+            $('webdavUploadBtn').onclick = async () => {
+                const url = $('webdavUrl').value.trim();
+                const username = $('webdavUsername').value.trim();
+                const password = $('webdavPassword').value;
+                const remotePath = $('webdavRemotePath').value.trim() || '/bookmarks.json';
+                const originalUrl = webdavConfig.url;
+                const originalUsername = webdavConfig.username;
+                const originalPassword = webdavConfig.password;
+                const originalRemotePath = webdavConfig.remotePath;
+                webdavConfig.url = url;
+                webdavConfig.username = username;
+                webdavConfig.password = password;
+                webdavConfig.remotePath = remotePath;
+                updateWebDAVStatusDisplay('正在上传...', 'pending');
+                try {
+                    await webdavUpload();
+                    updateWebDAVStatusDisplay('上传成功！', 'success');
+                    updateWebDAVCardSummary();
+                } catch (e) {
+                    webdavConfig.lastSyncStatus = 'failed';
+                    webdavConfig.lastSyncTime = Date.now();
+                    saveWebDAVConfig();
+                    updateWebDAVStatusDisplay('上传失败：' + e.message, 'error');
+                    updateWebDAVCardSummary();
+                } finally {
+                    webdavConfig.url = originalUrl;
+                    webdavConfig.username = originalUsername;
+                    webdavConfig.password = originalPassword;
+                    webdavConfig.remotePath = originalRemotePath;
+                }
+            };
+
+            $('webdavDownloadBtn').onclick = async () => {
+                const url = $('webdavUrl').value.trim();
+                const username = $('webdavUsername').value.trim();
+                const password = $('webdavPassword').value;
+                const remotePath = $('webdavRemotePath').value.trim() || '/bookmarks.json';
+                const originalUrl = webdavConfig.url;
+                const originalUsername = webdavConfig.username;
+                const originalPassword = webdavConfig.password;
+                const originalRemotePath = webdavConfig.remotePath;
+                webdavConfig.url = url;
+                webdavConfig.username = username;
+                webdavConfig.password = password;
+                webdavConfig.remotePath = remotePath;
+                updateWebDAVStatusDisplay('正在下载...', 'pending');
+                try {
+                    await webdavDownload(false);
+                    updateWebDAVStatusDisplay('下载成功！数据已更新', 'success');
+                    updateWebDAVCardSummary();
+                } catch (e) {
+                    if (e.message !== '用户取消下载') {
+                        webdavConfig.lastSyncStatus = 'failed';
+                        webdavConfig.lastSyncTime = Date.now();
+                        saveWebDAVConfig();
+                        updateWebDAVStatusDisplay('下载失败：' + e.message, 'error');
+                        updateWebDAVCardSummary();
+                    } else {
+                        updateWebDAVStatusDisplay('下载已取消', 'info');
+                    }
+                } finally {
+                    webdavConfig.url = originalUrl;
+                    webdavConfig.username = originalUsername;
+                    webdavConfig.password = originalPassword;
+                    webdavConfig.remotePath = originalRemotePath;
+                }
+            };
+
+            // 设置弹窗中的快速操作按钮
+            $('webdavQuickUploadBtn').onclick = async () => {
+                if (!webdavConfig.enabled || !webdavConfig.url) {
+                    alert('请先在WebDAV设置中配置服务器信息并启用同步');
+                    return;
+                }
+                updateWebDAVStatusDisplay('正在上传...', 'pending');
+                try {
+                    await webdavUpload();
+                    updateWebDAVStatusDisplay('上传成功！', 'success');
+                    updateWebDAVCardSummary();
+                } catch (e) {
+                    webdavConfig.lastSyncStatus = 'failed';
+                    webdavConfig.lastSyncTime = Date.now();
+                    saveWebDAVConfig();
+                    updateWebDAVStatusDisplay('上传失败：' + e.message, 'error');
+                    updateWebDAVCardSummary();
+                }
+            };
+
+            $('webdavQuickDownloadBtn').onclick = async () => {
+                if (!webdavConfig.enabled || !webdavConfig.url) {
+                    alert('请先在WebDAV设置中配置服务器信息并启用同步');
+                    return;
+                }
+                updateWebDAVStatusDisplay('正在下载...', 'pending');
+                try {
+                    await webdavDownload(false);
+                    updateWebDAVStatusDisplay('下载成功！数据已更新', 'success');
+                    updateWebDAVCardSummary();
+                } catch (e) {
+                    if (e.message !== '用户取消下载') {
+                        webdavConfig.lastSyncStatus = 'failed';
+                        webdavConfig.lastSyncTime = Date.now();
+                        saveWebDAVConfig();
+                        updateWebDAVStatusDisplay('下载失败：' + e.message, 'error');
+                        updateWebDAVCardSummary();
+                    } else {
+                        updateWebDAVStatusDisplay('下载已取消', 'info');
+                    }
+                }
+            };
+
+            // ============ 原有设置弹窗逻辑 ============
             $('settingsBtn').onclick = () => {
                 $('setSiteTitle').value = siteTitle;
                 $('setPageWidth').value = layoutConfig.pageWidth;
@@ -1630,8 +2828,8 @@
                 $('borderRadiusValue').textContent = layoutConfig.borderRadius + '%';
                 $('setIconNameColor').value = layoutConfig.iconNameColor || '#000000';
                 $('iconNameColorValue').textContent = layoutConfig.iconNameColor || '默认';
-                renderBgPresets('freqBgPresets','freqBg');
-                renderBgPresets('globalBgPresets','globalBg');
+                renderBgPresets('freqBgPresets', 'freqBg');
+                renderBgPresets('globalBgPresets', 'globalBg');
                 $('freqBgCustomColor').value = layoutConfig.freqBg.value || '#ffffff';
                 $('globalBgCustomColor').value = layoutConfig.globalBg.value || '#ffffff';
                 $('freqBgFileInfo').textContent = layoutConfig.freqBg.image ? '已设置图片' : '';
@@ -1640,6 +2838,10 @@
                 renderDashboard();
                 renderTrashUI();
                 renderBackupUI();
+                updateWebDAVCardSummary();
+                updateWebDAVStatusDisplay(webdavConfig.lastSyncTime ? '上次同步：' + new Date(webdavConfig
+                    .lastSyncTime).toLocaleString('zh-CN') : '等待操作', webdavConfig.lastSyncStatus ===
+                    'success' ? 'success' : webdavConfig.lastSyncStatus === 'failed' ? 'error' : 'info');
                 openModal('settingsModal');
             };
             $('settingsModalClose').onclick = () => closeModal('settingsModal');
@@ -1652,186 +2854,287 @@
                 layoutConfig.borderRadius = isNaN(+$('setBorderRadius').value) ? 20 : +$('setBorderRadius').value;
                 layoutConfig.iconNameColor = $('setIconNameColor').value;
                 colorCache.clear();
-                applyLayout(); updateUI(); updateEngineSelect(); save(); renderAll();
+                applyLayout();
+                updateUI();
+                updateEngineSelect();
+                save();
+                renderAll();
                 closeModal('settingsModal');
             };
             $('settingsReset').onclick = () => {
                 showConfirm('恢复所有设置为默认？', () => {
                     layoutConfig = JSON.parse(JSON.stringify(defaultLayout));
                     searchEngines = JSON.parse(JSON.stringify(defaultEngines));
-                    selectedEngine = ''; siteTitle = '我的收藏夹';
-                    categoryAliases = {}; customGroups = [];
-                    trash = []; backups = []; autoBackup = true;
-                    colorCache.clear(); save();
-                    applyLayout(); updateUI(); updateEngineSelect(); renderAll();
+                    selectedEngine = '';
+                    siteTitle = '我的收藏夹';
+                    categoryAliases = {};
+                    customGroups = [];
+                    trash = [];
+                    backups = [];
+                    autoBackup = true;
+                    colorCache.clear();
+                    save();
+                    applyLayout();
+                    updateUI();
+                    updateEngineSelect();
+                    renderAll();
                     closeModal('settingsModal');
                 });
             };
+
             function renderBgPresets(id, key) {
                 const c = $(id);
-                c.innerHTML = presetBgColors.map(col => `<span class="preset-bg-item${layoutConfig[key].type==='preset'&&layoutConfig[key].value===col?' active':''}" style="background:${col}" data-value="${col}" role="button" tabindex="0"></span>`).join('');
+                c.innerHTML = presetBgColors.map(col =>
+                    `<span class="preset-bg-item${layoutConfig[key].type==='preset'&&layoutConfig[key].value===col?' active':''}" style="background:${col}" data-value="${col}" role="button" tabindex="0"></span>`
+                    ).join('');
                 c.querySelectorAll('.preset-bg-item').forEach(el => {
-                    el.onclick = () => { layoutConfig[key] = { type:'preset', value:el.dataset.value, image:null }; if(key==='freqBg') applyFrequentBg(); else applyBodyBg(); save(); renderBgPresets(id,key); };
+                    el.onclick = () => { layoutConfig[key] = { type: 'preset', value: el.dataset.value,
+                            image: null }; if (key === 'freqBg') applyFrequentBg(); else
+                            applyBodyBg();
+                        save();
+                        renderBgPresets(id, key); };
                 });
             }
+
             function renderEngineList() {
                 const c = $('engineListContainer');
                 if (!searchEngines.length) { c.innerHTML = '<div>暂无</div>'; return; }
-                c.innerHTML = searchEngines.map((eng,i) => `<div class="engine-item"><span class="engine-name">${esc(eng.name)}</span><span class="engine-url">${esc(eng.url.slice(0,40))}</span><button class="btn-xs edit-engine-btn" data-index="${i}">✏️</button><button class="btn-xs danger delete-engine-btn" data-index="${i}" ${searchEngines.length>1?'':'disabled'}>🗑️</button></div>`).join('');
-                c.querySelectorAll('.edit-engine-btn').forEach(b => b.onclick = e => { e.stopPropagation(); editEngine(+b.dataset.index); });
-                c.querySelectorAll('.delete-engine-btn').forEach(b => b.onclick = e => { e.stopPropagation(); deleteEngine(+b.dataset.index); });
+                c.innerHTML = searchEngines.map((eng, i) =>
+                    `<div class="engine-item"><span class="engine-name">${esc(eng.name)}</span><span class="engine-url">${esc(eng.url.slice(0,40))}</span><button class="btn-xs edit-engine-btn" data-index="${i}">✏️</button><button class="btn-xs danger delete-engine-btn" data-index="${i}" ${searchEngines.length>1?'':'disabled'}>🗑️</button></div>`
+                    ).join('');
+                c.querySelectorAll('.edit-engine-btn').forEach(b => b.onclick = e => { e.stopPropagation();
+                    editEngine(+b.dataset.index); });
+                c.querySelectorAll('.delete-engine-btn').forEach(b => b.onclick = e => { e.stopPropagation();
+                    deleteEngine(+b.dataset.index); });
             }
+
             function editEngine(i) {
-                const eng = searchEngines[i]; if(!eng) return;
-                const n = prompt('名称：',eng.name); if(n===null) return;
-                const nn = n.trim(); if(!nn) return alert('名称不能为空');
-                const u = prompt('URL ({query})：',eng.url); if(u===null) return;
-                const nu = u.trim(); if(!nu) return alert('URL不能为空');
-                if(!nu.includes('{query}') && !confirm('缺少{query}，确定？')) return;
-                searchEngines[i] = { name:nn, url:nu };
-                if(selectedEngine === eng.name) selectedEngine = nn;
-                save(); updateEngineSelect(); renderEngineList();
+                const eng = searchEngines[i];
+                if (!eng) return;
+                const n = prompt('名称：', eng.name);
+                if (n === null) return;
+                const nn = n.trim();
+                if (!nn) return alert('名称不能为空');
+                const u = prompt('URL ({query})：', eng.url);
+                if (u === null) return;
+                const nu = u.trim();
+                if (!nu) return alert('URL不能为空');
+                if (!nu.includes('{query}') && !confirm('缺少{query}，确定？')) return;
+                searchEngines[i] = { name: nn, url: nu };
+                if (selectedEngine === eng.name) selectedEngine = nn;
+                save();
+                updateEngineSelect();
+                renderEngineList();
             }
+
             function deleteEngine(i) {
-                if(searchEngines.length <= 1) return alert('至少保留一个');
-                showConfirm('删除 '+searchEngines[i].name+'？', () => {
+                if (searchEngines.length <= 1) return alert('至少保留一个');
+                showConfirm('删除 ' + searchEngines[i].name + '？', () => {
                     const delName = searchEngines[i].name;
-                    searchEngines.splice(i,1);
-                    if(selectedEngine === delName) selectedEngine = searchEngines[0]?.name || '';
-                    save(); updateEngineSelect(); renderEngineList();
+                    searchEngines.splice(i, 1);
+                    if (selectedEngine === delName) selectedEngine = searchEngines[0]?.name || '';
+                    save();
+                    updateEngineSelect();
+                    renderEngineList();
                 });
             }
             $('addEngineBtn').onclick = () => {
-                const n = prompt('名称：'); if(n===null) return;
-                const nn = n.trim(); if(!nn) return alert('名称不能为空');
-                if(searchEngines.some(e => e.name === nn)) return alert('已存在');
-                const u = prompt('URL ({query})：','https://example.com/search?q={query}'); if(u===null) return;
-                const nu = u.trim(); if(!nu) return alert('URL不能为空');
-                if(!nu.includes('{query}') && !confirm('缺少{query}，确定？')) return;
-                searchEngines.push({ name:nn, url:nu });
-                save(); updateEngineSelect(); renderEngineList();
+                const n = prompt('名称：');
+                if (n === null) return;
+                const nn = n.trim();
+                if (!nn) return alert('名称不能为空');
+                if (searchEngines.some(e => e.name === nn)) return alert('已存在');
+                const u = prompt('URL ({query})：', 'https://example.com/search?q={query}');
+                if (u === null) return;
+                const nu = u.trim();
+                if (!nu) return alert('URL不能为空');
+                if (!nu.includes('{query}') && !confirm('缺少{query}，确定？')) return;
+                searchEngines.push({ name: nn, url: nu });
+                save();
+                updateEngineSelect();
+                renderEngineList();
             };
 
             const handleBgImg = (input, key, infoId) => {
-                const f = input.files[0]; if(!f) return;
-                if(f.size > 15*1024*1024){ alert('图片超过15MB'); input.value=''; return; }
+                const f = input.files[0];
+                if (!f) return;
+                if (f.size > 15 * 1024 * 1024) { alert('图片超过15MB');
+                    input.value = ''; return; }
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     const img = new Image();
                     img.onload = function() {
-                        let maxSize=4096, width=img.width, height=img.height;
-                        if(width>maxSize||height>maxSize){ let ratio=Math.min(maxSize/width,maxSize/height); width=Math.round(width*ratio); height=Math.round(height*ratio); }
-                        const canvas=document.createElement('canvas'); canvas.width=width; canvas.height=height;
-                        const ctx=canvas.getContext('2d'); ctx.drawImage(img,0,0,width,height);
-                        const compressed = canvas.toDataURL('image/jpeg',0.85);
-                        layoutConfig[key] = { type:'image', value:'', image:compressed };
-                        if(key==='freqBg') applyFrequentBg(); else applyBodyBg();
+                        let maxSize = 4096,
+                            width = img.width,
+                            height = img.height;
+                        if (width > maxSize || height > maxSize) { let ratio = Math.min(maxSize / width,
+                                maxSize / height);
+                            width = Math.round(width * ratio);
+                            height = Math.round(height * ratio); }
+                        const canvas = document.createElement('canvas');
+                        canvas.width = width;
+                        canvas.height = height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, width, height);
+                        const compressed = canvas.toDataURL('image/jpeg', 0.85);
+                        layoutConfig[key] = { type: 'image', value: '', image: compressed };
+                        if (key === 'freqBg') applyFrequentBg();
+                        else applyBodyBg();
                         save();
-                        $(infoId).textContent = f.name + ' (已压缩 '+width+'x'+height+')';
-                        renderBgPresets(key==='freqBg'?'freqBgPresets':'globalBgPresets', key);
+                        $(infoId).textContent = f.name + ' (已压缩 ' + width + 'x' + height + ')';
+                        renderBgPresets(key === 'freqBg' ? 'freqBgPresets' : 'globalBgPresets', key);
                     };
                     img.src = e.target.result;
                 };
                 reader.readAsDataURL(f);
             };
-            $('freqBgImgInput').onchange = function() { handleBgImg(this,'freqBg','freqBgFileInfo'); };
-            $('globalBgImgInput').onchange = function() { handleBgImg(this,'globalBg','globalBgFileInfo'); };
-            $('clearFreqBgBtn').onclick = () => { layoutConfig.freqBg={type:'preset',value:'#ffffff',image:null}; applyFrequentBg(); save(); $('freqBgFileInfo').textContent=''; renderBgPresets('freqBgPresets','freqBg'); };
-            $('clearGlobalBgBtn').onclick = () => { layoutConfig.globalBg={type:'preset',value:'#ffffff',image:null}; applyBodyBg(); save(); $('globalBgFileInfo').textContent=''; renderBgPresets('globalBgPresets','globalBg'); };
+            $('freqBgImgInput').onchange = function() { handleBgImg(this, 'freqBg', 'freqBgFileInfo'); };
+            $('globalBgImgInput').onchange = function() { handleBgImg(this, 'globalBg', 'globalBgFileInfo'); };
+            $('clearFreqBgBtn').onclick = () => { layoutConfig.freqBg = { type: 'preset', value: '#ffffff',
+                    image: null };
+                applyFrequentBg();
+                save();
+                $('freqBgFileInfo').textContent = '';
+                renderBgPresets('freqBgPresets', 'freqBg'); };
+            $('clearGlobalBgBtn').onclick = () => { layoutConfig.globalBg = { type: 'preset', value: '#ffffff',
+                    image: null };
+                applyBodyBg();
+                save();
+                $('globalBgFileInfo').textContent = '';
+                renderBgPresets('globalBgPresets', 'globalBg'); };
 
-            $('importBtn').onclick = () => { closeModal('settingsModal'); $('fileInput').click(); };
+            $('importBtn').onclick = () => { closeModal('settingsModal');
+                $('fileInput').click(); };
             $('fileInput').onchange = function() {
                 if (this.files[0]) {
                     const r = new FileReader();
                     r.onload = function(e) {
-                        const doc = new DOMParser().parseFromString(e.target.result,'text/html');
-                        const dl = doc.querySelector('dl'); if(!dl) return;
-                        const res=[];
-                        function walk(n){ for(let c of n.children){ if(c.tagName==='DT'){ const a=c.querySelector('a'), s=c.querySelector('dl'); if(s) walk(s); else if(a&&a.href&&!a.href.startsWith('javascript:')) res.push({ title:a.textContent.trim()||a.href, url:a.href, clicks:0, order:res.length }); } } }
+                        const doc = new DOMParser().parseFromString(e.target.result, 'text/html');
+                        const dl = doc.querySelector('dl');
+                        if (!dl) return;
+                        const res = [];
+
+                        function walk(n) { for (let c of n.children) { if (c.tagName === 'DT') { const a = c
+                                        .querySelector('a'),
+                                    s = c.querySelector('dl'); if (s) walk(s); else if (a && a.href &&
+                                        !a.href.startsWith('javascript:')) res.push({ title: a.textContent
+                                            .trim() || a.href, url: a.href, clicks: 0, order: res
+                                            .length }); } } }
                         walk(dl);
-                        if(res.length){ bookmarks=res; currentCat='__ALL__'; colorCache.clear(); save(); renderAll(); }
+                        if (res.length) { bookmarks = res;
+                            currentCat = '__ALL__';
+                            colorCache.clear();
+                            save();
+                            renderAll(); }
                     };
-                    r.readAsText(this.files[0]); this.value='';
+                    r.readAsText(this.files[0]);
+                    this.value = '';
                 }
             };
             $('exportHtmlBtn').onclick = () => {
-                let html = '<!DOCTYPE NETSCAPE-Bookmark-file-1>\n<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">\n<TITLE>Bookmarks</TITLE>\n<H1>Bookmarks</H1>\n<DL><p>\n';
+                let html =
+                    '<!DOCTYPE NETSCAPE-Bookmark-file-1>\n<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">\n<TITLE>Bookmarks</TITLE>\n<H1>Bookmarks</H1>\n<DL><p>\n';
                 const groups = getCategoryGroups();
                 groups.forEach(g => {
                     html += `<DT><H3>${esc(g.name)}</H3>\n<DL><p>\n`;
-                    g.bookmarks.forEach(b => html += `<DT><A HREF="${esc(b.url)}">${esc(b.title)}</A>\n`);
+                    g.bookmarks.forEach(b => html +=
+                        `<DT><A HREF="${esc(b.url)}">${esc(b.title)}</A>\n`);
                     html += '</DL><p>\n';
                 });
                 html += '</DL><p>';
                 const a = document.createElement('a');
-                a.href = URL.createObjectURL(new Blob([html],{type:'text/html'}));
+                a.href = URL.createObjectURL(new Blob([html], { type: 'text/html' }));
                 a.download = 'bookmarks.html';
                 a.click();
             };
             $('exportBtn').onclick = () => {
                 const a = document.createElement('a');
-                a.href = URL.createObjectURL(new Blob([JSON.stringify({ bookmarks, aliases:categoryAliases, customGroups, engines:searchEngines, selectedEngine, siteTitle, layoutConfig, trash, backups, autoBackup })],{type:'application/json'}));
+                a.href = URL.createObjectURL(new Blob([JSON.stringify({ bookmarks, aliases: categoryAliases,
+                    customGroups, engines: searchEngines, selectedEngine, siteTitle, layoutConfig, trash,
+                    backups, autoBackup })], { type: 'application/json' }));
                 a.download = 'bookmarks.json';
                 a.click();
             };
-            $('importSettingBtn').onclick = () => { closeModal('settingsModal'); $('settingInput').click(); };
+            $('importSettingBtn').onclick = () => { closeModal('settingsModal');
+                $('settingInput').click(); };
             $('settingInput').onchange = function() {
-                if(this.files[0]){
+                if (this.files[0]) {
                     const r = new FileReader();
-                    r.onload = function(e){
-                        try{
+                    r.onload = function(e) {
+                        try {
                             const d = JSON.parse(e.target.result);
-                            if(d.bookmarks) bookmarks = d.bookmarks;
-                            if(d.aliases) categoryAliases = d.aliases;
-                            if(d.customGroups) customGroups = d.customGroups;
-                            if(d.engines) searchEngines = d.engines;
-                            if(d.selectedEngine) selectedEngine = d.selectedEngine;
-                            if(d.siteTitle) siteTitle = d.siteTitle;
-                            if(d.layoutConfig) Object.assign(layoutConfig, d.layoutConfig);
-                            if(d.trash) trash = d.trash;
-                            if(d.backups) backups = d.backups;
-                            if(d.autoBackup !== undefined) autoBackup = d.autoBackup;
+                            if (d.bookmarks) bookmarks = d.bookmarks;
+                            if (d.aliases) categoryAliases = d.aliases;
+                            if (d.customGroups) customGroups = d.customGroups;
+                            if (d.engines) searchEngines = d.engines;
+                            if (d.selectedEngine) selectedEngine = d.selectedEngine;
+                            if (d.siteTitle) siteTitle = d.siteTitle;
+                            if (d.layoutConfig) Object.assign(layoutConfig, d.layoutConfig);
+                            if (d.trash) trash = d.trash;
+                            if (d.backups) backups = d.backups;
+                            if (d.autoBackup !== undefined) autoBackup = d.autoBackup;
                             colorCache.clear();
-                            applyLayout(); updateUI(); updateEngineSelect(); save(); renderAll();
-                        } catch(ex){ console.warn('导入失败',ex); }
+                            applyLayout();
+                            updateUI();
+                            updateEngineSelect();
+                            save();
+                            renderAll();
+                        } catch (ex) { console.warn('导入失败', ex); }
                     };
-                    r.readAsText(this.files[0]); this.value='';
+                    r.readAsText(this.files[0]);
+                    this.value = '';
                 }
             };
 
             let searchDebounceTimer = null;
             $('searchInput').oninput = function() {
                 const q = this.value.toLowerCase();
-                if(searchDebounceTimer) clearTimeout(searchDebounceTimer);
-                searchDebounceTimer = setTimeout(() => { searchQuery = q; $('searchClear').classList.toggle('visible',!!q); renderBookmarks(); }, 150);
+                if (searchDebounceTimer) clearTimeout(searchDebounceTimer);
+                searchDebounceTimer = setTimeout(() => { searchQuery = q;
+                    $('searchClear').classList.toggle('visible', !!q);
+                    renderBookmarks(); }, 150);
             };
             $('searchInput').onkeydown = function(e) {
-                if(e.key==='Enter'){
-                    if(searchDebounceTimer){ clearTimeout(searchDebounceTimer); }
-                    const q = this.value.trim(); if(!q) return;
-                    const list = currentCat==='__ALL__'? bookmarks : bookmarks.filter(b=>classify(b)===currentCat);
-                    if(list.some(b=>b.title.toLowerCase().includes(q)||b.url.toLowerCase().includes(q))){ searchQuery=q; renderBookmarks(); return; }
-                    const eng = searchEngines.find(e=>e.name===selectedEngine);
-                    if(eng) window.open(eng.url.replace('{query}',encodeURIComponent(q)),'_blank');
+                if (e.key === 'Enter') {
+                    if (searchDebounceTimer) { clearTimeout(searchDebounceTimer); }
+                    const q = this.value.trim();
+                    if (!q) return;
+                    const list = currentCat === '__ALL__' ? bookmarks : bookmarks.filter(b => classify(b) ===
+                        currentCat);
+                    if (list.some(b => b.title.toLowerCase().includes(q) || b.url.toLowerCase().includes(q))) {
+                        searchQuery = q;
+                        renderBookmarks();
+                        return; }
+                    const eng = searchEngines.find(e => e.name === selectedEngine);
+                    if (eng) window.open(eng.url.replace('{query}', encodeURIComponent(q)), '_blank');
                 }
             };
-            $('searchClear').onclick = () => { searchQuery=''; $('searchInput').value=''; $('searchClear').classList.remove('visible'); renderBookmarks(); };
+            $('searchClear').onclick = () => { searchQuery = '';
+                $('searchInput').value = '';
+                $('searchClear').classList.remove('visible');
+                renderBookmarks(); };
 
             function openAddModal() {
-                const groups = getCategoryGroups().map(g=>g.name).concat(customGroups);
-                $('addGroup').innerHTML = groups.map(g=>`<option value="${g}">${categoryAliases[g]||g}</option>`).join('');
-                $('addTitle').value=''; $('addUrl').value='';
+                const groups = getCategoryGroups().map(g => g.name).concat(customGroups);
+                $('addGroup').innerHTML = groups.map(g => `<option value="${g}">${categoryAliases[g]||g}</option>`).join(
+                    '');
+                $('addTitle').value = '';
+                $('addUrl').value = '';
                 openModal('addModal');
             }
             $('addCancel').onclick = () => closeModal('addModal');
             $('addModalClose').onclick = () => closeModal('addModal');
             $('addConfirm').onclick = () => {
-                const t=$('addTitle').value.trim(), u=$('addUrl').value.trim();
-                if(!t||!u) return;
-                const bm = { title:t, url:u, clicks:0, order:bookmarks.length };
-                if($('addGroup').value !== classify(bm)) bm.manualGroup = $('addGroup').value;
+                const t = $('addTitle').value.trim(),
+                    u = $('addUrl').value.trim();
+                if (!t || !u) return;
+                const bm = { title: t, url: u, clicks: 0, order: bookmarks.length };
+                if ($('addGroup').value !== classify(bm)) bm.manualGroup = $('addGroup').value;
                 bookmarks.push(bm);
-                colorCache.clear(); save(); renderAll(); closeModal('addModal');
+                colorCache.clear();
+                save();
+                renderAll();
+                closeModal('addModal');
             };
 
             window.restoreFromTrash = restoreFromTrash;
@@ -1843,16 +3146,24 @@
 
             let resizeTimer = null;
             window.addEventListener('resize', () => {
-                if(resizeTimer) clearTimeout(resizeTimer);
+                if (resizeTimer) clearTimeout(resizeTimer);
                 resizeTimer = setTimeout(() => { applyLayout(); }, 100);
             });
 
+            // ============ 初始化 ============
+            loadWebDAVConfig();
             load();
             cleanOldTrash();
             autoBackupIfNeeded();
             updateUI();
             applyLayout();
             updateEngineSelect();
+            startWebDAVSyncTimer();
+            setupSyncOnClose();
+            updateWebDAVCardSummary();
+            updateWebDAVStatusDisplay(webdavConfig.lastSyncTime ? '上次同步：' + new Date(webdavConfig.lastSyncTime)
+                .toLocaleString('zh-CN') : '等待操作', webdavConfig.lastSyncStatus === 'success' ? 'success' : webdavConfig
+                .lastSyncStatus === 'failed' ? 'error' : 'info');
 
             function renderAll() {
                 renderCategoryTabs();
@@ -1860,6 +3171,11 @@
                 renderBookmarks();
             }
             renderAll();
+
+            // 打开时同步（静默）
+            setTimeout(() => {
+                performSyncOnOpen();
+            }, 800);
         })();
     </script>
 </body>
