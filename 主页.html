@@ -46,14 +46,12 @@
             touch-action: manipulation;
             overflow-x: hidden;
         }
-        /* 背景图清晰度优化：使用 image-rendering 和背景尺寸 */
         body, .header, .top-section, #frequentSection {
             background-size: cover !important;
             background-position: center !important;
             background-repeat: no-repeat !important;
             image-rendering: auto;
         }
-        /* 深色模式下的背景覆盖层，让文字清晰 */
         [data-theme="dark"] body.has-bg-image,
         [data-theme="dark"] .header.has-bg-image,
         [data-theme="dark"] .top-section.has-bg-image,
@@ -487,7 +485,6 @@
                 const bg = layoutConfig.globalBg;
                 const header = document.querySelector('.header'), top = document.querySelector('.top-section');
                 const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-                // 移除之前的类
                 document.body.classList.remove('has-bg-image');
                 if(header) header.classList.remove('has-bg-image');
                 if(top) top.classList.remove('has-bg-image');
@@ -499,7 +496,6 @@
                     document.body.classList.add('has-bg-image');
                     if(header) { header.style.background = val; header.classList.add('has-bg-image'); }
                     if(top) { top.style.background = val; top.classList.add('has-bg-image'); }
-                    // 深色模式下增加半透明遮罩
                     if(isDark) {
                         document.body.style.backgroundColor = 'rgba(0,0,0,0.3)';
                         document.body.style.backgroundBlendMode = 'overlay';
@@ -515,14 +511,12 @@
                     document.body.style.backgroundBlendMode = 'normal';
                     if(header) { header.style.background = ''; }
                     if(top) { top.style.background = ''; }
-                    // 应用纯色背景
                     if(color !== '#ffffff') {
                         document.documentElement.style.setProperty('--global-bg', color);
                         if(header) header.style.background = color;
                         if(top) top.style.background = color;
                     }
                 }
-                // 强制刷新背景
                 document.body.style.backgroundImage = document.body.style.backgroundImage;
             }
             function applyFrequentBg() {
@@ -551,7 +545,6 @@
                 document.documentElement.setAttribute('data-theme', t);
                 localStorage.setItem('bm-theme', t);
                 $('themeToggle').textContent = t==='dark'?'☀️':'🌓';
-                // 重新应用背景以适配深色模式
                 applyBodyBg();
                 applyFrequentBg();
             }
@@ -770,8 +763,13 @@
             $('setBorderRadius').oninput=function(){ $('borderRadiusValue').textContent=this.value+'px'; };
             $('setIconNameColor').oninput=function(){ $('iconNameColorValue').textContent=this.value; };
             $('settingsClose').onclick=()=>{
-                siteTitle=$('setSiteTitle').value.trim()||'我的收藏夹'; layoutConfig.pageWidth=Math.max(600,+$('setPageWidth').value||1200);
-                layoutConfig.borderRadius=+$('setBorderRadius').value||20; layoutConfig.iconNameColor=$('setIconNameColor').value;
+                siteTitle=$('setSiteTitle').value.trim()||'我的收藏夹';
+                layoutConfig.pageWidth=Math.max(600, +$('setPageWidth').value || 1200);
+                // 修复：允许圆角为 0，只有无效值才回退到 20
+                let br = +$('setBorderRadius').value;
+                if (isNaN(br) || br < 0) br = 20;
+                layoutConfig.borderRadius = br;
+                layoutConfig.iconNameColor = $('setIconNameColor').value;
                 applyLayout(); updateUI(); updateEngineSelect(); save(); renderAll(); $('settingsModal').classList.remove('show');
             };
             $('settingsReset').onclick=()=>{ layoutConfig=JSON.parse(JSON.stringify(defaultLayout)); searchEngines=JSON.parse(JSON.stringify(defaultEngines)); selectedEngine=''; siteTitle='我的收藏夹'; categoryAliases={}; customGroups=[]; save(); applyLayout(); updateUI(); updateEngineSelect(); renderAll(); $('settingsModal').classList.remove('show'); };
@@ -783,12 +781,10 @@
             const handleBgImg = (input, key, infoId) => {
                 const f=input.files[0]; if(!f) return;
                 if(f.size>15*1024*1024){ alert('图片超过15MB'); input.value=''; return; }
-                // 对大图片进行压缩处理，避免卡顿
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     const img = new Image();
                     img.onload = function() {
-                        // 如果图片尺寸过大（超过4096px），进行等比压缩
                         let maxSize = 4096;
                         let width = img.width;
                         let height = img.height;
@@ -802,7 +798,6 @@
                         canvas.height = height;
                         const ctx = canvas.getContext('2d');
                         ctx.drawImage(img, 0, 0, width, height);
-                        // 使用 JPEG 格式压缩，质量 0.85
                         const compressed = canvas.toDataURL('image/jpeg', 0.85);
                         layoutConfig[key] = { type: 'image', value: '', image: compressed };
                         if(key==='freqBg') applyFrequentBg();
@@ -816,7 +811,7 @@
                 reader.readAsDataURL(f);
             };
             $('freqBgImgInput').onchange=function(){ handleBgImg(this,'freqBg','freqBgFileInfo'); };
-            $('globalBgImgInput').onchange=function(){ handleBgImg(this,'globalBg','globalBgFileInfo'); };
+            $('globalBgImgInput').onchange=function(){ handleBgImg(this,'global','globalBgFileInfo'); };
             $('clearFreqBgBtn').onclick=()=>{ layoutConfig.freqBg={type:'preset',value:'#ffffff',image:null}; applyFrequentBg(); save(); $('freqBgFileInfo').textContent=''; renderBgPresets('freqBgPresets','freqBg'); };
             $('clearGlobalBgBtn').onclick=()=>{ layoutConfig.globalBg={type:'preset',value:'#ffffff',image:null}; applyBodyBg(); save(); $('globalBgFileInfo').textContent=''; renderBgPresets('globalBgPresets','globalBg'); };
             $('importBtn').onclick=()=>{ $('settingsModal').classList.remove('show'); $('fileInput').click(); };
