@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title id="pageTitle">我的收藏夹 - 手机桌面风格</title>
     <style>
-        /* ========== CSS 变量 & 重置 ========== */
         :root {
             --page-width: 1200px;
             --grid-columns: 9;
@@ -29,7 +28,6 @@
             --transition-speed: 0.4s;
         }
 
-        /* 智能暗色模式 — 由 JS 动态控制，CSS 只保留结构变量 */
         [data-theme="smart-dark"] {
             --global-bg: #0d0d1a;
             --card-bg: #1a1a2e;
@@ -80,7 +78,6 @@
             background-color: rgba(0, 0, 0, 0.45);
         }
 
-        /* ========== 布局 ========== */
         #topContainer {
             position: sticky;
             top: 0;
@@ -160,8 +157,7 @@
             background: var(--input-bg);
             color: var(--text);
             outline: none;
-            transition: background var(--transition-speed) ease, color var(--transition-speed) ease,
-                border-color var(--transition-speed) ease;
+            transition: background var(--transition-speed) ease, color var(--transition-speed) ease, border-color var(--transition-speed) ease;
         }
         .search-input::placeholder {
             color: var(--text-secondary);
@@ -199,8 +195,7 @@
             font-size: 0.85rem;
             outline: none;
             cursor: pointer;
-            transition: background var(--transition-speed) ease, color var(--transition-speed) ease,
-                border-color var(--transition-speed) ease;
+            transition: background var(--transition-speed) ease, color var(--transition-speed) ease, border-color var(--transition-speed) ease;
         }
         .header-actions {
             display: flex;
@@ -208,7 +203,6 @@
             align-items: center;
         }
 
-        /* ========== 按钮 & 交互元素 ========== */
         .btn {
             padding: 9px 16px;
             border-radius: 20px;
@@ -263,8 +257,20 @@
             transform: scale(0.90);
             opacity: 0.8;
         }
+        .btn-xs {
+            padding: 4px 10px;
+            font-size: 0.7rem;
+            border-radius: 12px;
+            min-height: 30px;
+            background: var(--input-bg);
+            border: 1px solid var(--border);
+            color: var(--text);
+            cursor: pointer;
+        }
+        .btn-xs.danger {
+            color: var(--danger);
+        }
 
-        /* ========== 分类标签 ========== */
         .top-section {
             padding: 8px 16px;
             border-bottom: 1px solid var(--border);
@@ -307,7 +313,6 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
 
-        /* ========== 常用区 & 书签网格 ========== */
         .frequent-section {
             padding: 16px;
             border-radius: 16px;
@@ -335,7 +340,6 @@
             -webkit-touch-callout: none;
             position: relative;
         }
-        /* 触屏点击反馈 */
         .icon-item:active {
             transform: scale(0.94);
             background: var(--hover-bg);
@@ -360,7 +364,6 @@
             position: relative;
             overflow: hidden;
         }
-        /* 图片加载占位 */
         .icon-box .img-loading {
             position: absolute;
             inset: 0;
@@ -374,13 +377,8 @@
             border-radius: inherit;
         }
         @keyframes pulse {
-            0%,
-            100% {
-                opacity: 0.5;
-            }
-            50% {
-                opacity: 1;
-            }
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
         }
         .icon-item:hover .icon-box {
             box-shadow: 0 12px 28px var(--shadow-hover);
@@ -414,7 +412,6 @@
             transition: color var(--transition-speed) ease;
         }
 
-        /* ========== 上下文菜单 ========== */
         .context-menu {
             display: none;
             position: fixed;
@@ -445,7 +442,6 @@
             background: var(--hover-bg);
         }
 
-        /* ========== 模态框 ========== */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -479,6 +475,7 @@
             border-bottom: 1px solid var(--border);
             display: flex;
             justify-content: space-between;
+            align-items: center;
             transition: border-color var(--transition-speed) ease;
         }
         .modal-body {
@@ -509,6 +506,28 @@
             gap: 12px;
             transition: background var(--transition-speed) ease;
         }
+        .settings-card h4 {
+            cursor: pointer;
+            user-select: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .settings-card .collapse-icon {
+            font-size: 0.9rem;
+            transition: transform 0.3s;
+        }
+        .settings-card.collapsed .collapse-icon {
+            transform: rotate(-90deg);
+        }
+        .settings-card .collapse-content {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .settings-card.collapsed .collapse-content {
+            display: none;
+        }
         .input-group {
             display: flex;
             flex-direction: column;
@@ -529,8 +548,7 @@
             color: var(--text);
             outline: none;
             min-height: 44px;
-            transition: background var(--transition-speed) ease, color var(--transition-speed) ease,
-                border-color var(--transition-speed) ease;
+            transition: background var(--transition-speed) ease, color var(--transition-speed) ease, border-color var(--transition-speed) ease;
         }
         .color-presets {
             display: flex;
@@ -602,7 +620,6 @@
             margin-top: 4px;
             transition: color var(--transition-speed) ease;
         }
-        /* 自定义确认对话框 */
         .confirm-dialog {
             max-width: 420px;
         }
@@ -620,184 +637,109 @@
             min-width: 100px;
             justify-content: center;
         }
+        .data-list-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .data-list-item:last-child {
+            border-bottom: none;
+        }
+        .trash-item-buttons,
+        .backup-item-buttons {
+            display: flex;
+            gap: 6px;
+        }
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .dashboard-stat {
+            background: var(--card-bg);
+            padding: 14px 10px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+        }
+        .dashboard-stat .number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent);
+            line-height: 1.2;
+        }
+        .dashboard-stat .label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+        .top-list {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 12px;
+            margin-top: 8px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+        }
+        .top-list h5 {
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .top-list ol {
+            padding-left: 20px;
+            font-size: 0.85rem;
+            margin: 0;
+        }
+        .top-list ol li {
+            padding: 4px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .top-list ol li span {
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+        }
+        .trash-tip {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            margin-left: 8px;
+            white-space: nowrap;
+        }
+        .setting-hint {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
 
-        /* ========== 响应式 ========== */
         @media (max-width: 768px) {
-            #topContainer {
-                position: relative;
-                top: auto;
-            }
-            .clock-row {
-                min-width: 0;
-                gap: 12px;
-            }
-            .clock-time {
-                font-size: 1.6rem;
-            }
-            .header-inner {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 8px;
-            }
-            .logo {
-                justify-content: center;
-                font-size: 1.2rem;
-            }
-            .clock-date {
-                margin-left: 0;
-                margin-right: 0;
-                align-items: center;
-            }
-            .search-wrap {
-                order: 1;
-                min-width: 0;
-            }
-            .header-actions {
-                order: 2;
-                justify-content: center;
-            }
-            .btn {
-                padding: 10px 16px;
-                font-size: 0.9rem;
-                min-height: 46px;
-            }
-            .btn-sm {
-                padding: 10px 18px;
-                font-size: 0.9rem;
-                min-height: 44px;
-                border-radius: 20px;
-            }
-            .btn-icon {
-                width: 46px;
-                height: 46px;
-                min-width: 46px;
-                min-height: 46px;
-            }
-            .category-tab {
-                padding: 10px 14px;
-                font-size: 0.8rem;
-                min-height: 42px;
-            }
-            .icon-name {
-                font-size: 0.7rem;
-            }
-            .modal {
-                width: 96%;
-                max-width: 100%;
-                border-radius: 18px;
-                max-height: 92vh;
-                margin: 10px auto;
-                overflow: hidden;
-            }
-            .modal-header {
-                padding: 18px;
-            }
-            .modal-header h3 {
-                font-size: 1.1rem;
-            }
-            .modal-body {
-                padding: 16px;
-                gap: 16px;
-                overflow-x: hidden;
-            }
-            .modal-footer {
-                padding: 12px 16px 18px;
-                flex-direction: column;
-                gap: 12px;
-            }
-            .settings-card {
-                padding: 16px;
-            }
-            .input-group input,
-            .input-group select {
-                font-size: 1rem;
-                min-height: 48px;
-                padding: 12px;
-                width: 100%;
-                box-sizing: border-box;
-            }
-            .background-grid {
-                grid-template-columns: 1fr !important;
-                gap: 16px;
-            }
-            .engine-item {
-                flex-wrap: wrap;
-                padding: 14px;
-                gap: 10px;
-            }
-            .engine-item .engine-name {
-                flex-basis: 100%;
-                font-size: 0.95rem;
-            }
-            .engine-item .engine-url {
-                flex-basis: calc(100% - 70px);
-                font-size: 0.85rem;
-            }
-            .btn-row {
-                gap: 12px;
-            }
-            .btn-row .btn {
-                flex: 1 1 auto;
-                min-width: 120px;
-                justify-content: center;
-            }
-            .file-info {
-                font-size: 0.85rem;
-            }
-            .preset-bg-item {
-                width: 44px;
-                height: 44px;
-                border-radius: 12px;
-            }
-            .context-menu {
-                min-width: 180px;
-                border-radius: 14px;
-            }
-            .context-menu-item {
-                padding: 16px 24px;
-                font-size: 1rem;
-                min-height: 52px;
-            }
-            .confirm-dialog .modal-body {
-                font-size: 0.95rem;
-                padding: 20px 16px 12px;
-            }
-            .confirm-dialog .modal-footer .btn {
-                min-width: 80px;
-                font-size: 0.95rem;
-            }
+            #topContainer { position: relative; top: auto; }
+            .clock-row { min-width: 0; gap: 12px; }
+            .clock-time { font-size: 1.6rem; }
+            .header-inner { flex-direction: column; align-items: stretch; gap: 8px; }
+            .logo { justify-content: center; font-size: 1.2rem; }
+            .clock-date { margin-left: 0; margin-right: 0; align-items: center; }
+            .search-wrap { order: 1; min-width: 0; }
+            .header-actions { order: 2; justify-content: center; }
+            .btn { padding: 10px 16px; font-size: 0.9rem; min-height: 46px; }
+            .btn-sm { padding: 10px 18px; font-size: 0.9rem; min-height: 44px; border-radius: 20px; }
+            .btn-icon { width: 46px; height: 46px; min-width: 46px; min-height: 46px; }
+            .category-tab { padding: 10px 14px; font-size: 0.8rem; min-height: 42px; }
+            .icon-name { font-size: 0.7rem; }
+            .modal { width: 96%; max-width: 100%; border-radius: 18px; max-height: 92vh; margin: 10px auto; overflow: hidden; }
+            .dashboard-grid { grid-template-columns: 1fr 1fr; }
+            .top-list ol li { flex-direction: column; align-items: flex-start; }
         }
         @media (max-width: 480px) {
-            .clock-time {
-                font-size: 1.4rem;
-            }
-            .category-tab {
-                padding: 8px 12px;
-                font-size: 0.75rem;
-            }
-            .preset-bg-item {
-                width: 42px;
-                height: 42px;
-            }
-            .modal {
-                border-radius: 16px;
-            }
-            .modal-header h3 {
-                font-size: 1.05rem;
-            }
-            .settings-card h4 {
-                font-size: 0.95rem;
-            }
-            .context-menu-item {
-                padding: 18px 24px;
-                font-size: 1.05rem;
-                min-height: 56px;
-            }
+            .dashboard-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
-    <!-- ====== 顶部栏 ====== -->
     <div id="topContainer">
         <div id="headerSection" class="header">
             <div class="header-inner">
@@ -823,21 +765,17 @@
         </div>
     </div>
 
-    <!-- ====== 常用区 ====== -->
     <div id="frequentSection" class="frequent-section">
         <div class="row-label" style="font-size:0.9rem; font-weight:600; margin-bottom:12px;">⭐ 常用</div>
         <div class="frequent-icons" id="frequentIcons"></div>
     </div>
 
-    <!-- ====== 书签网格 ====== -->
     <div id="mainContainer" style="padding:16px;">
         <div class="bookmark-grid" id="bookmarkGrid"></div>
     </div>
 
-    <!-- ====== 上下文菜单 ====== -->
     <div class="context-menu" id="contextMenu" role="menu"></div>
 
-    <!-- ====== 编辑模态框 ====== -->
     <div class="modal-overlay" id="editModal" role="dialog" aria-modal="true" aria-label="编辑书签">
         <div class="modal" style="max-width:480px;">
             <div class="modal-header"><h3>编辑书签</h3><button class="btn-icon" id="editModalClose" aria-label="关闭" style="border:none;font-size:1.2rem;">✕</button></div>
@@ -865,7 +803,6 @@
         </div>
     </div>
 
-    <!-- ====== 添加书签模态框 ====== -->
     <div class="modal-overlay" id="addModal" role="dialog" aria-modal="true" aria-label="添加书签">
         <div class="modal">
             <div class="modal-header"><h3>添加书签</h3><button class="btn-icon" id="addModalClose" aria-label="关闭" style="border:none;font-size:1.2rem;">✕</button></div>
@@ -878,36 +815,115 @@
         </div>
     </div>
 
-    <!-- ====== 设置模态框 ====== -->
     <div class="modal-overlay" id="settingsModal" role="dialog" aria-modal="true" aria-label="站点设置">
         <div class="modal">
             <div class="modal-header"><h3>⚙️ 站点设置</h3><button class="btn-icon" id="settingsModalClose" aria-label="关闭" style="border:none;font-size:1.2rem;">✕</button></div>
             <div class="modal-body">
                 <div class="settings-card">
-                    <h4>📝 基本信息</h4>
-                    <div class="input-group"><label for="setSiteTitle">站点标题</label><input type="text" id="setSiteTitle"></div>
-                    <div class="btn-row"><button class="btn btn-primary btn-sm" id="importBtn">📥 导入收藏夹</button><button class="btn btn-outline btn-sm" id="exportBtn">📤 导出设置</button><button class="btn btn-outline btn-sm" id="importSettingBtn">📂 导入设置</button></div>
+                    <h4>📝 基本设置</h4>
+                    <div class="input-group">
+                        <label for="setSiteTitle">站点标题</label>
+                        <input type="text" id="setSiteTitle">
+                        <div class="setting-hint">显示在顶部标题栏和浏览器标签页上</div>
+                    </div>
                 </div>
+
+                <div class="settings-card collapsed" id="dashboardCard">
+                    <h4 onclick="toggleCollapse('dashboardCard')">
+                        📊 数据看板
+                        <span class="collapse-icon">▼</span>
+                    </h4>
+                    <div class="collapse-content" id="dashboardContent"></div>
+                </div>
+
+                <div class="settings-card collapsed" id="trashCard">
+                    <h4 onclick="toggleCollapse('trashCard')">
+                        🗑️ 回收站 <span id="trashCount" style="font-weight:normal;opacity:0.8;"></span>
+                        <span class="collapse-icon">▼</span>
+                    </h4>
+                    <div class="collapse-content" id="trashContent"></div>
+                </div>
+
+                <div class="settings-card collapsed" id="backupCard">
+                    <h4 onclick="toggleCollapse('backupCard')">
+                        💾 备份管理
+                        <span class="collapse-icon">▼</span>
+                    </h4>
+                    <div class="collapse-content" id="backupContent"></div>
+                </div>
+
+                <div class="settings-card">
+                    <h4>📥 导入 / 导出</h4>
+                    <div class="setting-hint" style="margin-bottom: 4px;">支持浏览器书签格式（HTML）和本应用设置文件（JSON）</div>
+                    <div class="btn-row">
+                        <button class="btn btn-primary btn-sm" id="importBtn">📥 导入收藏夹 (HTML)</button>
+                        <button class="btn btn-outline btn-sm" id="exportHtmlBtn">📤 导出收藏夹 (HTML)</button>
+                    </div>
+                    <div class="btn-row">
+                        <button class="btn btn-outline btn-sm" id="importSettingBtn">📂 导入设置 (JSON)</button>
+                        <button class="btn btn-outline btn-sm" id="exportBtn">📤 导出设置 (JSON)</button>
+                    </div>
+                </div>
+
                 <div class="settings-card">
                     <h4>📐 布局设置</h4>
-                    <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px; flex-wrap:wrap;"><label style="min-width:80px;">页面宽度</label><input type="range" id="setPageWidth" min="600" max="3000" step="10" style="flex:1;"><span id="pageWidthValue">1200px</span></div>
-                    <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px; flex-wrap:wrap;"><label style="min-width:80px;">图标圆角</label><input type="range" id="setBorderRadius" min="0" max="100" step="1" style="flex:1;"><span id="borderRadiusValue">20%</span></div>
-                    <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;"><label style="min-width:80px;">图标名称颜色</label><input type="color" id="setIconNameColor"><span id="iconNameColorValue"></span></div>
+                    <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px; flex-wrap:wrap;">
+                        <label style="min-width:80px;">页面宽度</label>
+                        <input type="range" id="setPageWidth" min="600" max="3000" step="10" style="flex:1;">
+                        <span id="pageWidthValue">1200px</span>
+                    </div>
+                    <div class="setting-hint" style="margin-top:-8px; margin-bottom:8px;">调整内容区域最大显示宽度</div>
+                    <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px; flex-wrap:wrap;">
+                        <label style="min-width:80px;">图标圆角</label>
+                        <input type="range" id="setBorderRadius" min="0" max="100" step="1" style="flex:1;">
+                        <span id="borderRadiusValue">20%</span>
+                    </div>
+                    <div class="setting-hint" style="margin-top:-8px; margin-bottom:8px;">控制图标及分类标签的圆角程度</div>
+                    <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+                        <label style="min-width:80px;">名称颜色</label>
+                        <input type="color" id="setIconNameColor">
+                        <span id="iconNameColorValue"></span>
+                    </div>
+                    <div class="setting-hint" style="margin-top:2px;">设置图标下方书签名称的文字颜色</div>
                 </div>
-                <div class="settings-card"><h4>🔍 搜索引擎管理</h4><div class="engine-list" id="engineListContainer"></div><button class="btn btn-outline btn-sm" id="addEngineBtn" style="margin-top:8px;">+ 添加搜索引擎</button></div>
+
+                <div class="settings-card">
+                    <h4>🔍 搜索引擎管理</h4>
+                    <div class="setting-hint" style="margin-bottom:4px;">管理内置搜索，点击书签或搜索框可调用</div>
+                    <div class="engine-list" id="engineListContainer"></div>
+                    <button class="btn btn-outline btn-sm" id="addEngineBtn" style="margin-top:8px;">+ 添加搜索引擎</button>
+                </div>
+
                 <div class="settings-card">
                     <h4>🎨 背景设置</h4>
+                    <div class="setting-hint" style="margin-bottom:6px;">可分别为常用区与全局设置背景色或图片</div>
                     <div class="background-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
-                        <div><label>常用区背景</label><div class="bg-presets" id="freqBgPresets"></div><input type="color" id="freqBgCustomColor" style="width:100%;"><input type="file" id="freqBgImgInput" accept="image/*" style="width:100%;"><span id="freqBgFileInfo"></span><button class="btn btn-outline btn-sm" id="clearFreqBgBtn" style="margin-top:6px;">清除</button></div>
-                        <div><label>全局背景</label><div class="bg-presets" id="globalBgPresets"></div><input type="color" id="globalBgCustomColor" style="width:100%;"><input type="file" id="globalBgImgInput" accept="image/*" style="width:100%;"><span id="globalBgFileInfo"></span><button class="btn btn-outline btn-sm" id="clearGlobalBgBtn" style="margin-top:6px;">清除</button></div>
+                        <div>
+                            <label>常用区背景</label>
+                            <div class="bg-presets" id="freqBgPresets"></div>
+                            <input type="color" id="freqBgCustomColor" style="width:100%;">
+                            <input type="file" id="freqBgImgInput" accept="image/*" style="width:100%;">
+                            <span id="freqBgFileInfo"></span>
+                            <button class="btn btn-outline btn-sm" id="clearFreqBgBtn" style="margin-top:6px;">清除</button>
+                        </div>
+                        <div>
+                            <label>全局背景</label>
+                            <div class="bg-presets" id="globalBgPresets"></div>
+                            <input type="color" id="globalBgCustomColor" style="width:100%;">
+                            <input type="file" id="globalBgImgInput" accept="image/*" style="width:100%;">
+                            <span id="globalBgFileInfo"></span>
+                            <button class="btn btn-outline btn-sm" id="clearGlobalBgBtn" style="margin-top:6px;">清除</button>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="modal-footer"><button class="btn btn-outline btn-sm" id="settingsReset">恢复默认</button><button class="btn btn-primary btn-sm" id="settingsClose">关闭</button></div>
+            <div class="modal-footer">
+                <button class="btn btn-outline btn-sm" id="settingsReset">恢复默认</button>
+                <button class="btn btn-primary btn-sm" id="settingsClose">关闭</button>
+            </div>
         </div>
     </div>
 
-    <!-- ====== 自定义确认对话框 ====== -->
     <div class="modal-overlay" id="confirmModal" role="dialog" aria-modal="true" aria-label="确认">
         <div class="modal confirm-dialog">
             <div class="modal-header"><h3 id="confirmTitle">确认</h3><button class="btn-icon" id="confirmModalClose" aria-label="关闭" style="border:none;font-size:1.2rem;">✕</button></div>
@@ -922,32 +938,15 @@
     <script>
         (function() {
             'use strict';
-
-            // ============================================================
-            //  1.  DOM 工具 & 全局状态
-            // ============================================================
             const $ = id => document.getElementById(id);
             const ctxMenu = $('contextMenu');
-            let bookmarks = [],
-                currentCat = '__ALL__',
-                searchQuery = '';
-            let categoryAliases = {},
-                customGroups = [];
+            let bookmarks = [], currentCat = '__ALL__', searchQuery = '';
+            let categoryAliases = {}, customGroups = [];
             let editingBm = null;
-            let menuMouseTracker = null;
             let isDarkMode = false;
-            let confirmResolve = null; // 用于自定义 confirm
-
-            // ---- 颜色缓存 ----
+            let trash = [], backups = [], autoBackup = true;
             const colorCache = new Map();
-
-            // ---- 图标预设颜色 ----
-            const iconPresetColors = ['#F44336', '#E91E63', '#9C27B0', '#673AB7', '#3F51B5', '#2196F3', '#03A9F4', '#00BCD4',
-                '#009688',
-                '#4CAF50', '#8BC34A', '#CDDC39', '#FFC107', '#FF9800', '#FF5722', '#795548', '#607D8B', '#9E9E9E'
-            ];
-
-            // ---- 搜索引擎 ----
+            const iconPresetColors = ['#F44336','#E91E63','#9C27B0','#673AB7','#3F51B5','#2196F3','#03A9F4','#00BCD4','#009688','#4CAF50','#8BC34A','#CDDC39','#FFC107','#FF9800','#FF5722','#795548','#607D8B','#9E9E9E'];
             const defaultEngines = [
                 { name: 'Bing', url: 'https://www.bing.com/search?q={query}' },
                 { name: '百度', url: 'https://www.baidu.com/s?wd={query}' },
@@ -958,143 +957,80 @@
             let searchEngines = JSON.parse(JSON.stringify(defaultEngines));
             let selectedEngine = '';
             let siteTitle = '我的收藏夹';
-            const presetBgColors = ['#ffffff', '#f5f5f5', '#e8f5e9', '#e3f2fd', '#fff3e0', '#a1c4fd', '#fbc2eb', '#84fab0',
-                '#ffecd2'
-            ];
+            const presetBgColors = ['#ffffff','#f5f5f5','#e8f5e9','#e3f2fd','#fff3e0','#a1c4fd','#fbc2eb','#84fab0','#ffecd2'];
             const defaultLayout = {
-                pageWidth: 1200,
-                borderRadius: 20,
+                pageWidth: 1200, borderRadius: 20,
                 freqBg: { type: 'preset', value: '#ffffff', image: null },
                 globalBg: { type: 'preset', value: '#ffffff', image: null },
-                iconNameColor: ''
+                iconNameColor: '#000000'
             };
             let layoutConfig = JSON.parse(JSON.stringify(defaultLayout));
-
-            // ---- 分类规则 ----
             const categoryRules = [
-                { name: '视频', keys: ['bilibili', 'youtube', 'youku', 'iqiyi', 'v.qq.com', 'douyin', 'tiktok', '西瓜视频',
-                        'movie', 'film', 'tv', '直播'
-                    ] },
-                { name: '社交', keys: ['weibo', 'twitter', 'facebook', 'reddit', 'tieba', 'zhihu', 'douban', 't.me',
-                        'discord', '社区', 'bbs', 'v2ex'
-                    ] },
-                { name: '购物', keys: ['taobao', 'tmall', 'jd.com', 'pinduoduo', 'amazon', 'ebay', 'shop', 'mall', 'buy',
-                        'suning'
-                    ] },
-                { name: '设计开发', keys: ['github', 'gitlab', 'gitee', 'stackoverflow', 'figma', 'dribbble', 'behance',
-                        'zcool', '站酷', 'ui.cn', 'code', '编程', 'css', 'js', 'dev'
-                    ] },
-                { name: '新闻资讯', keys: ['news', 'toutiao', 'thepaper', 'sina.com.cn', '163.com', 'ifeng', 'xinhuanet',
-                        '36kr', '虎嗅', 'huxiu'
-                    ] },
-                { name: '教育', keys: ['edu', 'course', 'mooc', 'wiki', 'baike', 'wikipedia', '大学', '图书馆', '读书',
-                        '学习'
-                    ] },
-                { name: '工具', keys: ['tool', 'translate', 'fanyi', 'map', 'mail', 'pan', 'drive', 'office', 'pdf',
-                        '压缩', '计算器', '天气'
-                    ] },
-                { name: '音乐', keys: ['music', 'kugou', 'spotify', '网易云', 'qq音乐', 'sound', '专辑', '电台', 'fm'] },
-                { name: '阅读', keys: ['book', 'read', '起点', 'qidian', 'kindle', '小说', '漫画', '动漫', 'anime', 'manga'] },
-                { name: '游戏', keys: ['game', 'steam', 'epic', 'taptap', '电竞', 'huya', 'douyu', '战网', 'playstation',
-                        'xbox'
-                    ] },
-                { name: '生活旅行', keys: ['travel', '携程', 'ctrip', 'qunar', '飞猪', '酒店', '机票', '火车票', '银行', '支付',
-                        'alipay', '医院', '社保'
-                    ] }
+                { name: '视频', keys: ['bilibili','youtube','youku','iqiyi','v.qq.com','douyin','tiktok','西瓜视频','movie','film','tv','直播'] },
+                { name: '社交', keys: ['weibo','twitter','facebook','reddit','tieba','zhihu','douban','t.me','discord','社区','bbs','v2ex'] },
+                { name: '购物', keys: ['taobao','tmall','jd.com','pinduoduo','amazon','ebay','shop','mall','buy','suning'] },
+                { name: '设计开发', keys: ['github','gitlab','gitee','stackoverflow','figma','dribbble','behance','zcool','站酷','ui.cn','code','编程','css','js','dev'] },
+                { name: '新闻资讯', keys: ['news','toutiao','thepaper','sina.com.cn','163.com','ifeng','xinhuanet','36kr','虎嗅','huxiu'] },
+                { name: '教育', keys: ['edu','course','mooc','wiki','baike','wikipedia','大学','图书馆','读书','学习'] },
+                { name: '工具', keys: ['tool','translate','fanyi','map','mail','pan','drive','office','pdf','压缩','计算器','天气'] },
+                { name: '音乐', keys: ['music','kugou','spotify','网易云','qq音乐','sound','专辑','电台','fm'] },
+                { name: '阅读', keys: ['book','read','起点','qidian','kindle','小说','漫画','动漫','anime','manga'] },
+                { name: '游戏', keys: ['game','steam','epic','taptap','电竞','huya','douyu','战网','playstation','xbox'] },
+                { name: '生活旅行', keys: ['travel','携程','ctrip','qunar','飞猪','酒店','机票','火车票','银行','支付','alipay','医院','社保'] }
             ];
 
-            // ============================================================
-            //  2.  工具函数
-            // ============================================================
             function classify(bm) {
                 if (bm.manualGroup) return bm.manualGroup;
-                const h = (getDomain(bm.url) || '').toLowerCase(),
-                    t = bm.title.toLowerCase();
-                for (let r of categoryRules)
-                    for (let k of r.keys)
-                        if (h.includes(k) || t.includes(k)) return r.name;
+                const h = (getDomain(bm.url) || '').toLowerCase(), t = bm.title.toLowerCase();
+                for (let r of categoryRules) for (let k of r.keys) if (h.includes(k) || t.includes(k)) return r.name;
                 return '工具';
             }
-
-            function getDomain(url) {
-                try { return new URL(url).hostname; } catch (e) { return null; }
-            }
-
-            function hash(s) {
-                let h = 0;
-                for (let i = 0; i < s.length; i++) h = ((h << 5) - h) + s.charCodeAt(i);
-                return Math.abs(h);
-            }
-
-            // ---- 颜色获取（带缓存） ----
+            function getDomain(url) { try { return new URL(url).hostname; } catch (e) { return null; } }
+            function hash(s) { let h = 0; for (let i = 0; i < s.length; i++) h = ((h << 5) - h) + s.charCodeAt(i); return Math.abs(h); }
             function getColor(s, forceDark) {
                 const key = s + '|' + (forceDark !== undefined ? forceDark : isDarkMode);
                 if (colorCache.has(key)) return colorCache.get(key);
                 const dark = (forceDark !== undefined) ? forceDark : isDarkMode;
-                const h = hash(s) % 360;
-                const l = dark ? 22 : 55;
-                const sVal = dark ? 55 : 60;
+                const h = hash(s) % 360, l = dark ? 22 : 55, sVal = dark ? 55 : 60;
                 const result = 'hsl(' + h + ',' + sVal + '%,' + l + '%)';
                 colorCache.set(key, result);
                 return result;
             }
-
-            // ---- 颜色转暗色 ----
             function toDarkColor(color) {
                 if (!color) return '#2a2a44';
                 const hslMatch = color.match(/hsl\((\d+)\s*,\s*(\d+)%\s*,\s*(\d+)%\s*\)/i);
                 if (hslMatch) {
-                    const h = parseInt(hslMatch[1]);
-                    const s = parseInt(hslMatch[2]);
-                    const l = Math.max(12, Math.min(28, parseInt(hslMatch[3]) - 30));
+                    const h = parseInt(hslMatch[1]), s = parseInt(hslMatch[2]), l = Math.max(12, Math.min(28, parseInt(hslMatch[3]) - 30));
                     return 'hsl(' + h + ',' + s + '%,' + l + '%)';
                 }
-                let r, g, b;
+                let r,g,b;
                 const hexMatch = color.match(/^#([a-f0-9]{2})([a-f0-9]{2})([a-f0-9]{2})$/i);
-                if (hexMatch) {
-                    r = parseInt(hexMatch[1], 16);
-                    g = parseInt(hexMatch[2], 16);
-                    b = parseInt(hexMatch[3], 16);
-                } else {
+                if (hexMatch) { r = parseInt(hexMatch[1],16); g = parseInt(hexMatch[2],16); b = parseInt(hexMatch[3],16); }
+                else {
                     const rgbMatch = color.match(/rgb\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)/i);
-                    if (rgbMatch) { r = parseInt(rgbMatch[1]);
-                        g = parseInt(rgbMatch[2]);
-                        b = parseInt(rgbMatch[3]); } else return '#2a2a44';
+                    if (rgbMatch) { r = parseInt(rgbMatch[1]); g = parseInt(rgbMatch[2]); b = parseInt(rgbMatch[3]); } else return '#2a2a44';
                 }
-                const r1 = r / 255,
-                    g1 = g / 255,
-                    b1 = b / 255;
-                const max = Math.max(r1, g1, b1),
-                    min = Math.min(r1, g1, b1);
-                let h, s, l = (max + min) / 2;
-                if (max === min) { h = 0;
-                    s = 0; } else {
-                    const d = max - min;
-                    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-                    if (max === r1) h = ((g1 - b1) / d + (g1 < b1 ? 6 : 0)) / 6;
-                    else if (max === g1) h = ((b1 - r1) / d + 2) / 6;
-                    else h = ((r1 - g1) / d + 4) / 6;
+                const r1 = r/255, g1 = g/255, b1 = b/255;
+                const max = Math.max(r1,g1,b1), min = Math.min(r1,g1,b1);
+                let h,s,l = (max+min)/2;
+                if (max === min) { h = 0; s = 0; } else {
+                    const d = max-min;
+                    s = l > 0.5 ? d/(2-max-min) : d/(max+min);
+                    if (max === r1) h = ((g1-b1)/d + (g1<b1?6:0))/6;
+                    else if (max === g1) h = ((b1-r1)/d + 2)/6;
+                    else h = ((r1-g1)/d + 4)/6;
                 }
-                const darkL = Math.max(12, Math.min(28, l * 100 - 30));
-                return 'hsl(' + Math.round(h * 360) + ',' + Math.round(s * 100) + '%,' + Math.round(darkL) + '%)';
+                const darkL = Math.max(12, Math.min(28, l*100 - 30));
+                return 'hsl(' + Math.round(h*360) + ',' + Math.round(s*100) + '%,' + Math.round(darkL) + '%)';
             }
-
-            function esc(s) { const d = document.createElement('div');
-                d.textContent = s; return d.innerHTML; }
-
-            // ---- 获取图标背景（带缓存） ----
+            function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
             function getIconBackground(bm) {
                 if (bm.customImage) return 'url(' + esc(bm.customImage) + ') center/cover no-repeat';
                 let color = bm.customColor || getColor(getDomain(bm.url) || bm.title);
-                if (isDarkMode && bm.customColor) {
-                    color = toDarkColor(bm.customColor);
-                } else if (isDarkMode && !bm.customColor) {
-                    color = getColor(getDomain(bm.url) || bm.title, true);
-                }
+                if (isDarkMode && bm.customColor) color = toDarkColor(bm.customColor);
+                else if (isDarkMode && !bm.customColor) color = getColor(getDomain(bm.url) || bm.title, true);
                 return color;
             }
-
-            // ---- 格式化图标内容 ----
             function formatIconContent(bm) {
                 if (bm.customImage) return '';
                 const text = bm.title;
@@ -1103,96 +1039,59 @@
                 const getCharWidth = c => /[^\x00-\xff]/.test(c) ? 2 : 1;
                 if (!hasAlphaNum) {
                     const chars = clean.slice(0, 4);
-                    if (chars.length === 1) return '<span style="font-size:calc(var(--icon-size)*0.45);line-height:1.2;white-space:nowrap;">' +
-                        esc(chars) + '</span>';
-                    if (chars.length === 2) return '<span style="font-size:calc(var(--icon-size)*0.32);line-height:1.2;white-space:nowrap;">' +
-                        esc(chars) + '</span>';
-                    if (chars.length === 3) return '<span style="font-size:calc(var(--icon-size)*0.28);line-height:1.2;white-space:nowrap;">' +
-                        esc(chars) + '</span>';
+                    if (chars.length === 1) return '<span style="font-size:calc(var(--icon-size)*0.45);line-height:1.2;white-space:nowrap;">' + esc(chars) + '</span>';
+                    if (chars.length === 2) return '<span style="font-size:calc(var(--icon-size)*0.32);line-height:1.2;white-space:nowrap;">' + esc(chars) + '</span>';
+                    if (chars.length === 3) return '<span style="font-size:calc(var(--icon-size)*0.28);line-height:1.2;white-space:nowrap;">' + esc(chars) + '</span>';
                     const fs = 'calc(var(--icon-size)*0.28)';
-                    return '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.2;width:100%;height:100%;"><span style="font-size:' +
-                        fs + ';"><span style="font-size:' + fs + ';">' + esc(chars[0]) + '</span><span style="font-size:' +
-                        fs + ';">' + esc(chars[1]) + '</span></span><span style="font-size:' + fs +
-                        ';"><span style="font-size:' + fs + ';">' + esc(chars[2]) + '</span><span style="font-size:' +
-                        fs + ';">' + esc(chars[3]) + '</span></span></div>';
+                    return '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.2;width:100%;height:100%;"><span style="font-size:'+fs+';"><span style="font-size:'+fs+';">'+esc(chars[0])+'</span><span style="font-size:'+fs+';">'+esc(chars[1])+'</span></span><span style="font-size:'+fs+';"><span style="font-size:'+fs+';">'+esc(chars[2])+'</span><span style="font-size:'+fs+';">'+esc(chars[3])+'</span></span></div>';
                 } else {
                     const charsArr = clean.split('');
                     const allEnglish = charsArr.every(c => /[A-Za-z0-9]/.test(c));
                     if (allEnglish) {
                         const chars = clean.slice(0, 12);
-                        if (chars.length <= 6) { const fs = chars.length <= 3 ? 'calc(var(--icon-size)*0.35)' :
-                                'calc(var(--icon-size)*0.28)'; return '<span style="font-size:' + fs +
-                                ';line-height:1.2;white-space:nowrap;">' + esc(chars) + '</span>'; }
-                        const mid = Math.ceil(chars.length / 2),
-                            line1 = chars.slice(0, mid),
-                            line2 = chars.slice(mid);
+                        if (chars.length <= 6) { const fs = chars.length <= 3 ? 'calc(var(--icon-size)*0.35)' : 'calc(var(--icon-size)*0.28)'; return '<span style="font-size:'+fs+';line-height:1.2;white-space:nowrap;">'+esc(chars)+'</span>'; }
+                        const mid = Math.ceil(chars.length/2), line1 = chars.slice(0,mid), line2 = chars.slice(mid);
                         const fs = 'calc(var(--icon-size)*0.22)';
-                        return '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.15;"><span style="font-size:' +
-                            fs + ';">' + esc(line1) + '</span><span style="font-size:' + fs + ';">' + esc(line2) +
-                            '</span></div>';
+                        return '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.15;"><span style="font-size:'+fs+';">'+esc(line1)+'</span><span style="font-size:'+fs+';">'+esc(line2)+'</span></div>';
                     } else {
-                        let chars = '',
-                            totalWidth = 0;
-                        for (const c of clean) { const cw = getCharWidth(c); if (totalWidth + cw > 8) break;
-                            chars += c;
-                            totalWidth += cw; }
-                        if (!chars) chars = clean.slice(0, 1);
-                        if (totalWidth <= 6) { const fs = totalWidth <= 4 ? 'calc(var(--icon-size)*0.30)' :
-                                'calc(var(--icon-size)*0.26)'; return '<span style="font-size:' + fs +
-                                ';line-height:1.2;white-space:nowrap;">' + esc(chars) + '</span>'; }
-                        let splitIdx = 1,
-                            bestDiff = Infinity;
-                        for (let j = 1; j < chars.length; j++) {
-                            const line1 = chars.slice(0, j),
-                                line2 = chars.slice(j);
-                            let w1 = 0,
-                                w2 = 0;
+                        let chars = '', totalWidth = 0;
+                        for (const c of clean) { const cw = getCharWidth(c); if (totalWidth+cw > 8) break; chars += c; totalWidth += cw; }
+                        if (!chars) chars = clean.slice(0,1);
+                        if (totalWidth <= 6) { const fs = totalWidth <= 4 ? 'calc(var(--icon-size)*0.30)' : 'calc(var(--icon-size)*0.26)'; return '<span style="font-size:'+fs+';line-height:1.2;white-space:nowrap;">'+esc(chars)+'</span>'; }
+                        let splitIdx = 1, bestDiff = Infinity;
+                        for (let j=1; j<chars.length; j++) {
+                            const line1 = chars.slice(0,j), line2 = chars.slice(j);
+                            let w1=0,w2=0;
                             for (const c of line1) w1 += getCharWidth(c);
                             for (const c of line2) w2 += getCharWidth(c);
-                            if (w1 > 8 || w2 > 8) continue;
-                            const diff = Math.abs(w1 - w2);
-                            if (diff < bestDiff) { bestDiff = diff;
-                                splitIdx = j; }
+                            if (w1>8 || w2>8) continue;
+                            const diff = Math.abs(w1-w2);
+                            if (diff < bestDiff) { bestDiff = diff; splitIdx = j; }
                         }
-                        const line1 = chars.slice(0, splitIdx),
-                            line2 = chars.slice(splitIdx);
-                        let w1 = 0,
-                            w2 = 0;
+                        const line1 = chars.slice(0,splitIdx), line2 = chars.slice(splitIdx);
+                        let w1=0,w2=0;
                         for (const c of line1) w1 += getCharWidth(c);
                         for (const c of line2) w2 += getCharWidth(c);
-                        const maxW = Math.max(w1, w2);
+                        const maxW = Math.max(w1,w2);
                         const fs = maxW <= 4 ? 'calc(var(--icon-size)*0.28)' : 'calc(var(--icon-size)*0.24)';
-                        return '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.15;"><span style="font-size:' +
-                            fs + ';white-space:nowrap;">' + esc(line1) + '</span><span style="font-size:' + fs +
-                            ';white-space:nowrap;">' + esc(line2) + '</span></div>';
+                        return '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.15;"><span style="font-size:'+fs+';white-space:nowrap;">'+esc(line1)+'</span><span style="font-size:'+fs+';white-space:nowrap;">'+esc(line2)+'</span></div>';
                     }
                 }
             }
+            function getCurrentColumns() { return parseInt(getComputedStyle(document.documentElement).getPropertyValue('--grid-columns').trim()) || 9; }
 
-            // ---- 获取当前列数 ----
-            function getCurrentColumns() {
-                return parseInt(getComputedStyle(document.documentElement).getPropertyValue('--grid-columns').trim()) || 9;
-            }
-
-            // ============================================================
-            //  3.  布局 & 背景
-            // ============================================================
             function applyLayout() {
                 const r = document.documentElement.style;
                 const w = window.innerWidth;
-                let displayWidth;
-                if (w < 768) displayWidth = '100%';
-                else displayWidth = Math.min(layoutConfig.pageWidth, w) + 'px';
+                let displayWidth = w < 768 ? '100%' : Math.min(layoutConfig.pageWidth, w) + 'px';
                 const usableWidth = displayWidth === '100%' ? w - 32 : Math.min(layoutConfig.pageWidth, w) - 32;
-                let bestCols = 4,
-                    bestSize = 80;
+                let bestCols = 4, bestSize = 80;
                 const maxCols = w < 768 ? 4 : (w < 1024 ? 6 : 24);
                 for (let c = maxCols; c >= 4; c--) {
-                    const maxPossible = Math.floor((usableWidth - (c - 1) * 22) / c);
+                    const maxPossible = Math.floor((usableWidth - (c-1)*22) / c);
                     if (maxPossible >= 80) {
                         const icon = Math.min(90, maxPossible);
-                        if ((usableWidth - c * icon) / (c - 1) >= 22) { bestCols = c;
-                            bestSize = icon; break; }
+                        if ((usableWidth - c*icon) / (c-1) >= 22) { bestCols = c; bestSize = icon; break; }
                     }
                 }
                 r.setProperty('--page-width', displayWidth);
@@ -1200,71 +1099,48 @@
                 r.setProperty('--icon-size', bestSize + 'px');
                 r.setProperty('--icon-border-radius', layoutConfig.borderRadius + '%');
                 r.setProperty('--border-radius', layoutConfig.borderRadius + 'px');
-                if (layoutConfig.iconNameColor) r.setProperty('--icon-name-color', layoutConfig.iconNameColor);
-                else r.removeProperty('--icon-name-color');
-                ['headerSection', 'topSection', 'frequentSection', 'mainContainer'].forEach(id => {
-                    const el = document.getElementById(id);
-                    if (el) {
-                        el.style.width = displayWidth;
-                        el.style.maxWidth = displayWidth;
-                        el.style.marginLeft = 'auto';
-                        el.style.marginRight = 'auto';
+                // 名称颜色：暗色模式默认使用浅色，用户自定义则保持
+                if (layoutConfig.iconNameColor) {
+                    if (isDarkMode && layoutConfig.iconNameColor === '#000000') {
+                        r.setProperty('--icon-name-color', '#f0f0f8');
+                    } else {
+                        r.setProperty('--icon-name-color', layoutConfig.iconNameColor);
                     }
+                } else {
+                    r.removeProperty('--icon-name-color');
+                }
+                ['headerSection','topSection','frequentSection','mainContainer'].forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) { el.style.width = displayWidth; el.style.maxWidth = displayWidth; el.style.marginLeft = 'auto'; el.style.marginRight = 'auto'; }
                 });
-                applyBodyBg();
-                applyFrequentBg();
+                applyBodyBg(); applyFrequentBg();
             }
-
             function applyBodyBg() {
                 const bg = layoutConfig.globalBg;
-                const header = document.querySelector('.header'),
-                    top = document.querySelector('.top-section');
-                const isDark = isDarkMode;
+                const header = document.querySelector('.header'), top = document.querySelector('.top-section');
                 document.body.classList.remove('has-bg-image');
                 if (header) header.classList.remove('has-bg-image');
                 if (top) top.classList.remove('has-bg-image');
-
                 if (bg.type === 'image' && bg.image) {
                     const val = 'url(' + bg.image + ') center/cover no-repeat fixed';
                     document.documentElement.style.setProperty('--global-bg', val);
                     document.body.style.background = val;
                     document.body.classList.add('has-bg-image');
-                    if (header) { header.style.background = val;
-                        header.classList.add('has-bg-image'); }
-                    if (top) { top.style.background = val;
-                        top.classList.add('has-bg-image'); }
-                    if (isDark) {
-                        document.body.style.backgroundColor = 'rgba(0,0,0,0.5)';
-                        document.body.style.backgroundBlendMode = 'overlay';
-                    } else {
-                        document.body.style.backgroundColor = 'transparent';
-                        document.body.style.backgroundBlendMode = 'normal';
-                    }
+                    if (header) { header.style.background = val; header.classList.add('has-bg-image'); }
+                    if (top) { top.style.background = val; top.classList.add('has-bg-image'); }
+                    if (isDarkMode) { document.body.style.backgroundColor = 'rgba(0,0,0,0.5)'; document.body.style.backgroundBlendMode = 'overlay'; }
+                    else { document.body.style.backgroundColor = 'transparent'; document.body.style.backgroundBlendMode = 'normal'; }
                 } else {
                     let color = bg.value || '#ffffff';
-                    if (isDark && color !== '#ffffff' && color !== '#fff') {
-                        color = toDarkColor(color);
-                    }
+                    if (isDarkMode && color !== '#ffffff') color = toDarkColor(color);
                     document.documentElement.style.removeProperty('--global-bg');
-                    document.body.style.background = '';
-                    document.body.style.backgroundColor = '';
-                    document.body.style.backgroundBlendMode = 'normal';
-                    if (header) { header.style.background = ''; }
-                    if (top) { top.style.background = ''; }
-                    if (color !== '#ffffff') {
-                        document.documentElement.style.setProperty('--global-bg', color);
-                        if (header) header.style.background = color;
-                        if (top) top.style.background = color;
-                    } else if (isDark) {
-                        const darkBg = '#0d0d1a';
-                        document.documentElement.style.setProperty('--global-bg', darkBg);
-                        if (header) header.style.background = darkBg;
-                        if (top) top.style.background = darkBg;
-                    }
+                    document.body.style.background = ''; document.body.style.backgroundColor = ''; document.body.style.backgroundBlendMode = 'normal';
+                    if (header) header.style.background = '';
+                    if (top) top.style.background = '';
+                    if (color !== '#ffffff') { document.documentElement.style.setProperty('--global-bg', color); if (header) header.style.background = color; if (top) top.style.background = color; }
+                    else if (isDarkMode) { const darkBg = '#0d0d1a'; document.documentElement.style.setProperty('--global-bg', darkBg); if (header) header.style.background = darkBg; if (top) top.style.background = darkBg; }
                 }
-                document.body.style.backgroundImage = document.body.style.backgroundImage;
             }
-
             function applyFrequentBg() {
                 const bg = layoutConfig.freqBg;
                 const el = $('frequentSection');
@@ -1272,1009 +1148,708 @@
                 if (bg.type === 'image' && bg.image) {
                     el.style.background = 'url(' + bg.image + ') center/cover no-repeat';
                     el.classList.add('has-bg-image');
-                    if (isDarkMode) {
-                        el.style.backgroundBlendMode = 'overlay';
-                        el.style.backgroundColor = 'rgba(0,0,0,0.3)';
-                    } else {
-                        el.style.backgroundBlendMode = 'normal';
-                        el.style.backgroundColor = 'transparent';
-                    }
-                } else if (bg.value === '#ffffff' && !isDarkMode) {
-                    el.style.background = '';
-                    el.style.backgroundBlendMode = 'normal';
-                } else if (bg.value === '#ffffff' && isDarkMode) {
-                    el.style.background = '#0d0d1a';
-                    el.style.backgroundBlendMode = 'normal';
-                } else {
-                    let color = bg.value || '#ffffff';
-                    if (isDarkMode && color !== '#ffffff') {
-                        color = toDarkColor(color);
-                    }
-                    el.style.background = color;
-                    el.style.backgroundBlendMode = 'normal';
-                }
+                    if (isDarkMode) { el.style.backgroundBlendMode = 'overlay'; el.style.backgroundColor = 'rgba(0,0,0,0.3)'; }
+                    else { el.style.backgroundBlendMode = 'normal'; el.style.backgroundColor = 'transparent'; }
+                } else if (bg.value === '#ffffff' && !isDarkMode) { el.style.background = ''; el.style.backgroundBlendMode = 'normal'; }
+                else if (bg.value === '#ffffff' && isDarkMode) { el.style.background = '#0d0d1a'; el.style.backgroundBlendMode = 'normal'; }
+                else { let color = bg.value || '#ffffff'; if (isDarkMode && color !== '#ffffff') color = toDarkColor(color); el.style.background = color; el.style.backgroundBlendMode = 'normal'; }
             }
-
-            // ============================================================
-            //  4.  智能暗色模式
-            // ============================================================
             function applySmartTheme(enableDark) {
                 isDarkMode = enableDark;
                 document.documentElement.setAttribute('data-theme', enableDark ? 'smart-dark' : '');
                 $('themeToggle').textContent = enableDark ? '☀️' : '🌙';
                 $('themeToggle').title = enableDark ? '切换到亮色模式' : '切换到智能暗色模式';
                 localStorage.setItem('bm-smart-dark', enableDark ? '1' : '0');
-                // 清空颜色缓存，重新计算
                 colorCache.clear();
                 applyLayout();
                 renderAll();
             }
+            applySmartTheme(localStorage.getItem('bm-smart-dark') === '1');
+            $('themeToggle').onclick = () => applySmartTheme(!isDarkMode);
 
-            // 初始化主题
-            const savedDark = localStorage.getItem('bm-smart-dark');
-            applySmartTheme(savedDark === '1');
-
-            $('themeToggle').onclick = function() {
-                applySmartTheme(!isDarkMode);
-            };
-
-            // ============================================================
-            //  5.  时钟
-            // ============================================================
             const LunarCalendar = (function() {
-                const lunarInfo = [0x04bd8, 0x04ae0, 0x0a570, 0x054d5, 0x0d260, 0x0d950, 0x16554, 0x056a0, 0x09ad0,
-                    0x055d2, 0x04ae0, 0x0a5b6, 0x0a4d0, 0x0d250, 0x1d255, 0x0b540, 0x0d6a0, 0x0ada2, 0x095b0,
-                    0x14977, 0x04970, 0x0a4b0, 0x0b4b5, 0x06a50, 0x06d40, 0x1ab54, 0x02b60, 0x09570, 0x052f2,
-                    0x04970, 0x06566, 0x0d4a0, 0x0ea50, 0x06e95, 0x05ad0, 0x02b60, 0x186e3, 0x092e0, 0x1c8d7,
-                    0x0c950, 0x0d4a0, 0x1d8a6, 0x0b550, 0x056a0, 0x1a5b4, 0x025d0, 0x092d0, 0x0d2b2, 0x0a950,
-                    0x0b557, 0x06ca0, 0x0b550, 0x15355, 0x04da0, 0x0a5b0, 0x14573, 0x052b0, 0x0a9a8, 0x0e950,
-                    0x06aa0, 0x0aea6, 0x0ab50, 0x04b60, 0x0aae4, 0x0a570, 0x05260, 0x0f263, 0x0d950, 0x05b57,
-                    0x056a0, 0x096d0, 0x04dd5, 0x04ad0, 0x0a4d0, 0x0d4d4, 0x0d250, 0x0d558, 0x0b540, 0x0b6a0,
-                    0x195a6, 0x095b0, 0x049b0, 0x0a974, 0x0a4b0, 0x0b27a, 0x06a50, 0x06d40, 0x0af46, 0x0ab60,
-                    0x09570, 0x04af5, 0x04970, 0x064b0, 0x074a3, 0x0ea50, 0x06b58, 0x055c0, 0x0ab60, 0x096d5,
-                    0x092e0, 0x0c960, 0x0d954, 0x0d4a0, 0x0da50, 0x07552, 0x056a0, 0x0abb7, 0x025d0, 0x092d0,
-                    0x0cab5, 0x0a950, 0x0b4a0, 0x0baa4, 0x0ad50, 0x055d9, 0x04ba0, 0x0a5b0, 0x15176, 0x052b0,
-                    0x0a930, 0x07954, 0x06aa0, 0x0ad50, 0x05b52, 0x04b60, 0x0a6e6, 0x0a4e0, 0x0d260, 0x0ea65,
-                    0x0d530, 0x05aa0, 0x076a3, 0x096d0, 0x04afb, 0x04ad0, 0x0a4d0, 0x1d0b6, 0x0d250, 0x0d520,
-                    0x0dd45, 0x0b5a0, 0x056d0, 0x055b2, 0x049b0, 0x0a577, 0x0a4b0, 0x0aa50, 0x1b255, 0x06d20,
-                    0x0ada0, 0x14b63, 0x09370, 0x049f8, 0x04970, 0x064b0, 0x168a6, 0x0ea50, 0x06b20, 0x1a6c4,
-                    0x0aae0, 0x0a2e0, 0x0d2e3, 0x0c960, 0x0d557, 0x0d4a0, 0x0da50, 0x05d55, 0x056a0, 0x0a6d0,
-                    0x055d4, 0x052d0, 0x0a9b8, 0x0a950, 0x0b4a0, 0x0b6a6, 0x0ad50, 0x055a0, 0x0aba4, 0x0a5b0,
-                    0x052b0, 0x0b273, 0x06930, 0x07337, 0x06aa0, 0x0ad50, 0x14b55, 0x04b60, 0x0a570, 0x054e4,
-                    0x0d160, 0x0e968, 0x0d520, 0x0daa0, 0x16aa6, 0x056d0, 0x04ae0, 0x0a9d4, 0x0a4d0, 0x0d150,
-                    0x0f252, 0x0d520
-                ];
-                const solarMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-                const lunarMonthNames = ['', '正月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '冬月',
-                    '腊月'
-                ];
-                const lunarDayNames = ['', '初一', '初二', '初三', '初四', '初五', '初六', '初七', '初八', '初九', '初十', '十一',
-                    '十二', '十三', '十四', '十五', '十六', '十七', '十八', '十九', '二十', '廿一', '廿二', '廿三', '廿四', '廿五',
-                    '廿六', '廿七', '廿八', '廿九', '三十'
-                ];
-
-                function leapMonth(y) { return lunarInfo[y - 1900] & 0xf; }
-
-                function leapDays(y) { return leapMonth(y) ? ((lunarInfo[y - 1900] & 0x10000) ? 30 : 29) : 0; }
-
-                function monthDays(y, m) { return (lunarInfo[y - 1900] & (0x10000 >> m)) ? 30 : 29; }
-
-                function yearDays(y) { let sum = 348; for (let i = 0x8000; i > 0x8; i >>= 1) sum += (lunarInfo[y -
-                        1900] & i) ? 1 : 0; return sum + leapDays(y); }
-
-                function solarDays(y, m) { if (m === 2) return ((y % 4 === 0 && y % 100 !== 0) || (y % 400 === 0)) ?
-                        29 : 28; return solarMonth[m - 1]; }
+                const lunarInfo = [0x04bd8,0x04ae0,0x0a570,0x054d5,0x0d260,0x0d950,0x16554,0x056a0,0x09ad0,0x055d2,0x04ae0,0x0a5b6,0x0a4d0,0x0d250,0x1d255,0x0b540,0x0d6a0,0x0ada2,0x095b0,0x14977,0x04970,0x0a4b0,0x0b4b5,0x06a50,0x06d40,0x1ab54,0x02b60,0x09570,0x052f2,0x04970,0x06566,0x0d4a0,0x0ea50,0x06e95,0x05ad0,0x02b60,0x186e3,0x092e0,0x1c8d7,0x0c950,0x0d4a0,0x1d8a6,0x0b550,0x056a0,0x1a5b4,0x025d0,0x092d0,0x0d2b2,0x0a950,0x0b557,0x06ca0,0x0b550,0x15355,0x04da0,0x0a5b0,0x14573,0x052b0,0x0a9a8,0x0e950,0x06aa0,0x0aea6,0x0ab50,0x04b60,0x0aae4,0x0a570,0x05260,0x0f263,0x0d950,0x05b57,0x056a0,0x096d0,0x04dd5,0x04ad0,0x0a4d0,0x0d4d4,0x0d250,0x0d558,0x0b540,0x0b6a0,0x195a6,0x095b0,0x049b0,0x0a974,0x0a4b0,0x0b27a,0x06a50,0x06d40,0x0af46,0x0ab60,0x09570,0x04af5,0x04970,0x064b0,0x074a3,0x0ea50,0x06b58,0x055c0,0x0ab60,0x096d5,0x092e0,0x0c960,0x0d954,0x0d4a0,0x0da50,0x07552,0x056a0,0x0abb7,0x025d0,0x092d0,0x0cab5,0x0a950,0x0b4a0,0x0baa4,0x0ad50,0x055d9,0x04ba0,0x0a5b0,0x15176,0x052b0,0x0a930,0x07954,0x06aa0,0x0ad50,0x05b52,0x04b60,0x0a6e6,0x0a4e0,0x0d260,0x0ea65,0x0d530,0x05aa0,0x076a3,0x096d0,0x04afb,0x04ad0,0x0a4d0,0x1d0b6,0x0d250,0x0d520,0x0dd45,0x0b5a0,0x056d0,0x055b2,0x049b0,0x0a577,0x0a4b0,0x0aa50,0x1b255,0x06d20,0x0ada0,0x14b63,0x09370,0x049f8,0x04970,0x064b0,0x168a6,0x0ea50,0x06b20,0x1a6c4,0x0aae0,0x0a2e0,0x0d2e3,0x0c960,0x0d557,0x0d4a0,0x0da50,0x05d55,0x056a0,0x0a6d0,0x055d4,0x052d0,0x0a9b8,0x0a950,0x0b4a0,0x0b6a6,0x0ad50,0x055a0,0x0aba4,0x0a5b0,0x052b0,0x0b273,0x06930,0x07337,0x06aa0,0x0ad50,0x14b55,0x04b60,0x0a570,0x054e4,0x0d160,0x0e968,0x0d520,0x0daa0,0x16aa6,0x056d0,0x04ae0,0x0a9d4,0x0a4d0,0x0d150,0x0f252,0x0d520];
+                const solarMonth = [31,28,31,30,31,30,31,31,30,31,30,31];
+                const lunarMonthNames = ['','正月','二月','三月','四月','五月','六月','七月','八月','九月','十月','冬月','腊月'];
+                const lunarDayNames = ['','初一','初二','初三','初四','初五','初六','初七','初八','初九','初十','十一','十二','十三','十四','十五','十六','十七','十八','十九','二十','廿一','廿二','廿三','廿四','廿五','廿六','廿七','廿八','廿九','三十'];
+                function leapMonth(y) { return lunarInfo[y-1900] & 0xf; }
+                function leapDays(y) { return leapMonth(y) ? ((lunarInfo[y-1900] & 0x10000) ? 30 : 29) : 0; }
+                function monthDays(y,m) { return (lunarInfo[y-1900] & (0x10000 >> m)) ? 30 : 29; }
+                function yearDays(y) { let sum=348; for(let i=0x8000; i>0x8; i>>=1) sum += (lunarInfo[y-1900] & i) ? 1 : 0; return sum+leapDays(y); }
+                function solarDays(y,m) { if(m===2) return ((y%4===0 && y%100!==0) || (y%400===0)) ? 29 : 28; return solarMonth[m-1]; }
                 return {
                     toLunar(date) {
-                        let y = date.getFullYear(),
-                            m = date.getMonth() + 1,
-                            d = date.getDate(),
-                            offset = 0;
-                        for (let i = 1900; i < y; i++) offset += yearDays(i);
-                        for (let i = 1; i < m; i++) offset += solarDays(y, i);
+                        let y=date.getFullYear(), m=date.getMonth()+1, d=date.getDate(), offset=0;
+                        for(let i=1900;i<y;i++) offset += yearDays(i);
+                        for(let i=1;i<m;i++) offset += solarDays(y,i);
                         offset += d;
-                        let ly = y,
-                            days = 0;
-                        for (ly = y; ly < 2100; ly++) { days = yearDays(ly); if (offset <= days) break;
-                            offset -= days; }
-                        let lm = 1,
-                            ld = 1,
-                            isLeap = false,
-                            leap = leapMonth(ly);
-                        for (let i = 1; i <= 12; i++) { if (leap > 0 && i === leap + 1 && !isLeap) { --i;
-                                isLeap = true;
-                                days = leapDays(ly); } else days = monthDays(ly, i); if (offset <= days) { lm = i;
-                                ld = offset; break; }
-                            offset -= days; if (isLeap && i === leap) isLeap = false; }
-                        return { monthStr: (isLeap ? '闰' : '') + lunarMonthNames[lm], dayStr: lunarDayNames[ld] };
+                        let ly=y, days=0;
+                        for(ly=y; ly<2100; ly++) { days=yearDays(ly); if(offset<=days) break; offset-=days; }
+                        let lm=1, ld=1, isLeap=false, leap=leapMonth(ly);
+                        for(let i=1;i<=12;i++) { if(leap>0 && i===leap+1 && !isLeap) { --i; isLeap=true; days=leapDays(ly); } else days=monthDays(ly,i); if(offset<=days) { lm=i; ld=offset; break; } offset-=days; if(isLeap && i===leap) isLeap=false; }
+                        return { monthStr: (isLeap?'闰':'') + lunarMonthNames[lm], dayStr: lunarDayNames[ld] };
                     }
                 };
             })();
-
             function updateClock() {
                 const now = new Date();
-                $('clockTime').textContent = now.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit',
-                    second: '2-digit' });
-                $('clockWeek').textContent = now.toLocaleDateString('zh-CN', { weekday: 'long' });
-                $('clockDateText').textContent = now.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long',
-                    day: 'numeric' });
+                $('clockTime').textContent = now.toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+                $('clockWeek').textContent = now.toLocaleDateString('zh-CN',{weekday:'long'});
+                $('clockDateText').textContent = now.toLocaleDateString('zh-CN',{year:'numeric',month:'long',day:'numeric'});
                 const lunar = LunarCalendar.toLunar(now);
                 $('clockLunar').textContent = '农历' + lunar.monthStr + lunar.dayStr;
             }
-            setInterval(updateClock, 1000);
-            updateClock();
+            setInterval(updateClock,1000); updateClock();
 
-            // ============================================================
-            //  6.  核心数据操作
-            // ============================================================
             function getFrequent() {
                 const cols = getCurrentColumns();
                 const all = bookmarks.filter(b => b.clicks > 0);
-                const pinned = all.filter(b => b.pinned).sort((a, b) => (a.pinOrder || 0) - (b.pinOrder || 0));
-                const unpinned = all.filter(b => !b.pinned).sort((a, b) => b.clicks - a.clicks);
+                const pinned = all.filter(b => b.pinned).sort((a,b) => (a.pinOrder||0) - (b.pinOrder||0));
+                const unpinned = all.filter(b => !b.pinned).sort((a,b) => b.clicks - a.clicks);
                 return pinned.concat(unpinned).slice(0, cols);
             }
-
             function getCategoryGroups() {
                 const groups = {};
-                bookmarks.forEach(b => { const cat = classify(b); if (!groups[cat]) groups[cat] = [];
-                    groups[cat].push(b); });
+                bookmarks.forEach(b => { const cat = classify(b); if (!groups[cat]) groups[cat] = []; groups[cat].push(b); });
                 const names = categoryRules.map(r => r.name).concat(Object.keys(groups), customGroups);
-                return [...new Set(names)].map(n => ({ name: n, bookmarks: groups[n] || [], count: (groups[n] || [])
-                        .length }));
+                return [...new Set(names)].map(n => ({ name: n, bookmarks: groups[n]||[], count: (groups[n]||[]).length }));
             }
-
-            // ---- 渲染图标 ----
             function renderIconHtml(bm) {
                 const bg = getIconBackground(bm);
                 const content = formatIconContent(bm);
-                // 如果是自定义图片，添加 loading 占位
-                let loadingHtml = '';
-                if (bm.customImage) {
-                    loadingHtml =
-                        `<div class="img-loading" style="z-index:1;">⏳</div>`;
-                }
+                let loadingHtml = bm.customImage ? '<div class="img-loading" style="z-index:1;">⏳</div>' : '';
                 return `<a class="icon-item" href="${esc(bm.url)}" target="_blank" draggable="true" data-url="${esc(bm.url)}" role="link" tabindex="0">
-                    <div class="icon-box">
-                        ${loadingHtml}
-                        <div class="icon-content" style="background:${bg};${bm.customImage?'':'color:#fff;'}">${content}</div>
-                    </div>
+                    <div class="icon-box">${loadingHtml}<div class="icon-content" style="background:${bg};${bm.customImage?'':'color:#fff;'}">${content}</div></div>
                     <span class="icon-name">${esc(bm.title)}</span>
                 </a>`;
             }
-
-            // ---- 渲染常用区 ----
             function renderFrequent() {
                 const freq = getFrequent();
-                let html = freq.length ? freq.map(b => renderIconHtml(b)).join('') :
-                    '<span style="color:var(--text);opacity:0.6;">点击书签越多，越常出现在这里</span>';
-                $('frequentIcons').innerHTML = html;
+                $('frequentIcons').innerHTML = freq.length ? freq.map(b => renderIconHtml(b)).join('') : '<span style="color:var(--text);opacity:0.6;">点击书签越多，越常出现在这里</span>';
                 bindIconEvents('#frequentIcons .icon-item', true);
             }
-
-            // ---- 渲染书签网格 ----
             function renderBookmarks() {
-                let list = currentCat === '__ALL__' ? bookmarks.slice() : bookmarks.filter(b => classify(b) ===
-                currentCat);
-                list.sort((a, b) => a.order - b.order);
-                if (searchQuery) list = list.filter(b => b.title.toLowerCase().includes(searchQuery) || b.url
-                    .toLowerCase().includes(searchQuery));
+                let list = currentCat === '__ALL__' ? bookmarks.slice() : bookmarks.filter(b => classify(b) === currentCat);
+                list.sort((a,b) => a.order - b.order);
+                if (searchQuery) list = list.filter(b => b.title.toLowerCase().includes(searchQuery) || b.url.toLowerCase().includes(searchQuery));
                 $('bookmarkGrid').innerHTML = list.map(b => renderIconHtml(b)).join('');
                 bindIconEvents('#bookmarkGrid .icon-item', false);
             }
-
-            // ---- 绑定图标事件（拖拽、点击、右键/长按） ----
             function bindIconEvents(selector, isFreq) {
                 const items = document.querySelectorAll(selector);
                 let longPressTimer = null;
-
                 items.forEach(item => {
-                    // 拖拽
-                    item.addEventListener('dragstart', e => { e.dataTransfer.setData('text/plain', item
-                            .dataset.url); });
+                    item.addEventListener('dragstart', e => { e.dataTransfer.setData('text/plain', item.dataset.url); });
                     item.addEventListener('dragover', e => e.preventDefault());
                     item.addEventListener('drop', e => {
                         e.preventDefault();
-                        const from = e.dataTransfer.getData('text/plain'),
-                            to = item.dataset.url;
+                        const from = e.dataTransfer.getData('text/plain'), to = item.dataset.url;
                         if (from === to) return;
-                        const a = bookmarks.find(b => b.url === from),
-                            b = bookmarks.find(b => b.url === to);
+                        const a = bookmarks.find(b => b.url === from), b = bookmarks.find(b => b.url === to);
                         if (!a || !b) return;
                         if (isFreq) {
-                            if (a.pinned && b.pinned) { [a.pinOrder, b.pinOrder] = [b.pinOrder, a
-                                .pinOrder]; } else if (!a.pinned && !b.pinned) { [a.clicks, b
-                                    .clicks] = [b.clicks, a.clicks]; } else if (a.pinned && !b
-                                .pinned) { a.pinned = false;
-                                a.clicks = b.clicks + 1; } else { a.pinned = true;
-                                a.pinOrder = b.pinOrder;
-                                b.pinOrder = (b.pinOrder || 0) + 1; }
+                            if (a.pinned && b.pinned) { [a.pinOrder, b.pinOrder] = [b.pinOrder, a.pinOrder]; }
+                            else if (!a.pinned && !b.pinned) { [a.clicks, b.clicks] = [b.clicks, a.clicks]; }
+                            else if (a.pinned && !b.pinned) { a.pinned = false; a.clicks = b.clicks+1; }
+                            else { a.pinned = true; a.pinOrder = b.pinOrder; b.pinOrder = (b.pinOrder||0)+1; }
                         } else { [a.order, b.order] = [b.order, a.order]; }
-                        save();
-                        renderAll();
+                        save(); renderAll();
                     });
-
-                    // 点击计数
                     item.addEventListener('click', function(e) {
-                        // 如果触发了长按菜单，不触发点击跳转
-                        if (this.dataset.longPressTriggered) {
-                            delete this.dataset.longPressTriggered;
-                            return;
-                        }
+                        if (this.dataset.longPressTriggered) { delete this.dataset.longPressTriggered; return; }
                         const bm = bookmarks.find(b => b.url === this.dataset.url);
-                        if (bm) { bm.clicks = (bm.clicks || 0) + 1;
-                            save();
-                            renderFrequent(); }
+                        if (bm) { bm.clicks = (bm.clicks||0)+1; save(); renderFrequent(); }
                     });
-
-                    // ---- 键盘支持 ----
                     item.addEventListener('keydown', function(e) {
-                        if (e.key === 'Enter' || e.key === ' ') {
-                            e.preventDefault();
-                            this.click();
-                        }
-                        if (e.key === 'ContextMenu' || (e.shiftKey && e.key === 'F10')) {
-                            e.preventDefault();
-                            const bm = bookmarks.find(b => b.url === this.dataset.url);
-                            if (bm) showContextMenuForBm(this, bm, isFreq);
-                        }
+                        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); }
+                        if (e.key === 'ContextMenu' || (e.shiftKey && e.key === 'F10')) { e.preventDefault(); const bm = bookmarks.find(b => b.url === this.dataset.url); if(bm) showContextMenuForBm(this, bm, isFreq); }
                     });
-
-                    // ---- 触屏长按检测 ----
                     const startLongPress = (e) => {
                         longPressTimer = setTimeout(() => {
                             const bm = bookmarks.find(b => b.url === item.dataset.url);
-                            if (bm) {
-                                item.dataset.longPressTriggered = 'true';
-                                showContextMenuForBm(item, bm, isFreq);
-                                // 触屏震动反馈（可选）
-                                if (navigator.vibrate) navigator.vibrate(15);
-                            }
+                            if (bm) { item.dataset.longPressTriggered = 'true'; showContextMenuForBm(item, bm, isFreq); if(navigator.vibrate) navigator.vibrate(15); }
                             longPressTimer = null;
                         }, 500);
                     };
-                    const cancelLongPress = () => {
-                        if (longPressTimer) { clearTimeout(longPressTimer);
-                            longPressTimer = null; }
-                    };
-
-                    item.addEventListener('touchstart', startLongPress, { passive: true });
-                    item.addEventListener('touchmove', cancelLongPress, { passive: true });
-                    item.addEventListener('touchend', cancelLongPress, { passive: true });
-                    item.addEventListener('touchcancel', cancelLongPress, { passive: true });
-
-                    // 右键菜单
-                    item.addEventListener('contextmenu', function(e) {
-                        e.preventDefault();
-                        const bm = bookmarks.find(b => b.url === this.dataset.url);
-                        if (bm) showContextMenuForBm(this, bm, isFreq);
-                    });
+                    const cancelLongPress = () => { if(longPressTimer){ clearTimeout(longPressTimer); longPressTimer=null; } };
+                    item.addEventListener('touchstart', startLongPress, {passive:true});
+                    item.addEventListener('touchmove', cancelLongPress, {passive:true});
+                    item.addEventListener('touchend', cancelLongPress, {passive:true});
+                    item.addEventListener('touchcancel', cancelLongPress, {passive:true});
+                    item.addEventListener('contextmenu', function(e) { e.preventDefault(); const bm = bookmarks.find(b => b.url === this.dataset.url); if(bm) showContextMenuForBm(this, bm, isFreq); });
                 });
             }
-
-            // ---- 为指定图标显示上下文菜单 ----
             function showContextMenuForBm(element, bm, isFreq) {
                 const items = [];
                 items.push({ label: '添加书签', action: openAddModal });
                 if (isFreq) {
-                    items.push(bm.pinned ? { label: '取消固定', action: () => { bm.pinned = false;
-                            save();
-                            renderFrequent(); } } : { label: '固定位置',
-                        action: () => { bm.pinned = true;
-                            bm.pinOrder = Date.now();
-                            save();
-                            renderFrequent(); } });
-                    items.push({ label: '从常用移除', action: () => { bm.clicks = 0;
-                            save();
-                            renderFrequent(); } });
+                    items.push(bm.pinned ? { label: '取消固定', action: () => { bm.pinned=false; save(); renderFrequent(); } } : { label: '固定位置', action: () => { bm.pinned=true; bm.pinOrder=Date.now(); save(); renderFrequent(); } });
+                    items.push({ label: '从常用移除', action: () => { bm.clicks=0; save(); renderFrequent(); } });
                 }
                 items.push({ label: '编辑', action: () => openEditModal(bm) });
-                items.push({ label: '删除', action: () => { showConfirm('确定删除「' + bm.title + '」？', () => del(bm
-                            .url)); } });
-                // 获取元素位置
+                items.push({ label: '删除', action: () => { showConfirm('确定删除「'+bm.title+'」？', () => moveToTrash(bm.url)); } });
                 const rect = element.getBoundingClientRect();
-                const e = {
-                    clientX: rect.left + rect.width / 2,
-                    clientY: rect.top + rect.height / 2,
-                    preventDefault: () => {}
-                };
-                showContextMenu(e, items);
+                const e = { clientX: rect.left+rect.width/2, clientY: rect.top+rect.height/2, preventDefault: () => {} };
+                showContextMenu(e, items, element);
             }
-
-            // ---- 渲染分类标签 ----
             function renderCategoryTabs() {
                 const groups = getCategoryGroups();
                 let tabs = [{ id: '__ALL__', label: '全部', count: bookmarks.length }];
-                groups.forEach(g => tabs.push({ id: g.name, label: categoryAliases[g.name] || g.name, count: g
-                        .count }));
+                groups.forEach(g => tabs.push({ id: g.name, label: categoryAliases[g.name] || g.name, count: g.count }));
                 if (!tabs.some(t => t.id === currentCat)) currentCat = '__ALL__';
                 $('categoryTabs').innerHTML = tabs.map(t => {
-                    const bgColor = t.id === '__ALL__' ? (isDarkMode ? '#4a4a6a' : '#6c757d') : getColor(t
-                    .label);
+                    const bgColor = t.id === '__ALL__' ? (isDarkMode ? '#4a4a6a' : '#6c757d') : getColor(t.label);
                     return `<div class="category-tab${t.id===currentCat?' active':''}" data-id="${t.id}" style="background:${bgColor}" role="tab" aria-selected="${t.id===currentCat}" tabindex="0">${t.label}<span style="font-size:0.65rem;opacity:0.85;margin-left:4px;">${t.count}</span></div>`;
                 }).join('');
-
                 document.querySelectorAll('.category-tab').forEach(tab => {
-                    // 点击切换
-                    tab.addEventListener('click', () => { currentCat = tab.dataset.id;
-                        searchQuery = '';
-                        renderAll(); });
-                    // 键盘支持
-                    tab.addEventListener('keydown', function(e) {
-                        if (e.key === 'Enter' || e.key === ' ') {
-                            e.preventDefault();
-                            this.click();
-                        }
-                    });
-                    // 右键/长按菜单
+                    tab.addEventListener('click', () => { currentCat = tab.dataset.id; searchQuery = ''; renderAll(); });
+                    tab.addEventListener('keydown', function(e) { if(e.key==='Enter'||e.key===' '){ e.preventDefault(); this.click(); } });
                     tab.addEventListener('contextmenu', function(e) {
                         e.preventDefault();
                         const gid = this.dataset.id;
-                        const canDelete = customGroups.includes(gid) || !categoryRules.some(r => r
-                            .name === gid);
-                        const items = [{ label: '添加书签', action: openAddModal },
-                            { label: '添加分组', action: () => { const n = prompt('新分组名称：'); if (
-                                    n && n.trim()) { customGroups.push(n.trim());
-                                    save();
-                                    renderAll(); } } }
+                        const canDelete = customGroups.includes(gid) || !categoryRules.some(r => r.name === gid);
+                        const items = [
+                            { label: '添加书签', action: openAddModal },
+                            { label: '添加分组', action: () => { const n = prompt('新分组名称：'); if(n && n.trim()){ customGroups.push(n.trim()); save(); renderAll(); } } }
                         ];
-                        if (gid !== '__ALL__') items.push({ label: '重命名分组',
-                            action: () => { const cur = categoryAliases[gid] || gid; const n =
-                                    prompt('新名称：', cur); if (n && n.trim() && n !== gid) {
-                                        categoryAliases[gid] = n.trim();
-                                        save();
-                                        renderAll(); } } });
-                        if (canDelete) items.push({ label: '删除分组',
-                            action: () => { showConfirm('确定删除「' + (categoryAliases[gid] ||
-                                    gid) + '」？', () => {
-                                    customGroups = customGroups.filter(g => g !== gid);
-                                    bookmarks.forEach(b => { if (b.manualGroup === gid) delete b
-                                            .manualGroup; });
-                                    save();
-                                    renderAll();
-                                }); } });
-                        showContextMenu(e, items);
+                        if (gid !== '__ALL__') items.push({ label: '重命名分组', action: () => { const cur = categoryAliases[gid] || gid; const n = prompt('新名称：', cur); if(n && n.trim() && n!==gid){ categoryAliases[gid] = n.trim(); save(); renderAll(); } } });
+                        if (canDelete) items.push({ label: '删除分组', action: () => { showConfirm('确定删除「'+(categoryAliases[gid]||gid)+'」？', () => { customGroups = customGroups.filter(g => g!==gid); bookmarks.forEach(b => { if(b.manualGroup===gid) delete b.manualGroup; }); save(); renderAll(); }); } });
+                        showContextMenu(e, items, this);
                     });
-                    // 触屏长按分组
-                    let timer = null;
-                    tab.addEventListener('touchstart', function(e) {
-                        timer = setTimeout(() => {
-                            const ev = { clientX: e.touches[0].clientX,
-                                clientY: e.touches[0].clientY,
-                                preventDefault: () => {} };
-                            this.dispatchEvent(new Event('contextmenu'));
-                        }, 500);
-                    }, { passive: true });
-                    tab.addEventListener('touchmove', () => { if (timer) { clearTimeout(timer);
-                            timer = null; } }, { passive: true });
-                    tab.addEventListener('touchend', () => { if (timer) { clearTimeout(timer);
-                            timer = null; } }, { passive: true });
-                    tab.addEventListener('touchcancel', () => { if (timer) { clearTimeout(timer);
-                            timer = null; } }, { passive: true });
                 });
             }
 
-            // ============================================================
-            //  7.  编辑书签
-            // ============================================================
             function openEditModal(bm) {
                 editingBm = bm;
-                $('editTitle').value = bm.title;
-                $('editUrl').value = bm.url;
-                $('editIconColor').value = bm.customColor || getColor(getDomain(bm.url) || bm.title);
+                $('editTitle').value = bm.title; $('editUrl').value = bm.url;
+                $('editIconColor').value = bm.customColor || getColor(getDomain(bm.url)||bm.title);
                 $('editImageInfo').textContent = bm.customImage ? '已设置图片' : '';
                 renderIconColorPresets();
                 openModal('editModal');
             }
-
             function renderIconColorPresets() {
                 const container = $('iconColorPresets');
                 const current = $('editIconColor').value;
-                container.innerHTML = iconPresetColors.map(c =>
-                    `<div class="color-preset${c===current?' active':''}" style="background:${c}" data-color="${c}"></div>`
-                    ).join('');
+                container.innerHTML = iconPresetColors.map(c => `<div class="color-preset${c===current?' active':''}" style="background:${c}" data-color="${c}"></div>`).join('');
                 container.querySelectorAll('.color-preset').forEach(el => {
-                    el.addEventListener('click', () => {
-                        $('editIconColor').value = el.dataset.color;
-                        renderIconColorPresets();
-                    });
-                    el.addEventListener('keydown', function(e) {
-                        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault();
-                            this.click(); }
-                    });
-                    el.setAttribute('tabindex', '0');
-                    el.setAttribute('role', 'button');
+                    el.addEventListener('click', () => { $('editIconColor').value = el.dataset.color; renderIconColorPresets(); });
                 });
             }
             $('editIconColor').addEventListener('input', renderIconColorPresets);
             $('editIconImage').addEventListener('change', function() {
-                const file = this.files[0];
-                if (!file) return;
-                if (file.size > 15 * 1024 * 1024) { alert('图片不超过15MB');
-                    this.value = ''; return; }
+                const file = this.files[0]; if(!file) return;
+                if(file.size > 15*1024*1024) { alert('图片不超过15MB'); this.value=''; return; }
                 const reader = new FileReader();
-                reader.onload = function(e) {
-                    $('editImageInfo').textContent = file.name;
-                    if (editingBm) editingBm._tempImage = e.target.result;
-                };
+                reader.onload = function(e) { $('editImageInfo').textContent = file.name; if(editingBm) editingBm._tempImage = e.target.result; };
                 reader.readAsDataURL(file);
             });
-            $('clearEditImageBtn').addEventListener('click', () => {
-                $('editIconImage').value = '';
-                $('editImageInfo').textContent = '';
-                if (editingBm) editingBm._tempImage = null;
-            });
-            $('editCancel').onclick = () => { closeModal('editModal');
-                editingBm = null; };
-            $('editModalClose').onclick = () => { closeModal('editModal');
-                editingBm = null; };
+            $('clearEditImageBtn').addEventListener('click', () => { $('editIconImage').value=''; $('editImageInfo').textContent=''; if(editingBm) editingBm._tempImage=null; });
+            $('editCancel').onclick = () => { closeModal('editModal'); editingBm=null; };
+            $('editModalClose').onclick = () => { closeModal('editModal'); editingBm=null; };
             $('editConfirm').onclick = () => {
-                if (!editingBm) return;
-                const title = $('editTitle').value.trim();
-                const url = $('editUrl').value.trim();
-                if (!title || !url) return;
-                editingBm.title = title;
-                editingBm.url = url;
+                if(!editingBm) return;
+                const title = $('editTitle').value.trim(), url = $('editUrl').value.trim();
+                if(!title||!url) return;
+                editingBm.title = title; editingBm.url = url;
                 editingBm.customColor = $('editIconColor').value;
-                if (editingBm._tempImage) {
-                    editingBm.customImage = editingBm._tempImage;
-                    delete editingBm._tempImage;
-                } else if (editingBm._tempImage === null) {
-                    delete editingBm.customImage;
-                }
-                // 清除颜色缓存
-                colorCache.clear();
-                save();
-                renderAll();
-                closeModal('editModal');
-                editingBm = null;
+                if(editingBm._tempImage) { editingBm.customImage = editingBm._tempImage; delete editingBm._tempImage; }
+                else if(editingBm._tempImage === null) { delete editingBm.customImage; }
+                colorCache.clear(); save(); renderAll(); closeModal('editModal'); editingBm=null;
             };
 
-            // ============================================================
-            //  8.  上下文菜单
-            // ============================================================
-            function showContextMenu(e, items) {
-                ctxMenu.innerHTML = items.map(item => `<div class="context-menu-item" role="menuitem" tabindex="0">${item.label}</div>`)
-                    .join('');
-                ctxMenu.querySelectorAll('.context-menu-item').forEach((mi, i) => {
-                    mi.onclick = (ev) => { ev.stopPropagation();
-                        hideCtx();
-                        items[i].action(); };
-                    mi.addEventListener('keydown', function(ev) {
-                        if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault();
-                            this.click(); }
-                        if (ev.key === 'Escape') hideCtx();
-                    });
-                });
-                const x = e.clientX || (e.touches && e.touches[0].clientX) || 0;
-                const y = e.clientY || (e.touches && e.touches[0].clientY) || 0;
-                ctxMenu.style.display = 'block';
-                const w = ctxMenu.offsetWidth || 160,
-                    h = ctxMenu.offsetHeight || 200;
-                ctxMenu.style.left = Math.min(x, window.innerWidth - w - 10) + 'px';
-                ctxMenu.style.top = Math.min(y, window.innerHeight - h - 10) + 'px';
-                ctxMenu.classList.add('show');
-                // 聚焦第一个菜单项
-                const first = ctxMenu.querySelector('.context-menu-item');
-                if (first) first.focus();
-
-                if (menuMouseTracker) document.removeEventListener('mousemove', menuMouseTracker);
-                menuMouseTracker = (ev) => {
-                    const rect = ctxMenu.getBoundingClientRect();
-                    if (ev.clientX < rect.left || ev.clientX > rect.right || ev.clientY < rect.top || ev
-                        .clientY > rect.bottom) { hideCtx(); }
-                };
-                document.addEventListener('mousemove', menuMouseTracker);
-            }
-
-            function hideCtx() {
-                ctxMenu.classList.remove('show');
-                ctxMenu.style.display = 'none';
-                if (menuMouseTracker) { document.removeEventListener('mousemove', menuMouseTracker);
-                    menuMouseTracker = null; }
-            }
-
-            // 全局关闭上下文菜单
-            document.addEventListener('mousedown', function(e) { if (!ctxMenu.contains(e.target)) hideCtx(); }, true);
-            document.addEventListener('touchstart', function(e) { if (!ctxMenu.contains(e.target)) hideCtx(); }, { passive: true });
-            document.addEventListener('contextmenu', function(e) { if (!ctxMenu.contains(e.target)) hideCtx(); }, true);
-            ctxMenu.addEventListener('mouseleave', hideCtx);
-            document.addEventListener('keydown', function(e) { if (e.key === 'Escape') hideCtx(); });
-
-            // ============================================================
-            //  9.  删除 & 保存 & 加载
-            // ============================================================
-            function del(url) {
-                const i = bookmarks.findIndex(b => b.url === url);
-                if (i >= 0) { bookmarks.splice(i, 1);
-                    colorCache.clear();
-                    save();
-                    renderAll(); }
-            }
-
-            function save() {
-                // 压缩存储：对于大量数据，使用简单压缩（去除重复字段）
-                const data = {
-                    bookmarks: bookmarks.map(b => ({ ...b })),
-                    aliases: categoryAliases,
-                    customGroups,
-                    engines: searchEngines,
-                    selectedEngine,
-                    siteTitle,
-                    layoutConfig
-                };
-                // 尝试压缩（使用LZString的简化版——直接存储，因为浏览器storage通常够用）
-                // 这里使用原生JSON，对于大多数场景足够
-                try {
-                    localStorage.setItem('bm-flat', JSON.stringify(data));
-                } catch (e) {
-                    // 如果存储失败，尝试清理旧数据再存
-                    localStorage.removeItem('bm-flat');
-                    localStorage.setItem('bm-flat', JSON.stringify(data));
+            let menuTriggerElement = null, menuCloseTimer = null;
+            function handleMenuMouseMove(e) {
+                if (!menuTriggerElement) return;
+                const onMenu = ctxMenu.contains(e.target);
+                const onTrigger = menuTriggerElement.contains(e.target);
+                if (onMenu || onTrigger) {
+                    if (menuCloseTimer) { clearTimeout(menuCloseTimer); menuCloseTimer = null; }
+                } else {
+                    if (!menuCloseTimer) {
+                        menuCloseTimer = setTimeout(() => hideCtx(), 200);
+                    }
                 }
             }
+            function showContextMenu(e, items, triggerEl) {
+                if (menuCloseTimer) { clearTimeout(menuCloseTimer); menuCloseTimer = null; }
+                ctxMenu.innerHTML = items.map(item => `<div class="context-menu-item" role="menuitem" tabindex="0">${item.label}</div>`).join('');
+                ctxMenu.querySelectorAll('.context-menu-item').forEach((mi,i) => {
+                    mi.onclick = (ev) => { ev.stopPropagation(); hideCtx(); items[i].action(); };
+                    mi.addEventListener('keydown', function(ev) { if(ev.key==='Enter'||ev.key===' '){ ev.preventDefault(); this.click(); } if(ev.key==='Escape') hideCtx(); });
+                });
+                const x = e.clientX || 0, y = e.clientY || 0;
+                ctxMenu.style.display = 'block';
+                const w = ctxMenu.offsetWidth || 160, h = ctxMenu.offsetHeight || 200;
+                ctxMenu.style.left = Math.max(5, Math.min(x, window.innerWidth - w - 10)) + 'px';
+                ctxMenu.style.top = Math.max(5, Math.min(y, window.innerHeight - h - 10)) + 'px';
+                ctxMenu.classList.add('show');
+                menuTriggerElement = triggerEl || null;
+                document.addEventListener('mousemove', handleMenuMouseMove);
+                const first = ctxMenu.querySelector('.context-menu-item'); if(first) first.focus();
+            }
+            function hideCtx() {
+                ctxMenu.classList.remove('show');
+                ctxMenu.style.display='none';
+                if (menuCloseTimer) { clearTimeout(menuCloseTimer); menuCloseTimer = null; }
+                document.removeEventListener('mousemove', handleMenuMouseMove);
+                menuTriggerElement = null;
+            }
+            document.addEventListener('mousedown', function(e) {
+                if (ctxMenu.classList.contains('show')) {
+                    if (!ctxMenu.contains(e.target) && (!menuTriggerElement || !menuTriggerElement.contains(e.target))) {
+                        hideCtx();
+                    }
+                }
+            }, true);
+            document.addEventListener('touchstart', function(e) {
+                if (ctxMenu.classList.contains('show')) {
+                    if (!ctxMenu.contains(e.target) && (!menuTriggerElement || !menuTriggerElement.contains(e.target))) {
+                        hideCtx();
+                    }
+                }
+            }, {passive:true});
+            document.addEventListener('keydown', function(e) { if(e.key==='Escape') hideCtx(); });
 
+            function moveToTrash(url) {
+                const idx = bookmarks.findIndex(b => b.url === url);
+                if (idx < 0) return;
+                const bm = bookmarks.splice(idx, 1)[0];
+                trash.push({ title: bm.title, url: bm.url, deletedAt: Date.now(), original: { ...bm } });
+                colorCache.clear(); save(); renderAll();
+            }
+            function restoreFromTrash(index) {
+                if (index < 0 || index >= trash.length) return;
+                const item = trash.splice(index, 1)[0];
+                bookmarks.push(item.original);
+                colorCache.clear(); save(); renderAll();
+            }
+            function deleteForever(index) {
+                if (index < 0 || index >= trash.length) return;
+                trash.splice(index, 1); save();
+            }
+            function emptyTrash() { trash = []; save(); }
+            function cleanOldTrash() {
+                const now = Date.now(), thirtyDays = 30*24*60*60*1000;
+                trash = trash.filter(item => now - item.deletedAt < thirtyDays);
+            }
+            function createBackup() {
+                backups.unshift({
+                    time: Date.now(),
+                    label: new Date().toLocaleString('zh-CN'),
+                    data: {
+                        bookmarks: JSON.parse(JSON.stringify(bookmarks)),
+                        aliases: { ...categoryAliases },
+                        customGroups: [...customGroups],
+                        engines: JSON.parse(JSON.stringify(searchEngines)),
+                        selectedEngine, siteTitle,
+                        layoutConfig: JSON.parse(JSON.stringify(layoutConfig)),
+                        trash: JSON.parse(JSON.stringify(trash)),
+                        autoBackup
+                    }
+                });
+                if (backups.length > 5) backups = backups.slice(0, 5);
+                save();
+            }
+            function restoreBackup(index) {
+                if (index < 0 || index >= backups.length) return;
+                const backup = backups[index].data;
+                bookmarks = backup.bookmarks || [];
+                categoryAliases = backup.aliases || {};
+                customGroups = backup.customGroups || [];
+                searchEngines = backup.engines || defaultEngines;
+                selectedEngine = backup.selectedEngine || '';
+                siteTitle = backup.siteTitle || '我的收藏夹';
+                layoutConfig = backup.layoutConfig || defaultLayout;
+                trash = backup.trash || [];
+                autoBackup = backup.autoBackup !== undefined ? backup.autoBackup : true;
+                colorCache.clear(); save();
+                applyLayout(); updateUI(); updateEngineSelect(); renderAll();
+                closeModal('settingsModal');
+                alert('已恢复备份：' + backups[index].label);
+            }
+            function downloadBackup(index) {
+                if (index < 0 || index >= backups.length) return;
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(new Blob([JSON.stringify(backups[index].data)], { type: 'application/json' }));
+                a.download = 'backup-' + new Date(backups[index].time).toISOString().slice(0,10) + '.json';
+                a.click();
+            }
+            function autoBackupIfNeeded() {
+                if (!autoBackup) return;
+                const lastBackup = localStorage.getItem('bm-last-backup-time');
+                const now = Date.now();
+                if (!lastBackup || (now - parseInt(lastBackup)) > 24*60*60*1000) {
+                    createBackup();
+                    localStorage.setItem('bm-last-backup-time', now.toString());
+                }
+            }
+            function save() {
+                const data = { bookmarks: bookmarks.map(b=>({...b})), aliases: categoryAliases, customGroups, engines: searchEngines, selectedEngine, siteTitle, layoutConfig, trash, backups, autoBackup };
+                try { localStorage.setItem('bm-flat', JSON.stringify(data)); } catch(e) { localStorage.removeItem('bm-flat'); localStorage.setItem('bm-flat', JSON.stringify(data)); }
+            }
             function load() {
                 try {
                     const d = JSON.parse(localStorage.getItem('bm-flat') || '{}');
-                    if (d.bookmarks) bookmarks = d.bookmarks.map(b => ({ ...b, clicks: b.clicks || 0 }));
+                    if (d.bookmarks) bookmarks = d.bookmarks.map(b => ({...b, clicks: b.clicks||0}));
                     if (d.aliases) categoryAliases = d.aliases;
                     if (d.customGroups) customGroups = d.customGroups;
                     if (d.engines) searchEngines = d.engines;
                     if (d.selectedEngine) selectedEngine = d.selectedEngine;
                     if (d.siteTitle) siteTitle = d.siteTitle;
                     if (d.layoutConfig) Object.assign(layoutConfig, d.layoutConfig);
-                } catch (e) { console.warn('加载数据失败', e); }
+                    if (d.trash) trash = d.trash;
+                    if (d.backups) backups = d.backups;
+                    if (d.autoBackup !== undefined) autoBackup = d.autoBackup;
+                } catch(e) { console.warn('加载数据失败', e); }
             }
 
-            // ============================================================
-            //  10. 搜索引擎
-            // ============================================================
             function updateEngineSelect() {
                 $('engineSelect').innerHTML = searchEngines.map(e => `<option>${e.name}</option>`).join('');
                 $('engineSelect').value = selectedEngine || (searchEngines[0]?.name || '');
                 selectedEngine = $('engineSelect').value;
-                $('engineSelect').onchange = () => { selectedEngine = $('engineSelect').value;
-                    save(); };
+                $('engineSelect').onchange = () => { selectedEngine = $('engineSelect').value; save(); };
             }
-
             function updateUI() {
                 $('siteTitle').textContent = siteTitle;
                 document.title = siteTitle;
                 $('pageTitle').textContent = siteTitle;
             }
 
-            // ============================================================
-            //  11. 模态框工具
-            // ============================================================
             function openModal(id) { $(id).classList.add('show'); }
-
             function closeModal(id) { $(id).classList.remove('show'); }
-
-            // 点击遮罩关闭
             document.querySelectorAll('.modal-overlay').forEach(el => {
-                el.addEventListener('click', function(e) {
-                    if (e.target === this) {
-                        this.classList.remove('show');
-                        if (this.id === 'confirmModal' && confirmResolve) {
-                            confirmResolve(false);
-                            confirmResolve = null;
-                        }
-                    }
-                });
+                el.addEventListener('click', function(e) { if(e.target===this){ this.classList.remove('show'); } });
             });
+            window.toggleCollapse = function(cardId) {
+                const card = document.getElementById(cardId);
+                if (card) card.classList.toggle('collapsed');
+            };
 
-            // ============================================================
-            //  12. 自定义确认对话框
-            // ============================================================
             function showConfirm(message, onOk) {
-                return new Promise((resolve) => {
-                    $('confirmMessage').textContent = message;
-                    $('confirmTitle').textContent = '确认';
-                    const okBtn = $('confirmOk');
-                    const cancelBtn = $('confirmCancel');
-                    const closeBtn = $('confirmModalClose');
-
-                    const cleanup = () => {
-                        closeModal('confirmModal');
-                        okBtn.onclick = null;
-                        cancelBtn.onclick = null;
-                        closeBtn.onclick = null;
-                        resolve(false);
-                    };
-
-                    okBtn.onclick = () => {
-                        closeModal('confirmModal');
-                        if (onOk) onOk();
-                        resolve(true);
-                    };
-                    cancelBtn.onclick = cleanup;
-                    closeBtn.onclick = cleanup;
-                    // 键盘支持
-                    const keyHandler = (e) => {
-                        if (e.key === 'Escape') { cleanup(); }
-                        if (e.key === 'Enter') { okBtn.click(); }
-                    };
-                    document.addEventListener('keydown', keyHandler);
-                    // 清理键盘监听
-                    const origCleanup = cleanup;
-                    okBtn._cleanup = () => {
-                        document.removeEventListener('keydown', keyHandler);
-                        origCleanup();
-                    };
-                    // 重写cleanup
-                    const newCleanup = () => {
-                        document.removeEventListener('keydown', keyHandler);
-                        cleanup();
-                    };
-                    okBtn.onclick = () => {
-                        document.removeEventListener('keydown', keyHandler);
-                        closeModal('confirmModal');
-                        if (onOk) onOk();
-                        resolve(true);
-                    };
-                    cancelBtn.onclick = newCleanup;
-                    closeBtn.onclick = newCleanup;
-
-                    openModal('confirmModal');
-                    // 聚焦确定按钮
-                    setTimeout(() => okBtn.focus(), 50);
-                });
+                $('confirmMessage').textContent = message;
+                $('confirmTitle').textContent = '确认';
+                const okBtn = $('confirmOk'), cancelBtn = $('confirmCancel'), closeBtn = $('confirmModalClose');
+                const cleanup = () => { closeModal('confirmModal'); okBtn.onclick=null; cancelBtn.onclick=null; closeBtn.onclick=null; };
+                okBtn.onclick = () => { cleanup(); if(onOk) onOk(); };
+                cancelBtn.onclick = cleanup;
+                closeBtn.onclick = cleanup;
+                openModal('confirmModal');
+                setTimeout(() => okBtn.focus(), 50);
             }
 
-            // ============================================================
-            //  13. 设置面板
-            // ============================================================
+            function renderDashboard() {
+                const content = $('dashboardContent');
+                const totalBookmarks = bookmarks.length;
+                const groups = getCategoryGroups();
+                const totalGroups = groups.length;
+                const top5 = [...bookmarks].sort((a,b) => (b.clicks||0) - (a.clicks||0)).slice(0,5);
+                const storageSize = JSON.stringify(localStorage).length;
+                const sizeStr = storageSize < 1024 ? storageSize+' B' : storageSize < 1048576 ? (storageSize/1024).toFixed(1)+' KB' : (storageSize/1048576).toFixed(1)+' MB';
+                let html = '<div class="dashboard-grid">';
+                html += `<div class="dashboard-stat"><div class="number">${totalBookmarks}</div><div class="label">🔖 书签总数</div></div>`;
+                html += `<div class="dashboard-stat"><div class="number">${totalGroups}</div><div class="label">📁 分组数</div></div>`;
+                html += `<div class="dashboard-stat"><div class="number">${trash.length}</div><div class="label">🗑️ 回收站</div></div>`;
+                html += `<div class="dashboard-stat"><div class="number">${sizeStr}</div><div class="label">💾 存储占用</div></div>`;
+                html += '</div>';
+                html += '<div class="top-list"><h5>🔥 最常点击 Top 5</h5>';
+                if (top5.length) {
+                    html += '<ol>';
+                    top5.forEach(b => html += `<li><span>${esc(b.title)}</span> <span>${b.clicks||0}次</span></li>`);
+                    html += '</ol>';
+                } else {
+                    html += '<div style="color:var(--text-secondary); font-size:0.8rem;">暂无数据</div>';
+                }
+                html += '</div>';
+                content.innerHTML = html;
+            }
+            function renderTrashUI() {
+                const content = $('trashContent');
+                const countSpan = $('trashCount');
+                countSpan.textContent = trash.length ? ` (${trash.length})` : '';
+                if (trash.length === 0) {
+                    content.innerHTML = '<div style="color:var(--text-secondary);">回收站为空</div>';
+                    return;
+                }
+                let html = '';
+                trash.forEach((item, i) => {
+                    const date = new Date(item.deletedAt).toLocaleString('zh-CN');
+                    html += `<div class="data-list-item">
+                        <div style="flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+                            <strong>${esc(item.title)}</strong><br>
+                            <span style="font-size:0.7rem; color:var(--text-secondary);">${esc(item.url.slice(0,50))} · ${date}</span>
+                        </div>
+                        <div class="trash-item-buttons">
+                            <button class="btn-xs" onclick="restoreFromTrash(${i})">还原</button>
+                            <button class="btn-xs danger" onclick="deleteForever(${i})">删除</button>
+                        </div>
+                    </div>`;
+                });
+                html += `<div style="margin-top:8px; display:flex; align-items:center; gap:8px;">
+                    <button class="btn btn-outline btn-sm" onclick="emptyTrash()">清空回收站</button>
+                    <span class="trash-tip">(删除的书签保留30天)</span>
+                </div>`;
+                content.innerHTML = html;
+            }
+            function renderBackupUI() {
+                const content = $('backupContent');
+                let html = '<div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">';
+                html += '<button class="btn btn-primary btn-sm" onclick="createBackup()">💾 立即备份</button>';
+                html += '<label style="font-size:0.85rem;"><input type="checkbox" id="autoBackupCheck" ' + (autoBackup?'checked':'') + '> 每日自动备份</label>';
+                html += '<span class="trash-tip">(每天首次打开时自动备份)</span>';
+                html += '</div>';
+                if (backups.length === 0) {
+                    html += '<div style="color:var(--text-secondary);">暂无备份</div>';
+                } else {
+                    backups.forEach((b, i) => {
+                        html += `<div class="data-list-item">
+                            <div style="flex:1;"><span style="font-size:0.85rem;">${b.label}</span></div>
+                            <div class="backup-item-buttons">
+                                <button class="btn-xs" onclick="restoreBackup(${i})">恢复</button>
+                                <button class="btn-xs" onclick="downloadBackup(${i})">下载</button>
+                            </div>
+                        </div>`;
+                    });
+                }
+                content.innerHTML = html;
+                setTimeout(() => {
+                    const cb = document.getElementById('autoBackupCheck');
+                    if (cb) cb.onchange = function() { autoBackup = this.checked; save(); };
+                }, 0);
+            }
+            function refreshSettingsData() {
+                if ($('settingsModal').classList.contains('show')) {
+                    renderDashboard(); renderTrashUI(); renderBackupUI();
+                }
+            }
+
             $('settingsBtn').onclick = () => {
                 $('setSiteTitle').value = siteTitle;
                 $('setPageWidth').value = layoutConfig.pageWidth;
                 $('pageWidthValue').textContent = layoutConfig.pageWidth + 'px';
                 $('setBorderRadius').value = layoutConfig.borderRadius;
                 $('borderRadiusValue').textContent = layoutConfig.borderRadius + '%';
-                $('setIconNameColor').value = layoutConfig.iconNameColor || '';
+                $('setIconNameColor').value = layoutConfig.iconNameColor || '#000000';
                 $('iconNameColorValue').textContent = layoutConfig.iconNameColor || '默认';
-                renderBgPresets('freqBgPresets', 'freqBg');
-                renderBgPresets('globalBgPresets', 'globalBg');
+                renderBgPresets('freqBgPresets','freqBg');
+                renderBgPresets('globalBgPresets','globalBg');
                 $('freqBgCustomColor').value = layoutConfig.freqBg.value || '#ffffff';
                 $('globalBgCustomColor').value = layoutConfig.globalBg.value || '#ffffff';
                 $('freqBgFileInfo').textContent = layoutConfig.freqBg.image ? '已设置图片' : '';
                 $('globalBgFileInfo').textContent = layoutConfig.globalBg.image ? '已设置图片' : '';
                 renderEngineList();
+                renderDashboard();
+                renderTrashUI();
+                renderBackupUI();
                 openModal('settingsModal');
             };
             $('settingsModalClose').onclick = () => closeModal('settingsModal');
-
             $('setPageWidth').oninput = function() { $('pageWidthValue').textContent = this.value + 'px'; };
             $('setBorderRadius').oninput = function() { $('borderRadiusValue').textContent = this.value + '%'; };
             $('setIconNameColor').oninput = function() { $('iconNameColorValue').textContent = this.value; };
-
             $('settingsClose').onclick = () => {
                 siteTitle = $('setSiteTitle').value.trim() || '我的收藏夹';
                 layoutConfig.pageWidth = Math.max(600, +$('setPageWidth').value || 1200);
-                const val = +$('setBorderRadius').value;
-                layoutConfig.borderRadius = isNaN(val) ? 20 : val;
+                layoutConfig.borderRadius = isNaN(+$('setBorderRadius').value) ? 20 : +$('setBorderRadius').value;
                 layoutConfig.iconNameColor = $('setIconNameColor').value;
                 colorCache.clear();
-                applyLayout();
-                updateUI();
-                updateEngineSelect();
-                save();
-                renderAll();
+                applyLayout(); updateUI(); updateEngineSelect(); save(); renderAll();
                 closeModal('settingsModal');
             };
-
             $('settingsReset').onclick = () => {
                 showConfirm('恢复所有设置为默认？', () => {
                     layoutConfig = JSON.parse(JSON.stringify(defaultLayout));
                     searchEngines = JSON.parse(JSON.stringify(defaultEngines));
-                    selectedEngine = '';
-                    siteTitle = '我的收藏夹';
-                    categoryAliases = {};
-                    customGroups = [];
-                    colorCache.clear();
-                    save();
-                    applyLayout();
-                    updateUI();
-                    updateEngineSelect();
-                    renderAll();
+                    selectedEngine = ''; siteTitle = '我的收藏夹';
+                    categoryAliases = {}; customGroups = [];
+                    trash = []; backups = []; autoBackup = true;
+                    colorCache.clear(); save();
+                    applyLayout(); updateUI(); updateEngineSelect(); renderAll();
                     closeModal('settingsModal');
                 });
             };
-
             function renderBgPresets(id, key) {
                 const c = $(id);
-                c.innerHTML = presetBgColors.map(col =>
-                    `<span class="preset-bg-item${layoutConfig[key].type==='preset'&&layoutConfig[key].value===col?' active':''}" style="background:${col}" data-value="${col}" role="button" tabindex="0"></span>`
-                    ).join('');
+                c.innerHTML = presetBgColors.map(col => `<span class="preset-bg-item${layoutConfig[key].type==='preset'&&layoutConfig[key].value===col?' active':''}" style="background:${col}" data-value="${col}" role="button" tabindex="0"></span>`).join('');
                 c.querySelectorAll('.preset-bg-item').forEach(el => {
-                    el.onclick = () => {
-                        layoutConfig[key] = { type: 'preset', value: el.dataset.value, image: null };
-                        if (key === 'freqBg') applyFrequentBg();
-                        else applyBodyBg();
-                        save();
-                        renderBgPresets(id, key);
-                    };
-                    el.addEventListener('keydown', function(e) {
-                        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault();
-                            this.click(); }
-                    });
+                    el.onclick = () => { layoutConfig[key] = { type:'preset', value:el.dataset.value, image:null }; if(key==='freqBg') applyFrequentBg(); else applyBodyBg(); save(); renderBgPresets(id,key); };
                 });
             }
-
             function renderEngineList() {
                 const c = $('engineListContainer');
                 if (!searchEngines.length) { c.innerHTML = '<div>暂无</div>'; return; }
-                c.innerHTML = searchEngines.map((eng, i) =>
-                    `<div class="engine-item"><span class="engine-name">${esc(eng.name)}</span><span class="engine-url">${esc(eng.url.slice(0,40))}</span><div class="engine-actions"><button class="btn-xs edit-engine-btn" data-index="${i}" aria-label="编辑搜索引擎">✏️</button><button class="btn-xs danger delete-engine-btn" data-index="${i}" ${searchEngines.length>1?'':'disabled'} aria-label="删除搜索引擎">🗑️</button></div></div>`
-                    ).join('');
-                c.querySelectorAll('.edit-engine-btn').forEach(b => b.onclick = e => { e.stopPropagation();
-                    editEngine(+b.dataset.index); });
-                c.querySelectorAll('.delete-engine-btn').forEach(b => b.onclick = e => { e.stopPropagation();
-                    deleteEngine(+b.dataset.index); });
+                c.innerHTML = searchEngines.map((eng,i) => `<div class="engine-item"><span class="engine-name">${esc(eng.name)}</span><span class="engine-url">${esc(eng.url.slice(0,40))}</span><button class="btn-xs edit-engine-btn" data-index="${i}">✏️</button><button class="btn-xs danger delete-engine-btn" data-index="${i}" ${searchEngines.length>1?'':'disabled'}>🗑️</button></div>`).join('');
+                c.querySelectorAll('.edit-engine-btn').forEach(b => b.onclick = e => { e.stopPropagation(); editEngine(+b.dataset.index); });
+                c.querySelectorAll('.delete-engine-btn').forEach(b => b.onclick = e => { e.stopPropagation(); deleteEngine(+b.dataset.index); });
             }
-
             function editEngine(i) {
-                const eng = searchEngines[i];
-                if (!eng) return;
-                const n = prompt('名称：', eng.name);
-                if (n === null) return;
-                const nn = n.trim();
-                if (!nn) return alert('名称不能为空');
-                const u = prompt('URL ({query})：', eng.url);
-                if (u === null) return;
-                const nu = u.trim();
-                if (!nu) return alert('URL不能为空');
-                if (!nu.includes('{query}') && !confirm('缺少{query}，确定？')) return;
-                searchEngines[i] = { name: nn, url: nu };
-                if (selectedEngine === eng.name) selectedEngine = nn;
-                save();
-                updateEngineSelect();
-                renderEngineList();
+                const eng = searchEngines[i]; if(!eng) return;
+                const n = prompt('名称：',eng.name); if(n===null) return;
+                const nn = n.trim(); if(!nn) return alert('名称不能为空');
+                const u = prompt('URL ({query})：',eng.url); if(u===null) return;
+                const nu = u.trim(); if(!nu) return alert('URL不能为空');
+                if(!nu.includes('{query}') && !confirm('缺少{query}，确定？')) return;
+                searchEngines[i] = { name:nn, url:nu };
+                if(selectedEngine === eng.name) selectedEngine = nn;
+                save(); updateEngineSelect(); renderEngineList();
             }
-
             function deleteEngine(i) {
-                if (searchEngines.length <= 1) return alert('至少保留一个');
-                showConfirm('删除 ' + searchEngines[i].name + '？', () => {
+                if(searchEngines.length <= 1) return alert('至少保留一个');
+                showConfirm('删除 '+searchEngines[i].name+'？', () => {
                     const delName = searchEngines[i].name;
-                    searchEngines.splice(i, 1);
-                    if (selectedEngine === delName) selectedEngine = searchEngines[0]?.name || '';
-                    save();
-                    updateEngineSelect();
-                    renderEngineList();
+                    searchEngines.splice(i,1);
+                    if(selectedEngine === delName) selectedEngine = searchEngines[0]?.name || '';
+                    save(); updateEngineSelect(); renderEngineList();
                 });
             }
-
             $('addEngineBtn').onclick = () => {
-                const n = prompt('名称：');
-                if (n === null) return;
-                const nn = n.trim();
-                if (!nn) return alert('名称不能为空');
-                if (searchEngines.some(e => e.name === nn)) return alert('已存在');
-                const u = prompt('URL ({query})：', 'https://example.com/search?q={query}');
-                if (u === null) return;
-                const nu = u.trim();
-                if (!nu) return alert('URL不能为空');
-                if (!nu.includes('{query}') && !confirm('缺少{query}，确定？')) return;
-                searchEngines.push({ name: nn, url: nu });
-                save();
-                updateEngineSelect();
-                renderEngineList();
+                const n = prompt('名称：'); if(n===null) return;
+                const nn = n.trim(); if(!nn) return alert('名称不能为空');
+                if(searchEngines.some(e => e.name === nn)) return alert('已存在');
+                const u = prompt('URL ({query})：','https://example.com/search?q={query}'); if(u===null) return;
+                const nu = u.trim(); if(!nu) return alert('URL不能为空');
+                if(!nu.includes('{query}') && !confirm('缺少{query}，确定？')) return;
+                searchEngines.push({ name:nn, url:nu });
+                save(); updateEngineSelect(); renderEngineList();
             };
 
-            // ============================================================
-            //  14. 背景图片处理
-            // ============================================================
             const handleBgImg = (input, key, infoId) => {
-                const f = input.files[0];
-                if (!f) return;
-                if (f.size > 15 * 1024 * 1024) { alert('图片超过15MB');
-                    input.value = ''; return; }
+                const f = input.files[0]; if(!f) return;
+                if(f.size > 15*1024*1024){ alert('图片超过15MB'); input.value=''; return; }
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     const img = new Image();
                     img.onload = function() {
-                        let maxSize = 4096;
-                        let width = img.width,
-                            height = img.height;
-                        if (width > maxSize || height > maxSize) {
-                            let ratio = Math.min(maxSize / width, maxSize / height);
-                            width = Math.round(width * ratio);
-                            height = Math.round(height * ratio);
-                        }
-                        const canvas = document.createElement('canvas');
-                        canvas.width = width;
-                        canvas.height = height;
-                        const ctx = canvas.getContext('2d');
-                        ctx.drawImage(img, 0, 0, width, height);
-                        const compressed = canvas.toDataURL('image/jpeg', 0.85);
-                        layoutConfig[key] = { type: 'image', value: '', image: compressed };
-                        if (key === 'freqBg') applyFrequentBg();
-                        else applyBodyBg();
+                        let maxSize=4096, width=img.width, height=img.height;
+                        if(width>maxSize||height>maxSize){ let ratio=Math.min(maxSize/width,maxSize/height); width=Math.round(width*ratio); height=Math.round(height*ratio); }
+                        const canvas=document.createElement('canvas'); canvas.width=width; canvas.height=height;
+                        const ctx=canvas.getContext('2d'); ctx.drawImage(img,0,0,width,height);
+                        const compressed = canvas.toDataURL('image/jpeg',0.85);
+                        layoutConfig[key] = { type:'image', value:'', image:compressed };
+                        if(key==='freqBg') applyFrequentBg(); else applyBodyBg();
                         save();
-                        $(infoId).textContent = f.name + ' (已压缩 ' + width + 'x' + height + ')';
-                        renderBgPresets(key === 'freqBg' ? 'freqBgPresets' : 'globalBgPresets', key);
+                        $(infoId).textContent = f.name + ' (已压缩 '+width+'x'+height+')';
+                        renderBgPresets(key==='freqBg'?'freqBgPresets':'globalBgPresets', key);
                     };
                     img.src = e.target.result;
                 };
                 reader.readAsDataURL(f);
             };
-            $('freqBgImgInput').onchange = function() { handleBgImg(this, 'freqBg', 'freqBgFileInfo'); };
-            $('globalBgImgInput').onchange = function() { handleBgImg(this, 'globalBg', 'globalBgFileInfo'); };
-            $('clearFreqBgBtn').onclick = () => {
-                layoutConfig.freqBg = { type: 'preset', value: '#ffffff', image: null };
-                applyFrequentBg();
-                save();
-                $('freqBgFileInfo').textContent = '';
-                renderBgPresets('freqBgPresets', 'freqBg');
-            };
-            $('clearGlobalBgBtn').onclick = () => {
-                layoutConfig.globalBg = { type: 'preset', value: '#ffffff', image: null };
-                applyBodyBg();
-                save();
-                $('globalBgFileInfo').textContent = '';
-                renderBgPresets('globalBgPresets', 'globalBg');
-            };
+            $('freqBgImgInput').onchange = function() { handleBgImg(this,'freqBg','freqBgFileInfo'); };
+            $('globalBgImgInput').onchange = function() { handleBgImg(this,'globalBg','globalBgFileInfo'); };
+            $('clearFreqBgBtn').onclick = () => { layoutConfig.freqBg={type:'preset',value:'#ffffff',image:null}; applyFrequentBg(); save(); $('freqBgFileInfo').textContent=''; renderBgPresets('freqBgPresets','freqBg'); };
+            $('clearGlobalBgBtn').onclick = () => { layoutConfig.globalBg={type:'preset',value:'#ffffff',image:null}; applyBodyBg(); save(); $('globalBgFileInfo').textContent=''; renderBgPresets('globalBgPresets','globalBg'); };
 
-            // ============================================================
-            //  15. 导入导出
-            // ============================================================
-            $('importBtn').onclick = () => { closeModal('settingsModal');
-                $('fileInput').click(); };
+            $('importBtn').onclick = () => { closeModal('settingsModal'); $('fileInput').click(); };
             $('fileInput').onchange = function() {
                 if (this.files[0]) {
                     const r = new FileReader();
                     r.onload = function(e) {
-                        const doc = new DOMParser().parseFromString(e.target.result, 'text/html');
-                        const dl = doc.querySelector('dl');
-                        if (!dl) return;
-                        const res = [];
-
-                        function walk(n) {
-                            for (let c of n.children) {
-                                if (c.tagName === 'DT') {
-                                    const a = c.querySelector('a'),
-                                        s = c.querySelector('dl');
-                                    if (s) walk(s);
-                                    else if (a && a.href && !a.href.startsWith('javascript:')) res
-                                        .push({ title: a.textContent.trim() || a.href, url: a
-                                            .href, clicks: 0, order: res.length });
-                                }
-                            }
-                        }
+                        const doc = new DOMParser().parseFromString(e.target.result,'text/html');
+                        const dl = doc.querySelector('dl'); if(!dl) return;
+                        const res=[];
+                        function walk(n){ for(let c of n.children){ if(c.tagName==='DT'){ const a=c.querySelector('a'), s=c.querySelector('dl'); if(s) walk(s); else if(a&&a.href&&!a.href.startsWith('javascript:')) res.push({ title:a.textContent.trim()||a.href, url:a.href, clicks:0, order:res.length }); } } }
                         walk(dl);
-                        if (res.length) {
-                            bookmarks = res;
-                            currentCat = '__ALL__';
-                            colorCache.clear();
-                            save();
-                            renderAll();
-                        }
+                        if(res.length){ bookmarks=res; currentCat='__ALL__'; colorCache.clear(); save(); renderAll(); }
                     };
-                    r.readAsText(this.files[0]);
-                    this.value = '';
+                    r.readAsText(this.files[0]); this.value='';
                 }
             };
-
+            $('exportHtmlBtn').onclick = () => {
+                let html = '<!DOCTYPE NETSCAPE-Bookmark-file-1>\n<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">\n<TITLE>Bookmarks</TITLE>\n<H1>Bookmarks</H1>\n<DL><p>\n';
+                const groups = getCategoryGroups();
+                groups.forEach(g => {
+                    html += `<DT><H3>${esc(g.name)}</H3>\n<DL><p>\n`;
+                    g.bookmarks.forEach(b => html += `<DT><A HREF="${esc(b.url)}">${esc(b.title)}</A>\n`);
+                    html += '</DL><p>\n';
+                });
+                html += '</DL><p>';
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(new Blob([html],{type:'text/html'}));
+                a.download = 'bookmarks.html';
+                a.click();
+            };
             $('exportBtn').onclick = () => {
                 const a = document.createElement('a');
-                a.href = URL.createObjectURL(new Blob([JSON.stringify({ bookmarks, aliases: categoryAliases,
-                        customGroups, engines: searchEngines, selectedEngine, siteTitle,
-                        layoutConfig })], { type: 'application/json' }));
+                a.href = URL.createObjectURL(new Blob([JSON.stringify({ bookmarks, aliases:categoryAliases, customGroups, engines:searchEngines, selectedEngine, siteTitle, layoutConfig, trash, backups, autoBackup })],{type:'application/json'}));
                 a.download = 'bookmarks.json';
                 a.click();
             };
-
-            $('importSettingBtn').onclick = () => { closeModal('settingsModal');
-                $('settingInput').click(); };
+            $('importSettingBtn').onclick = () => { closeModal('settingsModal'); $('settingInput').click(); };
             $('settingInput').onchange = function() {
-                if (this.files[0]) {
+                if(this.files[0]){
                     const r = new FileReader();
-                    r.onload = function(e) {
-                        try {
+                    r.onload = function(e){
+                        try{
                             const d = JSON.parse(e.target.result);
-                            if (d.bookmarks) bookmarks = d.bookmarks;
-                            if (d.aliases) categoryAliases = d.aliases;
-                            if (d.customGroups) customGroups = d.customGroups;
-                            if (d.engines) searchEngines = d.engines;
-                            if (d.selectedEngine) selectedEngine = d.selectedEngine;
-                            if (d.siteTitle) siteTitle = d.siteTitle;
-                            if (d.layoutConfig) Object.assign(layoutConfig, d.layoutConfig);
+                            if(d.bookmarks) bookmarks = d.bookmarks;
+                            if(d.aliases) categoryAliases = d.aliases;
+                            if(d.customGroups) customGroups = d.customGroups;
+                            if(d.engines) searchEngines = d.engines;
+                            if(d.selectedEngine) selectedEngine = d.selectedEngine;
+                            if(d.siteTitle) siteTitle = d.siteTitle;
+                            if(d.layoutConfig) Object.assign(layoutConfig, d.layoutConfig);
+                            if(d.trash) trash = d.trash;
+                            if(d.backups) backups = d.backups;
+                            if(d.autoBackup !== undefined) autoBackup = d.autoBackup;
                             colorCache.clear();
-                            applyLayout();
-                            updateUI();
-                            updateEngineSelect();
-                            save();
-                            renderAll();
-                        } catch (ex) { console.warn('导入失败', ex); }
+                            applyLayout(); updateUI(); updateEngineSelect(); save(); renderAll();
+                        } catch(ex){ console.warn('导入失败',ex); }
                     };
-                    r.readAsText(this.files[0]);
-                    this.value = '';
+                    r.readAsText(this.files[0]); this.value='';
                 }
             };
 
-            // ============================================================
-            //  16. 搜索（带防抖）
-            // ============================================================
             let searchDebounceTimer = null;
             $('searchInput').oninput = function() {
                 const q = this.value.toLowerCase();
-                if (searchDebounceTimer) clearTimeout(searchDebounceTimer);
-                searchDebounceTimer = setTimeout(() => {
-                    searchQuery = q;
-                    $('searchClear').classList.toggle('visible', !!q);
-                    renderBookmarks();
-                    searchDebounceTimer = null;
-                }, 150);
+                if(searchDebounceTimer) clearTimeout(searchDebounceTimer);
+                searchDebounceTimer = setTimeout(() => { searchQuery = q; $('searchClear').classList.toggle('visible',!!q); renderBookmarks(); }, 150);
             };
-
             $('searchInput').onkeydown = function(e) {
-                if (e.key === 'Enter') {
-                    if (searchDebounceTimer) { clearTimeout(searchDebounceTimer);
-                        searchDebounceTimer = null; }
-                    const q = this.value.trim();
-                    if (!q) return;
-                    const list = currentCat === '__ALL__' ? bookmarks : bookmarks.filter(b => classify(b) ===
-                        currentCat);
-                    if (list.some(b => b.title.toLowerCase().includes(q) || b.url.toLowerCase().includes(q))) {
-                        searchQuery = q;
-                        renderBookmarks();
-                        return;
-                    }
-                    const eng = searchEngines.find(e => e.name === selectedEngine);
-                    if (eng) window.open(eng.url.replace('{query}', encodeURIComponent(q)), '_blank');
+                if(e.key==='Enter'){
+                    if(searchDebounceTimer){ clearTimeout(searchDebounceTimer); }
+                    const q = this.value.trim(); if(!q) return;
+                    const list = currentCat==='__ALL__'? bookmarks : bookmarks.filter(b=>classify(b)===currentCat);
+                    if(list.some(b=>b.title.toLowerCase().includes(q)||b.url.toLowerCase().includes(q))){ searchQuery=q; renderBookmarks(); return; }
+                    const eng = searchEngines.find(e=>e.name===selectedEngine);
+                    if(eng) window.open(eng.url.replace('{query}',encodeURIComponent(q)),'_blank');
                 }
             };
-            $('searchClear').onclick = () => {
-                searchQuery = '';
-                $('searchInput').value = '';
-                $('searchClear').classList.remove('visible');
-                if (searchDebounceTimer) { clearTimeout(searchDebounceTimer);
-                    searchDebounceTimer = null; }
-                renderBookmarks();
-            };
+            $('searchClear').onclick = () => { searchQuery=''; $('searchInput').value=''; $('searchClear').classList.remove('visible'); renderBookmarks(); };
 
-            // ============================================================
-            //  17. 添加书签
-            // ============================================================
             function openAddModal() {
-                const groups = getCategoryGroups().map(g => g.name).concat(customGroups);
-                $('addGroup').innerHTML = groups.map(g =>
-                    `<option value="${g}">${categoryAliases[g]||g}</option>`).join('');
-                $('addTitle').value = '';
-                $('addUrl').value = '';
+                const groups = getCategoryGroups().map(g=>g.name).concat(customGroups);
+                $('addGroup').innerHTML = groups.map(g=>`<option value="${g}">${categoryAliases[g]||g}</option>`).join('');
+                $('addTitle').value=''; $('addUrl').value='';
                 openModal('addModal');
             }
             $('addCancel').onclick = () => closeModal('addModal');
             $('addModalClose').onclick = () => closeModal('addModal');
             $('addConfirm').onclick = () => {
-                const t = $('addTitle').value.trim(),
-                    u = $('addUrl').value.trim();
-                if (!t || !u) return;
-                const bm = { title: t, url: u, clicks: 0, order: bookmarks.length };
-                if ($('addGroup').value !== classify(bm)) bm.manualGroup = $('addGroup').value;
+                const t=$('addTitle').value.trim(), u=$('addUrl').value.trim();
+                if(!t||!u) return;
+                const bm = { title:t, url:u, clicks:0, order:bookmarks.length };
+                if($('addGroup').value !== classify(bm)) bm.manualGroup = $('addGroup').value;
                 bookmarks.push(bm);
-                colorCache.clear();
-                save();
-                renderAll();
-                closeModal('addModal');
+                colorCache.clear(); save(); renderAll(); closeModal('addModal');
             };
 
-            // ============================================================
-            //  18. 窗口自适应
-            // ============================================================
+            window.restoreFromTrash = restoreFromTrash;
+            window.deleteForever = (i) => { showConfirm('彻底删除？', () => deleteForever(i)); };
+            window.emptyTrash = () => { showConfirm('清空回收站？', () => emptyTrash()); };
+            window.createBackup = createBackup;
+            window.restoreBackup = (i) => { showConfirm('恢复此备份将覆盖当前数据，确定？', () => restoreBackup(i)); };
+            window.downloadBackup = downloadBackup;
+
             let resizeTimer = null;
             window.addEventListener('resize', () => {
-                if (resizeTimer) clearTimeout(resizeTimer);
-                resizeTimer = setTimeout(() => {
-                    applyLayout();
-                    resizeTimer = null;
-                }, 100);
+                if(resizeTimer) clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => { applyLayout(); }, 100);
             });
 
-            // ============================================================
-            //  19. 初始化
-            // ============================================================
             load();
+            cleanOldTrash();
+            autoBackupIfNeeded();
             updateUI();
             applyLayout();
             updateEngineSelect();
@@ -2285,13 +1860,6 @@
                 renderBookmarks();
             }
             renderAll();
-
-            console.log('✅ 智能暗色模式 + 全部优化已启用');
-            console.log('📌 点击 🌙/☀️ 切换暗色模式');
-            console.log('📌 触屏长按图标/分类可弹出菜单');
-            console.log('📌 键盘 Tab + Enter 可操作所有交互');
-            console.log('📌 搜索已防抖，删除使用自定义确认框');
-
         })();
     </script>
 </body>
