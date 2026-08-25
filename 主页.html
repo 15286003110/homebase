@@ -33,7 +33,7 @@
             --success: #27ae60;
             --warning: #f39c12;
             --input-bg: rgba(255, 255, 255, 0.20);
-            --icon-name-color: #1a1a2e;
+            --icon-name-color: #ffffff;
             --bg-overlay: rgba(13, 13, 26, 0.7);
             --bg-blur: 0px;
             --shadow-color: rgba(0, 0, 0, 0.06);
@@ -58,7 +58,7 @@
             --success: #2ecc71;
             --warning: #f1c40f;
             --input-bg: rgba(255, 255, 255, 0.06);
-            --icon-name-color: #f0f0f8;
+            --icon-name-color: #ffffff;
             --shadow-color: rgba(0, 0, 0, 0.4);
             --shadow-hover: rgba(0, 0, 0, 0.6);
             --modal-overlay: rgba(0, 0, 0, 0.7);
@@ -141,9 +141,10 @@
             color: #fff !important;
         }
 
-        body.light-text .category-tab {
-            color: #fff !important;
-        }
+        /* ========== 头部 / 分类标签文字颜色 ========== */
+        /* 头部（logo/时钟/设置/🌙）：跟随主题文字色 var(--text)，
+           图片背景时由 body.light-text 自动转白。
+           分类标签：文字颜色由 JS 按全局背景自适应，写入 CSS 变量 --cat-text。 */
 
         /* ========== Header ========== */
         .header {
@@ -152,8 +153,8 @@
             top: 0;
             z-index: 100;
             background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
             border-bottom: 1px solid var(--glass-border);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
         }
@@ -208,26 +209,34 @@
 
         .clock-date {
             display: flex;
-            flex-direction: column;
-            gap: 2px;
+            align-items: baseline;
+            gap: 14px;
             margin-left: auto;
             margin-right: 16px;
+            text-align: left;
         }
 
-        .clock-row {
+        .clock-main {
             display: flex;
-            justify-content: space-between;
             align-items: baseline;
-            min-width: 200px;
-            gap: 12px;
+            gap: 10px;
+        }
+
+        .clock-sub {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            white-space: nowrap;
         }
 
         .clock-time {
-            font-size: 1.8rem;
+            font-size: 1.75rem;
             font-weight: 700;
             line-height: 1;
             color: var(--text);
             letter-spacing: 1px;
+            font-variant-numeric: tabular-nums;
         }
 
         .clock-week,
@@ -235,11 +244,13 @@
         .clock-lunar {
             color: var(--text-secondary);
             font-size: 0.85rem;
+            font-weight: 400;
+            white-space: nowrap;
         }
 
-        .clock-lunar {
-            font-size: 0.75rem;
-            opacity: 0.7;
+        .clock-sep {
+            color: var(--text-secondary);
+            opacity: 0.5;
         }
 
         /* ========== 搜索框 ========== */
@@ -263,8 +274,8 @@
             border-radius: 24px;
             font-size: 0.95rem;
             background: var(--input-bg);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
             color: var(--text);
             outline: none;
             transition: all 0.3s;
@@ -314,8 +325,8 @@
             border: 1px solid var(--glass-border);
             border-radius: 20px;
             background: var(--input-bg);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
             color: var(--text);
             font-size: 0.85rem;
             outline: none;
@@ -361,8 +372,8 @@
             gap: 6px;
             min-height: 40px;
             background: rgba(255, 255, 255, 0.06);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
             color: var(--text);
             transition: all 0.25s;
             user-select: none;
@@ -438,8 +449,8 @@
             border: 1px solid var(--glass-border);
             color: var(--text);
             cursor: pointer;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
         }
 
         .btn-xs.danger {
@@ -484,8 +495,8 @@
             top: 72px;
             z-index: 99;
             background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
             border-bottom: 1px solid var(--glass-border);
             box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
         }
@@ -518,17 +529,20 @@
             cursor: pointer;
             font-size: 0.82rem;
             font-weight: 500;
-            color: var(--text) !important;
+            color: var(--cat-text, var(--text)) !important;
             background: rgba(255, 255, 255, 0.10);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
             border: 1px solid var(--glass-border);
             transition: all 0.3s ease;
             min-height: 36px;
             display: flex;
             align-items: center;
             gap: 4px;
+            -webkit-user-select: none;
             user-select: none;
+            -webkit-touch-callout: none;
+            touch-action: manipulation;
             text-shadow: none !important;
         }
 
@@ -551,7 +565,6 @@
         }
 
         [data-theme="smart-dark"] .category-tab {
-            color: #e8e8f0 !important;
             background: rgba(255, 255, 255, 0.05);
         }
 
@@ -569,8 +582,8 @@
             padding: 16px 20px;
             border-radius: 16px;
             margin: 12px 16px;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
             border: 1px solid var(--glass-border);
             background: var(--card-bg);
             box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), var(--glass-shadow);
@@ -611,21 +624,19 @@
             color: var(--text);
             padding: 8px;
             border-radius: 16px;
-            animation: iconIn 0.5s cubic-bezier(0.23, 1, 0.32, 1) both;
-            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            /* 🔧 默认关闭逐图标 iconIn 入场动画（原"前两行动画、后面弹出"不协调版的根源）。
+               首屏统一由 body.first-load 触发整网格 gridFadeUp；切换分组由 .rerendered 触发轻量淡入。 */
+            animation: none;
+            transition: transform .25s cubic-bezier(.34,1.56,.64,1);
             user-select: none;
             position: relative;
-            content-visibility: auto;
-            contain-intrinsic-size: 80px;
         }
 
-        /* 入场动画仅在首次加载播放一次；登录后同步等后续 renderAll 不再重播 */
-        body.no-entrance .icon-item { animation: none; }
 
         .icon-item:hover {
-            background: var(--hover-bg);
-            transform: translateY(-4px) scale(1.04);
-            box-shadow: 0 12px 32px var(--shadow-hover);
+            background: transparent;
+            transform: translateY(-6px);
+            box-shadow: none;
             z-index: 10;
         }
 
@@ -640,19 +651,24 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(255, 255, 255, 0.12);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            /* 统一无框玻璃底：透明、无边框/阴影/模糊；hover 时靠主题色 drop-shadow 发光 */
+            background: transparent;
+            border: none;
+            box-shadow: none;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
             flex-shrink: 0;
-            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            overflow: visible;
+            transition: filter .3s ease;
             position: relative;
-            overflow: hidden;
         }
 
         .icon-item:hover .icon-box {
-            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.10), inset 0 1px 0 rgba(255, 255, 255, 0.25);
-            transform: scale(1.02);
+            /* 主题色霓虹辉光 + 提亮一档（filter 不栅格化文字→清晰；overflow:visible 让光透出轮廓）。
+               --icon-glow 由 applyTheme 设成"相对模式"的 accent，保证与背景对比；无该变量时回退 --accent */
+            box-shadow: none !important;
+            overflow: visible;
+            filter: drop-shadow(0 0 3px var(--icon-glow, var(--accent))) drop-shadow(0 0 8px var(--icon-glow, var(--accent))) brightness(1.12);
         }
 
         .icon-box .img-loading {
@@ -710,20 +726,12 @@
             max-width: calc(var(--icon-size) + 10px);
         }
 
-        [data-theme="smart-dark"] .icon-box {
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.04);
-        }
-
         [data-theme="smart-dark"] .icon-content.img-icon {
             filter: brightness(0.85);
         }
 
         [data-theme="smart-dark"] .icon-content:not(.img-icon) {
             color: #d8d8e8 !important;
-        }
-
-        [data-theme="smart-dark"] .icon-item:hover .icon-box {
-            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.4);
         }
 
         /* ========== 正文区域 ========== */
@@ -736,8 +744,8 @@
             display: none;
             position: fixed;
             background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
             border: 1px solid var(--glass-border);
             border-radius: 12px;
             box-shadow: 0 12px 48px rgba(0, 0, 0, 0.12);
@@ -776,8 +784,8 @@
             right: 0;
             bottom: 0;
             background: var(--modal-overlay);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
             z-index: 200;
             display: none;
             align-items: center;
@@ -796,8 +804,8 @@
 
         .modal {
             background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
             border: 1px solid var(--glass-border);
             border-radius: 20px;
             width: 92%;
@@ -852,8 +860,8 @@
         /* ========== 设置卡片 ========== */
         .settings-card {
             background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
             border: 1px solid var(--glass-border);
             border-radius: 14px;
             padding: 16px 18px;
@@ -912,8 +920,8 @@
             border-radius: 12px;
             font-size: 0.9rem;
             background: var(--input-bg);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
             color: var(--text);
             outline: none;
             min-height: 44px;
@@ -926,8 +934,20 @@
             box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.08);
         }
 
-        .input-group select option {
-            background: var(--card-bg);
+        /* 下拉选项（含主题选择菜单）：保证可读。
+           浅色主题：白底深字；暗色主题：暗底亮字（原生弹层常是亮底，否则浅字会白底白字看不清） */
+        select option {
+            background: #ffffff;
+            color: #1a1a2e;
+        }
+        [data-theme="smart-dark"] select option {
+            background: #16162e;
+            color: #e8f6ff;
+        }
+        [data-theme="smart-dark"] select option:checked,
+        [data-theme="smart-dark"] select option:hover {
+            background: #2a2a4a;
+            color: #ffffff;
         }
 
         /* ========== 颜色预设 ========== */
@@ -1314,8 +1334,8 @@
             border-radius: 12px;
             font-size: 0.85rem;
             background: var(--input-bg);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
             color: var(--text);
             outline: none;
             min-height: 40px;
@@ -1502,21 +1522,25 @@
 
             .clock-date {
                 order: 2;
-                flex: 0 0 auto;
+                flex: 1 1 auto;
                 margin-left: 0;
                 margin-right: 0;
-                align-items: center;
+                flex-direction: column;
+                align-items: flex-end;
+                gap: 2px;
+                text-align: right;
             }
 
-            .clock-row {
-                min-width: 0;
-                gap: 10px;
-                justify-content: center;
-                flex-wrap: wrap;
+            .clock-main {
+                gap: 8px;
+            }
+
+            .clock-sub {
+                font-size: 0.78rem;
             }
 
             .clock-time {
-                font-size: 1.4rem;
+                font-size: 1.5rem;
             }
 
             .header-controls {
@@ -1628,8 +1652,28 @@
                 padding: 10px 10px;
             }
 
+            .clock-date {
+                align-items: center;
+                gap: 3px;
+            }
+
+            .clock-main {
+                gap: 8px;
+            }
+
+            .clock-sub {
+                font-size: 0.72rem;
+                gap: 6px;
+            }
+
             .clock-time {
-                font-size: 1.2rem;
+                font-size: 1.35rem;
+                letter-spacing: 0.5px;
+            }
+
+            .clock-week {
+                font-size: 0.8rem;
+                padding: 1px 8px;
             }
 
             .engine-select {
@@ -1642,9 +1686,162 @@
                 padding: 8px 12px 8px 36px;
             }
         }
+
+        /* ========== iPad 轻量模式（仅关 blur/背景动画/hover/shadow/transition，入场动画保留） ========== */
+        body.ipad-lite {
+            animation: none !important;
+            background-attachment: scroll !important;
+            -webkit-transform: translateZ(0);  /* 强制整页提为合成层，避免滚动重建图层 */
+        }
+        body.ipad-lite body { animation: none !important; }
+        /* 关掉 backdrop-filter 模糊（iPad GPU 头号杀手） */
+        body.ipad-lite *, body.ipad-lite *::before, body.ipad-lite *::after {
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+        }
+        /* 关掉 hover 缩放（触屏无意义，触发合成层抖动） */
+        body.ipad-lite .card:hover,
+        body.ipad-lite .icon-item:hover,
+        body.ipad-lite .cat-card:hover { transform: none !important; }
+        /* 收敛 transition：去掉 all，只保留轻量属性（避免每次属性变化走过渡引擎） */
+        body.ipad-lite *, body.ipad-lite *::before, body.ipad-lite *::after {
+            transition-property: background-color, opacity !important;
+            transition-duration: 0.15s !important;
+        }
+        /* 关掉 box-shadow（独立合成层，叠加后拖慢滚动） */
+        body.ipad-lite .icon-item,
+        body.ipad-lite .card,
+        body.ipad-lite .modal,
+        body.ipad-lite .header,
+        body.ipad-lite .cat-card,
+        body.ipad-lite .context-menu { box-shadow: none !important; }
+        body.ipad-lite .icon-item:hover .icon-box { box-shadow: none !important; }
+        /* 背景渐变动画区域缩小一半，减少每帧重绘面积 */
+        body.ipad-lite { background-size: 150% 150% !important; }
+
+            /* ===== 赛博霓虹主题（第 9 个主题）专用样式 ===== */
+            #cyberParticles { position: fixed; inset: 0; z-index: -2; pointer-events: none; display: none; }
+            body.theme-cyberpunk #cyberParticles { display: block; }
+            /* 网格 + 扫描线叠加层（不挡点击，位于内容之下） */
+            body.theme-cyberpunk::after {
+                content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+                background:
+                    linear-gradient(rgba(0,240,255,0.06) 1px, transparent 1px) 0 0 / 100% 42px,
+                    linear-gradient(90deg, rgba(0,240,255,0.06) 1px, transparent 1px) 0 0 / 42px 100%,
+                    repeating-linear-gradient(0deg, rgba(0,0,0,0) 0 2px, rgba(0,0,0,0.13) 3px, rgba(0,0,0,0) 4px);
+                opacity: 0.6;
+            }
+            /* 图标视觉/悬停已统一到基础 .icon-item / .icon-box（透明无框、上浮 + 主题色霓虹辉光）。
+               赛博主题仅凭 --accent(#00f0ff) 即自然得到青色辉光，无需在此重复规则。 */
+            /* 保留纯颜色图标的彩色底块（hover 不再置透明）：
+               纯色图标本就是"彩色圆角方块+文字"，没有独立图形轮廓，
+               若 hover 置透明只剩发光文字；保留方块后 .icon-box 的 drop-shadow 仍沿方块外缘描霓虹光。
+               图片图标靠 background-image 不受影响，二者行为一致。 */
+            /* 文字霓虹辉光（无框时加强，保证在网格背景上可读） */
+            body.theme-cyberpunk .site-title,
+            body.theme-cyberpunk .greeting,
+            body.theme-cyberpunk .category-tab.active {
+                text-shadow: 0 0 6px rgba(0,240,255,0.7), 0 0 14px rgba(0,240,255,0.4);
+            }
+            body.theme-cyberpunk .icon-name {
+                background: none;
+                padding: 0;
+                border-radius: 0;
+                /* 显式用主题霓虹亮色，避免回退到智能主题按页面背景图算的对比色
+                   （背景图偏亮→智能配深色→落在常用区深色卡片上看不清） */
+                color: var(--text);
+                /* 辉光调淡：小号文字原两层青色偏重会发虚，降一层保留霓虹味更利落 */
+                text-shadow: 0 1px 2px #000, 0 0 3px rgba(0,240,255,0.55), 0 0 7px rgba(0,240,255,0.30);
+            }
+            body.theme-cyberpunk .btn-primary { box-shadow: 0 0 14px rgba(0,240,255,0.45); border-color: #00f0ff; }
+            /* ===== 设置弹窗 / 设置面板赛博适配（变量已变霓虹暗色，这里补发光与描边细节） ===== */
+            body.theme-cyberpunk .modal-overlay { background: rgba(0,0,0,0.86); }
+            body.theme-cyberpunk .modal {
+                border: 1px solid rgba(0,240,255,0.55);
+                box-shadow: 0 0 28px rgba(0,240,255,0.35), 0 0 60px rgba(255,43,214,0.20);
+            }
+            body.theme-cyberpunk .modal-header h3,
+            body.theme-cyberpunk .settings-card h4 {
+                text-shadow: 0 0 6px rgba(0,240,255,0.75), 0 0 14px rgba(0,240,255,0.4);
+            }
+            body.theme-cyberpunk .modal-header,
+            body.theme-cyberpunk .settings-card { border-bottom: 1px solid rgba(0,240,255,0.30); }
+            body.theme-cyberpunk .settings-card {
+                border: 1px solid rgba(0,240,255,0.42);
+                box-shadow: 0 0 10px rgba(0,240,255,0.18), inset 0 0 10px rgba(0,240,255,0.06);
+            }
+            body.theme-cyberpunk .settings-card:hover {
+                border-color: #00f0ff;
+                box-shadow: 0 0 18px rgba(0,240,255,0.40), inset 0 0 12px rgba(0,240,255,0.12);
+            }
+            body.theme-cyberpunk select,
+            body.theme-cyberpunk input,
+            body.theme-cyberpunk textarea {
+                border: 1px solid rgba(0,240,255,0.45) !important;
+                box-shadow: 0 0 8px rgba(0,240,255,0.20) !important;
+                color: #e8f6ff !important;
+                background: #0a0a2a !important;
+            }
+            /* 下拉展开的选项列表：强制暗底亮字，避免原生白底导致"白字白底"看不清 */
+            body.theme-cyberpunk select option {
+                background: #0a0a2a !important;
+                color: #e8f6ff !important;
+            }
+            body.theme-cyberpunk select option:checked,
+            body.theme-cyberpunk select option:hover {
+                background: #0c2a3a !important;
+                color: #00f0ff !important;
+            }
+            body.theme-cyberpunk select:focus,
+            body.theme-cyberpunk input:focus,
+            body.theme-cyberpunk textarea:focus {
+                border-color: #00f0ff !important;
+                box-shadow: 0 0 14px rgba(0,240,255,0.55) !important;
+                outline: none !important;
+            }
+            body.theme-cyberpunk .btn {
+                border: 1px solid rgba(0,240,255,0.4);
+                box-shadow: 0 0 8px rgba(0,240,255,0.18);
+            }
+            body.theme-cyberpunk .btn:hover {
+                border-color: #00f0ff;
+                box-shadow: 0 0 16px rgba(0,240,255,0.45), 0 0 28px rgba(255,43,214,0.30);
+            }
+            /* 弹窗出现时顶部霓虹扫描线扫过 */
+            body.theme-cyberpunk .modal::before {
+                content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+                background: linear-gradient(90deg, transparent, #00f0ff, transparent);
+                animation: cyberSweep 1.4s ease-out 1;
+            }
+            /* CSS 入场：顶栏霓虹扫描线开机扫过（仅装饰，不隐藏内容） */
+            @keyframes cyberSweep { 0% { transform: translateX(-100%); opacity: 0; } 60% { opacity: .85; } 100% { transform: translateX(100%); opacity: 0; } }
+            body.theme-cyberpunk .header::before {
+                content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+                background: linear-gradient(90deg, transparent, #00f0ff, transparent);
+                animation: cyberSweep 1.4s ease-out 1;
+            }
+            /* 图标载入霓虹脉冲：仅作用于图标图片轮廓（drop-shadow 跟随图形形状，不产生方形外框/背景） */
+            @keyframes cyberGlowImg {
+                0% { filter: drop-shadow(0 0 2px #00f0ff); }
+                50% { filter: drop-shadow(0 0 7px #00f0ff) drop-shadow(0 0 12px #ff2bd6); }
+                100% { filter: drop-shadow(0 0 3px rgba(0,240,255,0.35)); }
+            }
+            body.theme-cyberpunk .icon-box img { animation: cyberGlowImg 1s ease-out; }
 </style>
 </head>
 <body>
+<canvas id="cyberParticles"></canvas>
+    <script>
+        (function(){
+            try{
+                var u=navigator.userAgent||'';
+                var isIpad=/iPad/.test(u)||(/Macintosh/.test(u)&&'ontouchend' in document&&navigator.maxTouchPoints>1);
+                var apple=/iPad|iPhone|iPod|Macintosh/.test(u);
+                if(isIpad||(apple&&navigator.maxTouchPoints>=2&&Math.max(screen.width,screen.height)>=1000))
+                    document.body.classList.add('ipad-lite');
+            }catch(e){}
+        })();
+    </script>
     <div id="topContainer">
         <div id="headerSection" class="header">
             <div class="header-inner">
@@ -1691,8 +1888,15 @@
     <span id="siteTitle">我的收藏夹</span>
 </div>
                 <div class="clock-date" id="clockDate">
-                    <div class="clock-row"><span class="clock-time" id="clockTime">00:00:00</span><span class="clock-week" id="clockWeek">星期六</span></div>
-                    <div class="clock-row"><span class="clock-date-text" id="clockDateText">2026年7月26日</span><span class="clock-lunar" id="clockLunar">农历腊月三十</span></div>
+                    <div class="clock-main">
+                        <span class="clock-time" id="clockTime">00:00:00</span>
+                        <span class="clock-week" id="clockWeek">星期六</span>
+                    </div>
+                    <div class="clock-sub">
+                        <span class="clock-date-text" id="clockDateText">2026年7月26日</span>
+                        <span class="clock-sep">·</span>
+                        <span class="clock-lunar" id="clockLunar">农历腊月三十</span>
+                    </div>
                 </div>
                 <div class="header-controls">
                 <div class="search-wrap">
@@ -1781,7 +1985,7 @@
         <div class="modal">
             <div class="modal-header"><h3>⚙️ 站点设置</h3><button class="btn-icon" id="settingsModalClose" aria-label="关闭" style="border:none;font-size:1.2rem;">✕</button></div>
             <div class="modal-body">
-                <!-- 原有“站点标题设置”卡片 -->
+                <!-- 原有"站点标题设置"卡片 -->
                 <div class="settings-card">
                     <h4>📝 站点标题设置</h4>
                     <div class="input-group">
@@ -1819,6 +2023,7 @@
                         <option value="aurora">💠 青碧流光</option>
                         <option value="sunset">🌇 暮色流丹</option>
                         <option value="ocean">🌊 深海蔚蓝</option>
+                        <option value="cyberpunk">🤖 赛博霓虹</option>
                     </select>
                 </div>
                 <div class="settings-card">
@@ -2025,8 +2230,43 @@
                 searchQuery = '';
             let categoryAliases = {},
                 customGroups = [],
+                deletedGroups = [],
+                groupTimes = {},
                 tabOrder = [];
             let editingBm = null;
+            // 🔧 分组删除/重建 的 LWW 合并：删除与重建按时间戳末次胜出，让"重建已删分组"真正跨端生效
+            function normalizeDeletedGroups(arr) {
+                const map = new Map();
+                if (Array.isArray(arr)) {
+                    for (const x of arr) {
+                        if (typeof x === 'string') { if (!map.has(x)) map.set(x, { id: x, t: 0 }); }
+                        else if (x && x.id) { const cur = map.get(x.id); if (!cur || (x.t || 0) > cur.t) map.set(x.id, { id: x.id, t: x.t || 0 }); }
+                    }
+                }
+                return [...map.values()];
+            }
+            function mergeGroupsLWW(localCG, localDG, localGT, remoteCG, remoteDG, remoteGT) {
+                const lDG = normalizeDeletedGroups(localDG);
+                const rDG = normalizeDeletedGroups(remoteDG);
+                const lGT = localGT || {};
+                const rGT = remoteGT || {};
+                const ids = new Set([...(localCG || []), ...(remoteCG || []), ...lDG.map(d => d.id), ...rDG.map(d => d.id)]);
+                const outCG = [], outDG = [], outGT = {};
+                for (const id of ids) {
+                    const lc = lGT[id] || 0, rc = rGT[id] || 0;
+                    const lt = lDG.find(d => d.id === id);
+                    const rt = rDG.find(d => d.id === id);
+                    const createTime = Math.max(lc, rc);
+                    const tombT = Math.max(lt ? lt.t : 0, rt ? rt.t : 0);
+                    const tombExists = !!(lt || rt);
+                    // 墓碑存在 且 (无创建时间 或 创建时间<=墓碑时间) => 删除（t:0 的遗留墓碑同样生效，避免复活）
+                    const isDeleted = tombExists && (createTime === 0 || createTime <= tombT);
+                    outGT[id] = Math.max(lc, rc, tombT);
+                    if (isDeleted) outDG.push({ id, t: tombT || Date.now() });
+                    else outCG.push(id);
+                }
+                return { customGroups: outCG, deletedGroups: outDG, groupTimes: outGT };
+            }
             let isDarkMode = false;
             let trash = [],
                 backups = [],
@@ -2052,10 +2292,11 @@
 const defaultLayout = {
     pageWidth: 1200,
     borderRadius: 20,
-    bgBlur: 0,
-    freqBg: { type: 'preset', value: '#ffffff', image: null },
-    globalBg: { type: 'preset', value: '#ffffff', image: null },
-    iconNameColor: '#000000',
+    bgBlur: 30,
+    freqBg: { type: 'image', value: '', image: 'wallpaper3_c02363a.jpg' },
+    globalBg: { type: 'image', value: '', image: 'wallpaper3_c02363a.jpg' },
+    iconNameColor: '',
+    iconNameColorAuto: true,
     sortBy: 'manual',
     theme: 'default'
 };
@@ -2168,30 +2409,30 @@ const defaultLayout = {
                 saveDebounceTimer = setTimeout(() => { save(); }, 1500);
             }
 
-            function getLastModified() {
+            function getWdLM() {
                 const v = safeStorage.get(LAST_MODIFIED_KEY);
                 return v ? parseInt(v) : 0;
             }
-            function setLastModified(ts) {
+            function setWdLM(ts) {
                 safeStorage.set(LAST_MODIFIED_KEY, (ts || Date.now()).toString());
             }
-function loadWebDAVConfig() {
-    try {
-        const saved = JSON.parse(safeStorage.get(WEBDAB_CONFIG_KEY) || '{}');
-        if (saved && typeof saved === 'object') {
-            Object.keys(defaultWebDAVConfig).forEach(k => { if (saved.hasOwnProperty(k)) webdavConfig[k] = saved[k]; });
-            if (webdavConfig.password) {
-                try { webdavConfig.password = atob(webdavConfig.password); } catch(e) {}
+            function loadWebDAVConfig() {
+                try {
+                    const saved = JSON.parse(safeStorage.get(WEBDAB_CONFIG_KEY) || '{}');
+                    if (saved && typeof saved === 'object') {
+                        Object.keys(defaultWebDAVConfig).forEach(k => { if (saved.hasOwnProperty(k)) webdavConfig[k] = saved[k]; });
+                        if (webdavConfig.password) {
+                            try { webdavConfig.password = atob(webdavConfig.password); } catch(e) {}
+                        }
+                    }
+                } catch (e) { webdavConfig = JSON.parse(JSON.stringify(defaultWebDAVConfig)); }
             }
-        }
-    } catch (e) { webdavConfig = JSON.parse(JSON.stringify(defaultWebDAVConfig)); }
-}
-function saveWebDAVConfig() {
-    try { 
-        const _cfg = { ...webdavConfig, password: btoa(webdavConfig.password || '') };
-        safeStorage.set(WEBDAB_CONFIG_KEY, JSON.stringify(_cfg)); 
-    } catch (e) {}
-}
+            function saveWebDAVConfig() {
+                try { 
+                    const _cfg = { ...webdavConfig, password: btoa(webdavConfig.password || '') };
+                    safeStorage.set(WEBDAB_CONFIG_KEY, JSON.stringify(_cfg)); 
+                } catch (e) {}
+            }
             function getWebDAVFullUrl() {
                 let base = (webdavConfig.url || '').trim();
                 let path = (webdavConfig.remotePath || '/bookmarks.json').trim();
@@ -2219,8 +2460,11 @@ function saveWebDAVConfig() {
                 save();
                 const fullUrl = getWebDAVFullUrl();
                 if (!fullUrl) throw new Error('WebDAV地址未配置');
+                // 上传时间戳必须严格晚于本地最后修改，确保对端静默下载能识别为"更新"并触发合并
+                let _lm = Date.now();
+                if (_lm <= getWdLM()) _lm = getWdLM() + 1;
                 const payload = {
-                    lastModified: Date.now(),
+                    lastModified: _lm,
                     data: {
                         bookmarks: JSON.parse(JSON.stringify(bookmarks)),
                         aliases: { ...categoryAliases },
@@ -2229,14 +2473,15 @@ function saveWebDAVConfig() {
                         selectedEngine, siteTitle, layoutConfig: JSON.parse(JSON.stringify(layoutConfig)),
                         trash: JSON.parse(JSON.stringify(trash)), backups: JSON.parse(JSON.stringify(backups)), autoBackup,
                         tabOrder: JSON.parse(JSON.stringify(tabOrder)),
-                        iconifyCache: JSON.parse(JSON.stringify(iconifyCache))
+                        iconifyCache: JSON.parse(JSON.stringify(iconifyCache)),
+                        deletedGroups: [...deletedGroups], groupTimes: { ...groupTimes }
                     }
                 };
                 const body = JSON.stringify(payload);
                 const headers = { ...getWebDAVAuthHeaders(), 'Content-Type': 'application/json; charset=utf-8' };
                 const response = await fetch(fullUrl, { method: 'PUT', headers: headers, body: body, mode: 'cors' });
                 if (!response.ok && response.status !== 201 && response.status !== 204) throw new Error('上传失败，HTTP ' + response.status);
-                setLastModified(payload.lastModified);
+                setWdLM(payload.lastModified);
                 webdavConfig.lastSyncTime = Date.now();
                 webdavConfig.lastSyncStatus = 'success';
                 saveWebDAVConfig();
@@ -2256,7 +2501,7 @@ function saveWebDAVConfig() {
                 try { parsed = JSON.parse(text); } catch (e) { throw new Error('远程数据格式错误，无法解析JSON'); }
                 const remoteLastModified = parsed.lastModified || 0;
                 const remoteData = parsed.data || parsed;
-                const localLastModified = getLastModified();
+                const localLastModified = getWdLM();
                 if (silent) { if (remoteLastModified <= localLastModified) return false; }
                 else {
                     if (remoteLastModified > 0 && localLastModified > 0 && remoteLastModified <= localLastModified) {
@@ -2265,9 +2510,26 @@ function saveWebDAVConfig() {
                         if (!confirm('远程数据时间(' + remoteTime + ')不晚于本地数据(' + localTime + ')，确定要用远程数据覆盖本地吗？')) throw new Error('用户取消下载');
                     }
                 }
-                if (remoteData.bookmarks) bookmarks = remoteData.bookmarks.map(b => ({ ...b, clicks: Number(b.clicks) || 0 }));
-                if (remoteData.aliases) categoryAliases = remoteData.aliases;
-                if (remoteData.customGroups) customGroups = remoteData.customGroups;
+                // ===== 🔧 字段级合并（多端防覆盖）=====
+                // 书签：按 url 合并，远端有本地无则补入，本地独有则保留，都有则远端覆盖
+                if (remoteData.bookmarks && Array.isArray(remoteData.bookmarks)) {
+                    const remoteBm = remoteData.bookmarks.map(b => ({ ...b, clicks: Number(b.clicks) || 0 }));
+                    const localByUrl = {};
+                    bookmarks.forEach(b => localByUrl[b.url] = b);
+                    const merged = {};
+                    remoteBm.forEach(b => merged[b.url] = b);           // 远端优先
+                    bookmarks.forEach(b => { if (!merged[b.url]) merged[b.url] = b; }); // 本地独有保留
+                    bookmarks = Object.values(merged);
+                }
+                // 分组别名：按 key 合并，远端与本地各取所长
+                if (remoteData.aliases && typeof remoteData.aliases === 'object') {
+                    categoryAliases = { ...categoryAliases, ...remoteData.aliases };
+                }
+                // 自定义分组：LWW 合并（删除/重建按时间戳末次胜出，让"重建已删分组"真正跨端生效）
+                if (remoteData.customGroups && Array.isArray(remoteData.customGroups)) {
+                    const m = mergeGroupsLWW(customGroups, deletedGroups, groupTimes, remoteData.customGroups, remoteData.deletedGroups, remoteData.groupTimes);
+                    customGroups = m.customGroups; deletedGroups = m.deletedGroups; groupTimes = m.groupTimes;
+                }
                 if (remoteData.engines) searchEngines = remoteData.engines;
                 if (remoteData.selectedEngine !== undefined) selectedEngine = remoteData.selectedEngine;
                 if (remoteData.siteTitle) siteTitle = remoteData.siteTitle;
@@ -2275,9 +2537,14 @@ function saveWebDAVConfig() {
                 if (remoteData.trash) trash = remoteData.trash;
                 if (remoteData.backups) backups = remoteData.backups;
                 if (remoteData.autoBackup !== undefined) autoBackup = remoteData.autoBackup;
-                if (remoteData.tabOrder) tabOrder = remoteData.tabOrder;
+                // 标签顺序：以远端顺序为基础 + 补齐本地独有分组；只保留仍存在的分组（剔除已删除分组的残留顺序，避免幽灵标签）
+                if (remoteData.tabOrder && Array.isArray(remoteData.tabOrder)) {
+                    const ordered = remoteData.tabOrder.filter(n => customGroups.includes(n));
+                    const extra = customGroups.filter(n => !ordered.includes(n));
+                    tabOrder = [...ordered, ...extra];
+                }
                 if (remoteData.iconifyCache) { iconifyCache = Object.assign({}, remoteData.iconifyCache, iconifyCache); saveIconifyCache(); } // 🔧 合并而非覆盖，防本地图标丢失
-                if (remoteLastModified > 0) setLastModified(remoteLastModified);
+                if (remoteLastModified > 0) setWdLM(remoteLastModified);
                 webdavConfig.lastSyncTime = Date.now();
                 webdavConfig.lastSyncStatus = 'success';
                 saveWebDAVConfig();
@@ -2354,28 +2621,25 @@ function saveWebDAVConfig() {
                 catch (e) { if (e.message !== '用户取消下载') { webdavConfig.lastSyncStatus = 'failed'; webdavConfig.lastSyncTime = Date.now(); saveWebDAVConfig(); updateWebDAVStatusDisplay('打开时同步失败：' + e.message, 'error'); updateWebDAVCardSummary(); } }
             }
             function setupSyncOnClose() {
-                window.addEventListener('beforeunload', function(e) {
-                    // 🔧 优先确保本地未决数据（如连点后的点击量）同步落盘，防秒关丢失
+                // 🔧 关闭/切后台时强制 flush 一次云端推送：用与日常相同的增量 wpPush（含删除墓碑）+
+                //    WebDAV 全量 PUT，均带 keepalive，可在页面卸载后继续发送，避免"编辑后 2.5s 内关页"丢变更
+                const flushClose = function(light) {
+                    // 1) 立即落盘本地，防秒关丢失
                     if (saveDebounceTimer) { clearTimeout(saveDebounceTimer); saveDebounceTimer = null; }
-                    persistLocal();
-                    if (!webdavConfig.enabled || !webdavConfig.syncOnClose) return;
-                    if (!webdavConfig.url) return;
-                    const fullUrl = getWebDAVFullUrl();
-                    if (!fullUrl) return;
-                    const payload = { lastModified: Date.now(), data: { bookmarks: JSON.parse(JSON.stringify(bookmarks)), aliases: { ...categoryAliases }, customGroups: [...customGroups], engines: JSON.parse(JSON.stringify(searchEngines)), selectedEngine, siteTitle, layoutConfig: JSON.parse(JSON.stringify(layoutConfig)), trash: JSON.parse(JSON.stringify(trash)), backups: JSON.parse(JSON.stringify(backups)), autoBackup } };
-                    const body = JSON.stringify(payload);
-                    if (body.length > 60000) return;
-                    const headers = { ...getWebDAVAuthHeaders(), 'Content-Type': 'application/json; charset=utf-8' };
-                    fetch(fullUrl, { method: 'PUT', headers: headers, body: body, mode: 'cors', keepalive: true }).catch(() => {});
-                    // 阶段四：WP 关页保底
-                   if (wpState.token) {
-                    const layoutToPushClose = { ...layoutConfig };
-if (!layoutToPushClose.globalBg?.image) delete layoutToPushClose.globalBg;
-if (!layoutToPushClose.freqBg?.image) delete layoutToPushClose.freqBg;
-const wpBody = JSON.stringify({ bookmarks: bookmarks.map(b=>({url:b.url, title:b.title, group_name:b.manualGroup||'', icon_url:b.customImage||'', iconify_id:b.iconifyId||'', custom_color:b.customColor||'', sort_order:b.order||0, pinned:b.pinned?1:0, pin_order:b.pinOrder||0, clicks:b.clicks, deleted_at:0})), settings:{layout_config:{...layoutToPushClose, _tabOrder:tabOrder, _searchEngines:searchEngines}, category_aliases:categoryAliases, custom_groups:customGroups, site_title:siteTitle}});
-                        fetch('http://www.buez.cn:8088/wp-json/bm/v1/data', { method:'POST', headers:{'Content-Type':'application/json','X-WP-Token':wpState.token}, body: wpBody, keepalive: true }).catch(()=>{});
+                    persistLocal(); flushLocal(); // persistLocal 已异步化，flushLocal 确保关页前同步落盘
+                    // 2) WP：取消挂起的防抖推送，直接增量 flush（dirtyBookmarks/dirtySettings 有内容才发）
+                    if (wpState.token) {
+                        if (wpPushTimer) { clearTimeout(wpPushTimer); wpPushTimer = null; }
+                        wpPush(); // 内部 fetch 已带 keepalive；删除墓碑也能正确传播
                     }
-                });
+                    // 3) WebDAV：仅关页/卸载时全量 PUT（较贵，切后台不触发）；开启关页同步或自动同步才 flush
+                    if (!light && webdavConfig.enabled && webdavConfig.url && (webdavConfig.syncOnClose || webdavConfig.autoSync)) {
+                        webdavUpload(); // 内部 fetch 已带 keepalive
+                    }
+                };
+                window.addEventListener('beforeunload', function() { flushClose(false); });
+                window.addEventListener('pagehide', function() { flushClose(false); });
+                document.addEventListener('visibilitychange', function() { if (document.visibilityState === 'hidden') flushClose(true); });
             }
 
             // ===================== Module: Theme & Layout =====================
@@ -2739,33 +3003,87 @@ const wpBody = JSON.stringify({ bookmarks: bookmarks.map(b=>({url:b.url, title:b
                         '--glass-shadow': '0 8px 32px rgba(0,0,0,0.3)',
                         '--body-bg-gradient': 'linear-gradient(135deg, #020c1b, #0a2540, #061427, #0a2540)'
                     }
+                },
+                cyberpunk: {
+                    name: '赛博霓虹',
+                    light: {
+                        '--global-bg': '#07071a',
+                        '--card-bg': 'rgba(10,12,30,0.55)',
+                        '--text': '#e8f6ff',
+                        '--text-secondary': '#8be9ff',
+                        '--border': 'rgba(0,240,255,0.22)',
+                        '--hover-bg': 'rgba(0,240,255,0.10)',
+                        '--accent': '#00f0ff',
+                        '--accent-hover': '#ff2bd6',
+                        '--danger': '#ff2bd6',
+                        '--success': '#39ff14',
+                        '--warning': '#fde047',
+                        '--input-bg': 'rgba(0,240,255,0.08)',
+                        '--icon-name-color': '#e8f6ff',
+                        '--shadow-color': 'rgba(0,240,255,0.3)',
+                        '--shadow-hover': 'rgba(255,43,214,0.5)',
+                        '--modal-overlay': 'rgba(0,0,0,0.82)',
+                        '--bg-overlay': 'rgba(5,5,20,0.9)',
+                        '--glass-border': 'rgba(0,240,255,0.30)',
+                        '--glass-shadow': '0 0 18px rgba(0,240,255,0.22)',
+                        '--body-bg-gradient': 'linear-gradient(135deg, #05010f, #0a0a2a, #100030, #05010f)'
+                    },
+                    dark: {
+                        '--global-bg': '#050516',
+                        '--card-bg': 'rgba(8,10,26,0.60)',
+                        '--text': '#e8f6ff',
+                        '--text-secondary': '#8be9ff',
+                        '--border': 'rgba(0,240,255,0.18)',
+                        '--hover-bg': 'rgba(0,240,255,0.08)',
+                        '--accent': '#00f0ff',
+                        '--accent-hover': '#ff2bd6',
+                        '--danger': '#ff2bd6',
+                        '--success': '#39ff14',
+                        '--warning': '#fde047',
+                        '--input-bg': 'rgba(0,240,255,0.06)',
+                        '--icon-name-color': '#e8f6ff',
+                        '--shadow-color': 'rgba(0,240,255,0.35)',
+                        '--shadow-hover': 'rgba(255,43,214,0.55)',
+                        '--modal-overlay': 'rgba(0,0,0,0.85)',
+                        '--bg-overlay': 'rgba(3,3,16,0.92)',
+                        '--glass-border': 'rgba(0,240,255,0.24)',
+                        '--glass-shadow': '0 0 20px rgba(0,240,255,0.25)',
+                        '--body-bg-gradient': 'linear-gradient(135deg, #03000c, #07071f, #0c0028, #03000c)'
+                    }
                 }
             };
 
             let currentTheme = 'default';
-function applyTheme(themeKey, fromUserSelection) {
-    const theme = THEMES[themeKey];
-    if (!theme) return;
-    currentTheme = themeKey;
-    layoutConfig.theme = themeKey; // ← 新增
-    const isDark = document.documentElement.getAttribute('data-theme') === 'smart-dark';
-    const vars = isDark ? theme.dark : theme.light;
-    const root = document.documentElement.style;
-        for (let [key, value] of Object.entries(vars)) {
-            if (key === '--icon-name-color' || key === '--global-bg') continue;
-            root.setProperty(key, value);
-        }
-    try { localStorage.setItem('bm-theme', themeKey); } catch(e) {}
-    const sel = document.getElementById('themeSelector');
-    if (sel) sel.value = themeKey;
-    colorCache.clear();
-    // 选主题后背景跟随主题：清除用户上传的背景图/自定义纯色，回到主题渐变
-    if (fromUserSelection) {
-        layoutConfig.globalBg = { type: 'preset', value: '#ffffff', image: null };
-    }
-    applyBodyBg();
-    renderAll();
-}
+            function applyTheme(themeKey, fromUserSelection) {
+                const theme = THEMES[themeKey];
+                if (!theme) return;
+                currentTheme = themeKey;
+                layoutConfig.theme = themeKey;
+                const isDark = document.documentElement.getAttribute('data-theme') === 'smart-dark';
+                const vars = isDark ? theme.dark : theme.light;
+                const root = document.documentElement.style;
+                for (let [key, value] of Object.entries(vars)) {
+                    if (key === '--icon-name-color' || key === '--global-bg') continue;
+                    root.setProperty(key, value);
+                }
+                /* 图标辉光色：用"另一模式"的 --accent，保证与当前背景对比（浅色主题用饱和的深色accent、暗色主题用更亮的accent），
+                   避免某些主题辉光色与背景同色而看不见 */
+                const glowAccent = isDark
+                    ? (theme.light && theme.light['--accent'])
+                    : (theme.dark && theme.dark['--accent']);
+                if (glowAccent) root.setProperty('--icon-glow', glowAccent);
+                try { localStorage.setItem('bm-theme', themeKey); } catch(e) {}
+                const sel = document.getElementById('themeSelector');
+                if (sel) sel.value = themeKey;
+                colorCache.clear();
+                if (fromUserSelection) {
+                    layoutConfig.globalBg = { type: 'preset', value: '#ffffff', image: null };
+                }
+                applyLayout();
+                // 🔧 赛博霓虹主题：切换 body 类并启停粒子背景（其它主题不受影响）
+                document.body.classList.toggle('theme-cyberpunk', themeKey === 'cyberpunk');
+                if (window.__bmCyber) window.__bmCyber.setActive(themeKey === 'cyberpunk');
+            }
 
             // 重写 getColor 以支持主题色相（默认主题使用全色域，其他主题收窄）
             function getColor(s, forceDark) {
@@ -2792,17 +3110,95 @@ function applyTheme(themeKey, fromUserSelection) {
 
             // 修改 applySmartTheme，切换暗色时重应用主题
             const origApplySmartTheme = applySmartTheme;
-            applySmartTheme = function(enableDark) {
+            applySmartTheme = function(enableDark, persist) {
                 isDarkMode = enableDark;
                 document.documentElement.setAttribute('data-theme', enableDark ? 'smart-dark' : '');
                 $('themeToggle').textContent = enableDark ? '☀️' : '🌙';
                 $('themeToggle').title = enableDark ? '切换到亮色模式' : '切换到智能暗色模式';
-                safeStorage.set('bm-smart-dark', enableDark ? '1' : '0');
-                colorCache.clear(); applyLayout(); renderAll();
-                // 重应用主题配色
+                // 跟随系统（用户尚未手动切换）时不写 storage，刷新后继续按系统走
+                if (persist !== false) safeStorage.set('bm-smart-dark', enableDark ? '1' : '0');
+                colorCache.clear(); applyLayout();
+                // 🔧 applyTheme 内部已调 renderAll()，此处不再重复调用，避免首屏双重渲染覆盖入场动画起始态
                 applyTheme(currentTheme);
             };
             // ----- 多主题系统结束 -----
+
+            // ===== 赛博霓虹粒子背景（仅该主题启用，标签页隐藏时暂停） =====
+            (function () {
+                const canvas = document.getElementById('cyberParticles');
+                if (!canvas) return;
+                const ctx = canvas.getContext('2d');
+                let parts = [], raf = null, active = false, w = 0, h = 0, dpr = 1;
+                const COLORS = ['#00f0ff', '#ff2bd6', '#a855f7', '#22d3ee'];
+                function resize() {
+                    dpr = Math.min(window.devicePixelRatio || 1, 2);
+                    w = canvas.width = Math.floor(innerWidth * dpr);
+                    h = canvas.height = Math.floor(innerHeight * dpr);
+                    canvas.style.width = innerWidth + 'px';
+                    canvas.style.height = innerHeight + 'px';
+                }
+                function build() {
+                    const n = Math.max(28, Math.min(80, Math.floor(innerWidth * innerHeight / 24000)));
+                    parts = [];
+                    for (let i = 0; i < n; i++) {
+                        parts.push({
+                            x: Math.random() * w, y: Math.random() * h,
+                            vx: (Math.random() - 0.5) * 0.35 * dpr,
+                            vy: (Math.random() - 0.5) * 0.35 * dpr,
+                            r: (Math.random() * 1.6 + 0.6) * dpr,
+                            c: COLORS[(Math.random() * COLORS.length) | 0]
+                        });
+                    }
+                }
+                function step() {
+                    if (!active) return;
+                    ctx.clearRect(0, 0, w, h);
+                    for (const p of parts) {
+                        p.x += p.vx; p.y += p.vy;
+                        if (p.x < 0 || p.x > w) p.vx *= -1;
+                        if (p.y < 0 || p.y > h) p.vy *= -1;
+                        ctx.beginPath();
+                        ctx.arc(p.x, p.y, p.r, 0, 6.2832);
+                        ctx.fillStyle = p.c;
+                        ctx.shadowBlur = 8 * dpr; ctx.shadowColor = p.c;
+                        ctx.globalAlpha = 0.9; ctx.fill();
+                    }
+                    ctx.shadowBlur = 0; ctx.globalAlpha = 1;
+                    const max = 130 * dpr;
+                    for (let i = 0; i < parts.length; i++) {
+                        for (let j = i + 1; j < parts.length; j++) {
+                            const a = parts[i], b = parts[j];
+                            const dx = a.x - b.x, dy = a.y - b.y;
+                            const d = Math.sqrt(dx * dx + dy * dy);
+                            if (d < max) {
+                                ctx.beginPath();
+                                ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
+                                ctx.strokeStyle = a.c;
+                                ctx.globalAlpha = (1 - d / max) * 0.22;
+                                ctx.lineWidth = 1 * dpr; ctx.stroke();
+                            }
+                        }
+                    }
+                    ctx.globalAlpha = 1;
+                    raf = requestAnimationFrame(step);
+                }
+                function start() {
+                    if (active) return;
+                    active = true; resize(); build();
+                    if (!raf) raf = requestAnimationFrame(step);
+                }
+                function stop() {
+                    active = false;
+                    if (raf) { cancelAnimationFrame(raf); raf = null; }
+                    ctx.clearRect(0, 0, w, h);
+                }
+                window.addEventListener('resize', function () { if (active) { resize(); build(); } });
+                document.addEventListener('visibilitychange', function () {
+                    if (document.hidden) stop(); else if (active) start();
+                });
+                window.__bmCyber = { setActive: function (v) { v ? start() : stop(); } };
+            })();
+
 
             function hash(s) { let h = 0; for (let i = 0; i < s.length; i++) h = ((h << 5) - h) + s.charCodeAt(i); return Math.abs(h); }
 
@@ -2927,8 +3323,10 @@ function applyTheme(themeKey, fromUserSelection) {
                 r.setProperty('--border-radius', layoutConfig.borderRadius + 'px');
                 r.setProperty('--bg-blur', (layoutConfig.bgBlur || 0) + 'px');
                 autoIconNameColor();
-                if (layoutConfig.iconNameColor) { if (isDarkMode && layoutConfig.iconNameColor === '#000000') r.setProperty('--icon-name-color', '#f0f0f8'); else r.setProperty('--icon-name-color', layoutConfig.iconNameColor); }
-                else r.removeProperty('--icon-name-color');
+                // 正常区图标文字：按全局背景 adaptive；自定义色优先级最高
+                r.setProperty('--icon-name-color', layoutConfig.iconNameColor || computeAutoIconNameColor(layoutConfig.globalBg));
+                // 分类标签文字：同样按全局背景自适应
+                r.setProperty('--cat-text', computeAutoIconNameColor(layoutConfig.globalBg));
                 ['headerSection', 'topSection', 'frequentSection', 'mainContainer'].forEach(id => { const el = document.getElementById(id); if (el) { el.style.width = displayWidth; el.style.maxWidth = displayWidth; el.style.marginLeft = 'auto'; el.style.marginRight = 'auto'; } });
                 applyBodyBg(); applyFrequentBg();
             }
@@ -3018,26 +3416,65 @@ function applyTheme(themeKey, fromUserSelection) {
                     if (isDarkMode && color !== '#ffffff') color = toDarkColor(color);
                     el.style.setProperty('background', color, 'important');
                 }
+                // 常用区图标文字颜色：自定义优先（两区通用）；否则按本区实际渲染背景自适应
+                let _fIcon;
+                if (layoutConfig.iconNameColorAuto === false && layoutConfig.iconNameColor) {
+                    _fIcon = layoutConfig.iconNameColor;
+                } else if (bg.type === 'image' && bg.image) {
+                    _fIcon = '#ffffff';
+                } else if (bg.value === '#ffffff' && !isDarkMode) {
+                    _fIcon = '#1a1a2e'; // 浅色卡片底 → 深字
+                } else if (bg.value === '#ffffff' && isDarkMode) {
+                    _fIcon = '#ffffff'; // 深色底 → 白字
+                } else {
+                    const _rc = (isDarkMode && bg.value !== '#ffffff') ? toDarkColor(bg.value) : bg.value;
+                    _fIcon = isLightColor(_rc) ? '#1a1a2e' : '#ffffff';
+                }
+                el.style.setProperty('--icon-name-color', _fIcon);
             }
 
-            function autoIconNameColor() {
-                if (layoutConfig.iconNameColorAuto === false) return; // 用户手动改过则不再自动
-                const isImg = layoutConfig.globalBg && layoutConfig.globalBg.type === 'image';
-                if (isImg) { layoutConfig.iconNameColor = '#ffffff'; layoutConfig.iconNameColorAuto = true; }
-                // 时钟/标题/设置按钮白字由 applyBodyBg 根据“是否为图片背景”统一控制，不在此处处理
+            // 判断颜色是否偏亮（用于决定图标文字用深/白字，保证可读性）
+            function isLightColor(hex) {
+                let c = (hex || '').trim();
+                if (!c) return true;
+                if (c[0] === '#') c = c.slice(1);
+                if (c.length === 3) c = c.split('').map(x => x + x).join('');
+                if (c.length !== 6) return true;
+                const r = parseInt(c.slice(0, 2), 16), g = parseInt(c.slice(2, 4), 16), b = parseInt(c.slice(4, 6), 16);
+                if ([r, g, b].some(isNaN)) return true;
+                const lum = (0.299 * r + 0.587 * g + 0.114 * b) / 255; // 相对亮度
+                return lum > 0.6;
             }
-            function applySmartTheme(enableDark) {
+            // 自动模式：按当前实际背景计算图标文字颜色（图片/渐变→白；浅色纯色→深；深色→白）
+            function computeAutoIconNameColor(bg) {
+                bg = bg || layoutConfig.globalBg;
+                if (bg && bg.type === 'image') return '#ffffff';
+                if (bg && bg.value && bg.value !== '#ffffff') {
+                    return isLightColor(bg.value) ? '#1a1a2e' : '#ffffff';
+                }
+                return '#ffffff'; // 主题渐变（亮/暗均白字可读）
+            }
+            // 图标下方文字：auto 时按全局背景算（正常区）；常用区在 applyFrequentBg 中按其自身背景算。用户自定义优先级最高。
+            function autoIconNameColor() {
+                if (layoutConfig.iconNameColorAuto === false) return;
+                layoutConfig.iconNameColor = computeAutoIconNameColor(layoutConfig.globalBg);
+            }
+            function applySmartTheme(enableDark, persist) {
                 isDarkMode = enableDark;
                 document.documentElement.setAttribute('data-theme', enableDark ? 'smart-dark' : '');
                 $('themeToggle').textContent = enableDark ? '☀️' : '🌙';
                 $('themeToggle').title = enableDark ? '切换到亮色模式' : '切换到智能暗色模式';
-                safeStorage.set('bm-smart-dark', enableDark ? '1' : '0');
-                colorCache.clear(); applyLayout(); renderAll();
-                // 重应用主题配色（确保图标颜色跟随主题）
-                if (typeof applyTheme === 'function') applyTheme(currentTheme);
+                if (persist !== false) safeStorage.set('bm-smart-dark', enableDark ? '1' : '0');
+                colorCache.clear(); applyLayout();
+                // 🔧 applyTheme 内部已调 renderAll()，避免首屏双重渲染覆盖入场动画
+                applyTheme(currentTheme);
             }
             // applySmartTheme(safeStorage.getItem('bm-smart-dark') === '1'); // 👈 移到文件底部
-            $('themeToggle').onclick = () => applySmartTheme(!isDarkMode);
+            $('themeToggle').onclick = () => {
+                // 用户手动切换后，停止跟随系统
+                safeStorage.set('bm-smart-dark-manual', '1');
+                applySmartTheme(!isDarkMode);
+            };
 
             // 为了与上面的 applySmartTheme 覆盖保持兼容，保留原有定义，但已在前面覆盖
 
@@ -3096,17 +3533,15 @@ function applyTheme(themeKey, fromUserSelection) {
             }
             function renderIconHtml(bm, idx) {
                 const bg = getIconBackground(bm);
-                // 🔧 仅当“自定义图片”或“Iconify缓存已存在（确保能显示）”时才当图片图标，否则回退显示文字缩写
+                // 🔧 仅当"自定义图片"或"Iconify缓存已存在（确保能显示）"时才当图片图标，否则回退显示文字缩写
                 const isImgIcon = !!(bm.customImage || (bm.iconifyId && iconifyCache[bm.iconifyId]));
                 const content = isImgIcon ? '' : formatIconContent(bm);
-                const animDelay = (typeof idx === 'number' ? Math.min(idx, 24) * 28 : 0) + 'ms';
-                return `<a class="icon-item" href="${esc(bm.url)}" target="_blank" draggable="true" data-url="${esc(bm.url)}" role="link" tabindex="0" style="animation-delay:${animDelay}">
+                return `<a class="icon-item" href="${esc(bm.url)}" target="_blank" draggable="true" data-url="${esc(bm.url)}" role="link" tabindex="0">
                     <div class="icon-box"><div class="icon-content${isImgIcon?' img-icon':''}" style="background:${esc(bg)};${isImgIcon?'':'color:#fff;'}">${content}</div></div>
                     <span class="icon-name">${esc(bm.title)}</span>
                 </a>`;
             }
             function renderFrequent() {
-                document.body.classList.toggle('no-entrance', document.body.classList.contains('entrance-done'));
                 const freqSection = $('frequentSection');
                 if (searchQuery) { freqSection.style.display = 'none'; return; }
                 freqSection.style.display = '';
@@ -3115,7 +3550,6 @@ function applyTheme(themeKey, fromUserSelection) {
                 bindIconEvents('#frequentIcons', true);
             }
             function renderBookmarks() {
-                document.body.classList.toggle('no-entrance', document.body.classList.contains('entrance-done'));
                 let list = currentCat === '__ALL__' ? bookmarks.slice() : bookmarks.filter(b => classify(b) === currentCat);
                                // 根据 layoutConfig.sortBy 排序
                 const sortBy = layoutConfig.sortBy || 'manual';
@@ -3134,7 +3568,6 @@ function applyTheme(themeKey, fromUserSelection) {
                 if (list.length === 0) {
                     $('bookmarkGrid').innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:40px 0; color:var(--text-secondary);">' + (searchQuery ? '🔍 未找到匹配「' + esc(searchQuery) + '」的书签' : '📭 该分类下还没有书签，点击右上角设置导入书签，也可右键或长按分组手动添加书签') + '</div>';
                 } else {
-                    // 🟢 17. 书签超1000时限制DOM数量防卡顿（虚拟滚动降级方案）
                     const MAX_RENDER = 1000;
                     const renderList = list.length > MAX_RENDER ? list.slice(0, MAX_RENDER) : list;
                     let html = renderList.map((b,i) => renderIconHtml(b, i)).join('');
@@ -3257,7 +3690,7 @@ if (n && n.trim()) {
     }
     document.querySelectorAll('.category-tab').forEach(tab => {
         tab.setAttribute('draggable', 'true');
-        tab.addEventListener('click', () => { currentCat = tab.dataset.id; searchQuery = ''; renderAll(); });
+        tab.addEventListener('click', () => { if (tab._lpFired) { tab._lpFired = false; return; } currentCat = tab.dataset.id; searchQuery = ''; renderBookmarks(); });
         tab.addEventListener('keydown', function(e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); } });
         tab.addEventListener('dragstart', e => {
             e.dataTransfer.setData('text/plain', tab.dataset.id);
@@ -3285,54 +3718,56 @@ if (bmObj && !e.dataTransfer.types.includes('text/tab')) {
                 const idx = without.indexOf(tab.dataset.id);
                 without.splice(idx >= 0 ? idx : without.length, 0, fromTab);
                 tabOrder = without;
-                save(); renderAll();
+                save(); renderCategoryTabs();
             }
         });
         tab.addEventListener('contextmenu', function(e) {
             e.preventDefault();
             const gid = this.dataset.id;
             const canDelete = customGroups.includes(gid) || !categoryRules.some(r => r.name === gid);
-            const items = [{ label: '添加分组', action: () => { const n = prompt('新分组名称：'); if (n && n.trim()) { const g = n.trim(); if (!customGroups.includes(g) && !categoryRules.some(r => r.name === g)) { customGroups.push(g); tabOrder = [...new Set([...(tabOrder || []), g])]; } dirtySettings = true; save(); renderAll(); } } }];
+            const items = [{ label: '添加书签', action: () => openAddModal(gid !== '__ALL__' ? gid : null) }];
+            items.push({ label: '添加分组', action: () => { const n = prompt('新分组名称：'); if (n && n.trim()) { const g = n.trim(); if (!customGroups.includes(g) && !categoryRules.some(r => r.name === g)) { customGroups.push(g); tabOrder = [...new Set([...(tabOrder || []), g])]; deletedGroups = deletedGroups.filter(d => (d && d.id ? d.id : d) !== g); groupTimes[g] = Date.now(); } dirtySettings = true; save(); renderAll(); } } } );
             if (gid !== '__ALL__') items.push({ label: '重命名分组', action: () => { const cur = categoryAliases[gid] || gid; const n = prompt('新名称：', cur); if (n && n.trim() && n.trim() !== cur) { const newName = n.trim(); if (newName === gid) delete categoryAliases[gid]; else categoryAliases[gid] = newName; dirtySettings = true; save(); renderAll(); } } });
-            if (canDelete) items.push({ label: '删除分组', action: () => { showConfirm('确定删除「' + (categoryAliases[gid] || gid) + '」？', () => { customGroups = customGroups.filter(g => g !== gid); bookmarks.forEach(b => { if (b.manualGroup === gid) delete b.manualGroup; }); dirtySettings = true; save(); renderAll(); }); } });
+            if (canDelete) items.push({ label: '删除分组', action: () => { showConfirm('确定删除「' + (categoryAliases[gid] || gid) + '」？', () => { customGroups = customGroups.filter(g => g !== gid); tabOrder = (tabOrder || []).filter(g => g !== gid); if (!deletedGroups.some(d => (d && d.id ? d.id : d) === gid)) deletedGroups.push({ id: gid, t: Date.now() }); bookmarks.forEach(b => { if (b.manualGroup === gid) delete b.manualGroup; }); dirtySettings = true; save(); renderAll(); }); } });
             showContextMenu(e, items, this);
         });
 
-        // ========== 新增触屏长按支持（手机/平板） ==========
-        let longPressTimer = null;
-        let startX, startY;
-        const cancelLongPress = () => {
-            if (longPressTimer) { clearTimeout(longPressTimer); longPressTimer = null; }
-        };
+        // ========== 触屏长按支持（手机/平板） ==========
+        // 关键：touchstart 用非 passive + preventDefault，阻止 iOS 把长按当成文本选择/系统菜单而派发 touchcancel 取消计时器。
+        // 代价：preventDefault 会阻止浏览器合成 click，因此「点击切换分组」改在 touchend 里手动完成。
+        let lpTimer = null, lpSX = 0, lpSY = 0, lpMoved = false;
+        const cancelLP = () => { if (lpTimer) { clearTimeout(lpTimer); lpTimer = null; } };
         tab.addEventListener('touchstart', function(e) {
-            const touch = e.touches[0];
-            startX = touch.clientX;
-            startY = touch.clientY;
-            e.preventDefault();
-            longPressTimer = setTimeout(() => {
+            if (e.touches.length !== 1) { cancelLP(); return; }
+            const t = e.touches[0];
+            lpSX = t.clientX; lpSY = t.clientY; lpMoved = false; this._lpFired = false;
+            e.preventDefault(); // 阻止 iOS 长按选择接管，保留我们自己的计时器
+            lpTimer = setTimeout(() => {
+                this._lpFired = true;
                 const gid = this.dataset.id;
                 const canDelete = customGroups.includes(gid) || !categoryRules.some(r => r.name === gid);
-                const items = [{ label: '添加书签', action: openAddModal }, { label: '添加分组', action: () => { const n = prompt('新分组名称：'); if (n && n.trim()) { const g = n.trim(); if (!customGroups.includes(g) && !categoryRules.some(r => r.name === g)) { customGroups.push(g); tabOrder = [...new Set([...(tabOrder || []), g])]; } dirtySettings = true;  save(); renderAll(); } } }];
-                if (gid !== '__ALL__') items.push({ label: '重命名分组', action: () => { const cur = categoryAliases[gid] || gid; const n = prompt('新名称：', cur); if (n && n.trim() && n.trim() !== cur) { const newName = n.trim(); if (newName === gid) delete categoryAliases[gid]; else categoryAliases[gid] = newName; dirtySettings = true;  save(); renderAll(); } } });
-                if (canDelete) items.push({ label: '删除分组', action: () => { showConfirm('确定删除「' + (categoryAliases[gid] || gid) + '」？', () => { customGroups = customGroups.filter(g => g !== gid); bookmarks.forEach(b => { if (b.manualGroup === gid) delete b.manualGroup; }); dirtySettings = true;  save(); renderAll(); }); } });
-                const fakeEvent = { clientX: startX, clientY: startY, preventDefault: () => {} };
+                const items = [{ label: '添加书签', action: () => openAddModal(gid !== '__ALL__' ? gid : null) }];
+                items.push({ label: '添加分组', action: () => { const n = prompt('新分组名称：'); if (n && n.trim()) { const g = n.trim(); if (!customGroups.includes(g) && !categoryRules.some(r => r.name === g)) { customGroups.push(g); tabOrder = [...new Set([...(tabOrder || []), g])]; deletedGroups = deletedGroups.filter(d => (d && d.id ? d.id : d) !== g); groupTimes[g] = Date.now(); } dirtySettings = true; save(); renderAll(); } } });
+                if (gid !== '__ALL__') items.push({ label: '重命名分组', action: () => { const cur = categoryAliases[gid] || gid; const n = prompt('新名称：', cur); if (n && n.trim() && n.trim() !== cur) { const newName = n.trim(); if (newName === gid) delete categoryAliases[gid]; else categoryAliases[gid] = newName; dirtySettings = true; save(); renderAll(); } } });
+                if (canDelete) items.push({ label: '删除分组', action: () => { showConfirm('确定删除「' + (categoryAliases[gid] || gid) + '」？', () => { customGroups = customGroups.filter(g => g !== gid); tabOrder = (tabOrder || []).filter(g => g !== gid); if (!deletedGroups.some(d => (d && d.id ? d.id : d) === gid)) deletedGroups.push({ id: gid, t: Date.now() }); bookmarks.forEach(b => { if (b.manualGroup === gid) delete b.manualGroup; }); dirtySettings = true; save(); renderAll(); }); } });
+                const fakeEvent = { clientX: lpSX, clientY: lpSY, preventDefault: () => {} };
                 showContextMenu(fakeEvent, items, this);
                 if (navigator.vibrate) navigator.vibrate(15);
             }, 500);
         }, { passive: false });
-
         tab.addEventListener('touchmove', function(e) {
-            if (!longPressTimer) return;
-            const touch = e.touches[0];
-            const dx = touch.clientX - startX;
-            const dy = touch.clientY - startY;
-            if (Math.sqrt(dx*dx + dy*dy) > 10) {
-                cancelLongPress();
+            if (!lpTimer) return;
+            const t = e.touches[0];
+            if (Math.sqrt(Math.pow(t.clientX - lpSX, 2) + Math.pow(t.clientY - lpSY, 2)) > 10) { lpMoved = true; cancelLP(); }
+        }, { passive: true });
+        tab.addEventListener('touchend', function() {
+            if (lpTimer) { clearTimeout(lpTimer); lpTimer = null; }
+            if (this._lpFired) { this._lpFired = false; return; } // 长按已弹菜单，不切换
+            if (!lpMoved) { // 视为点击：手动切换分组（touchstart 已 preventDefault，click 不会触发）
+                currentCat = this.dataset.id; searchQuery = ''; renderBookmarks();
             }
         }, { passive: true });
-
-        tab.addEventListener('touchend', cancelLongPress, { passive: true });
-        tab.addEventListener('touchcancel', cancelLongPress, { passive: true });
+        tab.addEventListener('touchcancel', cancelLP, { passive: true });
     });
 }
 
@@ -3509,6 +3944,7 @@ if (bmObj && !e.dataTransfer.types.includes('text/tab')) {
                 if (!title || !rawUrl) return;
                 const url = sanitizeUrl(rawUrl); // 🔒 XSS 修复
                 if (!url) { alert('网址格式不正确，仅支持 http/https 等安全链接'); return; }
+                const oldUrl = editingBm.url; // 🔧 记下改名前的 URL，便于打删除墓碑、跨端清除孤儿
                 editingBm.title = title; editingBm.url = url; editingBm.customColor = $('editIconColor').value;
                 const newGroup = $('editGroup').value;
                 const oldManual = editingBm.manualGroup; editingBm.manualGroup = undefined;
@@ -3518,6 +3954,7 @@ if (bmObj && !e.dataTransfer.types.includes('text/tab')) {
                 if (iconifySelectedIconId) { editingBm.iconifyId = iconifySelectedIconId; delete editingBm.customImage; delete editingBm._tempImage; }
                 else if (editingBm._tempImage) { editingBm.customImage = editingBm._tempImage; delete editingBm.iconifyId; delete editingBm._tempImage; }
                 else if (editingBm._tempImage === null) { delete editingBm.customImage; delete editingBm.iconifyId; delete editingBm._tempImage; }
+                if (oldUrl && oldUrl !== url) dirtyBookmarks.set(oldUrl, { type: 'delete', data: null }); // 🔧 旧 URL 打删除墓碑，跨端自动清理，不再留孤儿图标
                 dirtyBookmarks.set(editingBm.url, { type: 'update', data: editingBm }); colorCache.clear(); save(); renderAll(); closeModal('editModal'); editingBm = null; clearIconifySelectionSilent();
             };
             $('iconifySearchBtn').addEventListener('click', () => { searchIconifyIcons($('iconifySearchInput').value.trim()); });
@@ -3562,7 +3999,7 @@ if (bmObj && !e.dataTransfer.types.includes('text/tab')) {
             document.addEventListener('touchstart', function(e) { if (ctxMenu.classList.contains('show')) { if (!ctxMenu.contains(e.target) && (!menuTriggerElement || !menuTriggerElement.contains(e.target))) hideCtx(); } }, { passive: true });
             document.addEventListener('keydown', function(e) { if (e.key === 'Escape') hideCtx(); });
 
-            /* ===================== 上半部分结束，下半部分从“原有分类规则”开始 ===================== */
+            /* ===================== 上半部分结束，下半部分从"原有分类规则"开始 ===================== */
 
             // ===================== Module: Classification Rules =====================
             const categoryRules = [
@@ -3591,9 +4028,11 @@ if (bmObj && !e.dataTransfer.types.includes('text/tab')) {
             //    改为 fetch(API_BASE + '/save', {method:'POST', body: JSON.stringify(data)}) 
             //    前端只负责渲染，书签/同步/图标缓存全走服务器，源码抄了也跑不起来
             // const API_BASE = ''; // 留空 = 本地模式
-            function persistLocal() {
-                const data = { bookmarks: bookmarks.map(b => ({ ...b })), aliases: categoryAliases, customGroups, tabOrder,
-                    engines: searchEngines, selectedEngine, siteTitle, layoutConfig, trash, backups, autoBackup };
+            // 🔧 持久化异步化：序列化（含背景图等大载荷 JSON.stringify）放到 requestIdleCallback 执行，
+            //   避免每次 save（点击/编辑/拖拽）阻塞主线程；关页/切后台由 flushClose→flushLocal 同步兜底落盘。
+            var _bmPendingData = null;
+            var _bmFlushScheduled = false;
+            function _writeBmFlat(data) {
                 try {
                     safeStorage.set('bm-flat', JSON.stringify(data));
                 } catch (e) {
@@ -3610,8 +4049,19 @@ if (bmObj && !e.dataTransfer.types.includes('text/tab')) {
                         console.warn('保存数据失败', e);
                     }
                 }
-                setLastModified(Date.now());
+                setWdLM(Date.now());
             }
+            function persistLocal() {
+                _bmPendingData = { bookmarks: bookmarks.map(b => ({ ...b })), aliases: categoryAliases, customGroups, deletedGroups, groupTimes, tabOrder,
+                    engines: searchEngines, selectedEngine, siteTitle, layoutConfig, trash, backups, autoBackup };
+                if (_bmFlushScheduled) return;
+                _bmFlushScheduled = true;
+                const run = () => { _bmFlushScheduled = false; const d = _bmPendingData; _bmPendingData = null; if (d) _writeBmFlat(d); };
+                if (typeof requestIdleCallback === 'function') requestIdleCallback(run, { timeout: 800 });
+                else setTimeout(run, 0);
+            }
+            // 同步立即落盘（关页/切后台/测试时调用），确保异步队列里的数据不丢
+            function flushLocal() { if (_bmPendingData) { const d = _bmPendingData; _bmPendingData = null; _writeBmFlat(d); } }
             function save() {
                 persistLocal();
                 triggerAutoSyncUpload();
@@ -3620,13 +4070,15 @@ if (bmObj && !e.dataTransfer.types.includes('text/tab')) {
 
             // 🔌 后端模式预留（当前未启用）：未来若配置 API_BASE，将下方 localStorage 读取
             //    改为 fetch(API_BASE + '/load').then(r=>r.json()) 并初始化各状态
-function load() {
-    loadIconifyCache(); // 🌟 启动时加载图标缓存
+            function load() {
+                loadIconifyCache(); // 🌟 启动时加载图标缓存
                 try {
                     const d = JSON.parse(safeStorage.get('bm-flat') || '{}');
                     if (d.bookmarks) bookmarks = d.bookmarks.map(b => ({ ...b, clicks: Number(b.clicks) || 0, _lastModified: b._lastModified || 0 }));
                     if (d.aliases) categoryAliases = d.aliases;
                     if (d.customGroups) customGroups = d.customGroups;
+                    if (d.deletedGroups) deletedGroups = normalizeDeletedGroups(d.deletedGroups);
+                    if (d.groupTimes) groupTimes = d.groupTimes;
                     if (d.tabOrder) tabOrder = d.tabOrder;
                     if (d.engines) searchEngines = d.engines;
                     if (d.selectedEngine) selectedEngine = d.selectedEngine;
@@ -3636,7 +4088,7 @@ function load() {
                     if (d.backups) backups = d.backups;
                     if (d.autoBackup !== undefined) autoBackup = d.autoBackup;
                 } catch (e) { console.warn('加载数据失败', e); }
-                if (!getLastModified()) setLastModified(Date.now());
+                if (!getWdLM()) setWdLM(Date.now());
             }
 
             function updateEngineSelect() {
@@ -3725,25 +4177,25 @@ let html = '<div style="display:flex; align-items:center; gap:8px; margin-bottom
             }
             function refreshSettingsData() { if ($('settingsModal').classList.contains('show')) { renderDashboard(); renderTrashUI(); renderBackupUI(); updateWebDAVCardSummary(); } }
 
-function moveToTrash(url) {
-    const idx = bookmarks.findIndex(b => b.url === url); if (idx < 0) return;
-    const bm = bookmarks.splice(idx, 1)[0];
-    trash.push({ title: bm.title, url: bm.url, deletedAt: Date.now(), original: { ...bm } });
-    // 标记删除，供增量同步使用
-    dirtyBookmarks.set(bm.url, { type: 'delete', data: null });
-    colorCache.clear(); save(); renderAll();
-}
+            function moveToTrash(url) {
+                const idx = bookmarks.findIndex(b => b.url === url); if (idx < 0) return;
+                const bm = bookmarks.splice(idx, 1)[0];
+                trash.push({ title: bm.title, url: bm.url, deletedAt: Date.now(), original: { ...bm } });
+                // 标记删除，供增量同步使用
+                dirtyBookmarks.set(bm.url, { type: 'delete', data: null });
+                colorCache.clear(); save(); renderAll();
+            }
             function restoreFromTrash(index) { if (index < 0 || index >= trash.length) return; const item = trash.splice(index, 1)[0]; bookmarks.push(item.original); colorCache.clear(); save(); renderAll(); if ($('settingsModal').classList.contains('show')) { renderTrashUI(); renderDashboard(); } }
             function deleteForever(index) { if (index < 0 || index >= trash.length) return; trash.splice(index, 1); save(); if ($('settingsModal').classList.contains('show')) { renderTrashUI(); renderDashboard(); } }
             function emptyTrash() { trash = []; save(); if ($('settingsModal').classList.contains('show')) { renderTrashUI(); renderDashboard(); } }
             function cleanOldTrash() { const now = Date.now(), thirtyDays = 30 * 24 * 60 * 60 * 1000; trash = trash.filter(item => now - item.deletedAt < thirtyDays); }
             function createBackup() {
-                backups.unshift({ time: Date.now(), label: new Date().toLocaleString('zh-CN'), data: { bookmarks: JSON.parse(JSON.stringify(bookmarks)), aliases: { ...categoryAliases }, customGroups: [...customGroups], engines: JSON.parse(JSON.stringify(searchEngines)), selectedEngine, siteTitle, layoutConfig: JSON.parse(JSON.stringify(layoutConfig)), trash: JSON.parse(JSON.stringify(trash)), autoBackup, tabOrder: JSON.parse(JSON.stringify(tabOrder)), iconifyCache: JSON.parse(JSON.stringify(iconifyCache)), webdav: { ...JSON.parse(JSON.stringify(webdavConfig)), password: btoa(webdavConfig.password || '') } } });
+                backups.unshift({ time: Date.now(), label: new Date().toLocaleString('zh-CN'), data: { bookmarks: JSON.parse(JSON.stringify(bookmarks)), aliases: { ...categoryAliases }, customGroups: [...customGroups], deletedGroups: [...deletedGroups], groupTimes: { ...groupTimes }, engines: JSON.parse(JSON.stringify(searchEngines)), selectedEngine, siteTitle, layoutConfig: JSON.parse(JSON.stringify(layoutConfig)), trash: JSON.parse(JSON.stringify(trash)), autoBackup, tabOrder: JSON.parse(JSON.stringify(tabOrder)), iconifyCache: JSON.parse(JSON.stringify(iconifyCache)), webdav: { ...JSON.parse(JSON.stringify(webdavConfig)), password: btoa(webdavConfig.password || '') } } });
                 if (backups.length > 5) backups = backups.slice(0, 5); save();
             }
             async function restoreBackup(index) {
                 if (index < 0 || index >= backups.length) return; const backup = backups[index].data;
-                bookmarks = backup.bookmarks || []; categoryAliases = backup.aliases || {}; customGroups = backup.customGroups || [];
+                bookmarks = backup.bookmarks || []; categoryAliases = backup.aliases || {}; customGroups = backup.customGroups || []; deletedGroups = normalizeDeletedGroups(backup.deletedGroups || []); groupTimes = backup.groupTimes || {};
                 searchEngines = backup.engines || defaultEngines; selectedEngine = backup.selectedEngine || ''; siteTitle = backup.siteTitle || '我的收藏夹';
                 layoutConfig = backup.layoutConfig || defaultLayout; trash = backup.trash || []; autoBackup = backup.autoBackup !== undefined ? backup.autoBackup : true;
                 if (backup.iconifyCache) { iconifyCache = backup.iconifyCache; saveIconifyCache(); }
@@ -3752,7 +4204,7 @@ function moveToTrash(url) {
                     Object.keys(defaultWebDAVConfig).forEach(k => { if (backup.webdav.hasOwnProperty(k)) webdavConfig[k] = backup.webdav[k]; });
                     saveWebDAVConfig(); stopWebDAVSyncTimer(); startWebDAVSyncTimer(); updateWebDAVCardSummary();
                 }
-                colorCache.clear(); dirtySettings = true; save(); applyLayout(); updateUI(); updateEngineSelect(); renderAll(); closeModal('settingsModal'); alert('已恢复备份：' + backups[index].label); if (wpState.token) setTimeout(wpPush, 500);
+                colorCache.clear(); dirtySettings = true; save(); applyLayout(); updateUI(); updateEngineSelect(); renderAll(); closeModal('settingsModal'); alert('已恢复备份：' + backups[index].label); if (wpState.token) pushLocalAsCloudTruth();
             }
             function downloadBackup(index) {
                 if (index < 0 || index >= backups.length) return; const a = document.createElement('a');
@@ -3819,17 +4271,20 @@ function moveToTrash(url) {
             $('webdavQuickDownloadBtn').onclick = async () => { if (!webdavConfig.enabled || !webdavConfig.url) { alert('请先在WebDAV设置中配置服务器信息并启用同步'); return; } updateWebDAVStatusDisplay('正在下载...', 'pending'); try { await webdavDownload(false); updateWebDAVStatusDisplay('下载成功！数据已更新', 'success'); updateWebDAVCardSummary(); } catch (e) { if (e.message !== '用户取消下载') { webdavConfig.lastSyncStatus = 'failed'; webdavConfig.lastSyncTime = Date.now(); saveWebDAVConfig(); updateWebDAVStatusDisplay('下载失败：' + e.message, 'error'); updateWebDAVCardSummary(); } else updateWebDAVStatusDisplay('下载已取消', 'info'); } };
 
             // ===================== Module: Settings Modal =====================
+            let _iconColorTouched = false; // 本次弹窗内是否手动改过图标文字颜色
             $('settingsBtn').onclick = () => {
                 $('setSiteTitle').value = siteTitle; $('setPageWidth').value = layoutConfig.pageWidth; $('pageWidthValue').textContent = layoutConfig.pageWidth + 'px';
                 $('setBorderRadius').value = layoutConfig.borderRadius; $('borderRadiusValue').textContent = layoutConfig.borderRadius + '%';
                 $('setBgBlur').value = layoutConfig.bgBlur || 0; $('bgBlurValue').textContent = (layoutConfig.bgBlur || 0) + 'px';
-                $('setIconNameColor').value = layoutConfig.iconNameColor || '#000000'; $('iconNameColorValue').textContent = layoutConfig.iconNameColor || '默认';
+                const _autoColor = computeAutoIconNameColor();
+                $('setIconNameColor').value = (layoutConfig.iconNameColorAuto === false && layoutConfig.iconNameColor) ? layoutConfig.iconNameColor : _autoColor; $('iconNameColorValue').textContent = (layoutConfig.iconNameColorAuto === false && layoutConfig.iconNameColor) ? layoutConfig.iconNameColor : '默认';
+                _iconColorTouched = false;
                 $('setSortBy').value = layoutConfig.sortBy || 'manual';
                 renderBgPresets('freqBgPresets', 'freqBg'); renderBgPresets('globalBgPresets', 'globalBg');
                 $('freqBgCustomColor').value = layoutConfig.freqBg.value || '#ffffff'; $('globalBgCustomColor').value = layoutConfig.globalBg.value || '#ffffff';
                 $('freqBgFileInfo').textContent = layoutConfig.freqBg.image ? '已设置图片' : ''; $('globalBgFileInfo').textContent = layoutConfig.globalBg.image ? '已设置图片' : '';
                 $('freqBgCustomColor').oninput = function() { layoutConfig.freqBg = { type: 'preset', value: this.value, image: null }; applyFrequentBg(); dirtySettings = true; save(); };
-                $('globalBgCustomColor').oninput = function() { layoutConfig.globalBg = { type: 'preset', value: this.value, image: null }; applyBodyBg(); dirtySettings = true; save(); };
+                $('globalBgCustomColor').oninput = function() { layoutConfig.globalBg = { type: 'preset', value: this.value, image: null }; applyBodyBg(); autoIconNameColor(); applyLayout(); dirtySettings = true; save(); };
                 renderEngineList(); renderDashboard(); renderTrashUI(); renderBackupUI(); updateWebDAVCardSummary(); renderCategoryRulesUI();
                 updateWebDAVStatusDisplay(webdavConfig.lastSyncTime ? '上次同步：' + new Date(webdavConfig.lastSyncTime).toLocaleString('zh-CN') : '等待操作', webdavConfig.lastSyncStatus === 'success' ? 'success' : webdavConfig.lastSyncStatus === 'failed' ? 'error' : 'info');
                 // ===== 设置主题下拉框的当前值 =====
@@ -3841,14 +4296,13 @@ if (sel) sel.value = layoutConfig.theme || currentTheme || 'default';
             $('setPageWidth').oninput = function() { $('pageWidthValue').textContent = this.value + 'px'; };
             $('setBorderRadius').oninput = function() { $('borderRadiusValue').textContent = this.value + '%'; };
             $('setBgBlur').oninput = function() { const v = Math.min(30, Math.max(0, +this.value || 0)); $('bgBlurValue').textContent = v + 'px'; layoutConfig.bgBlur = v; autoIconNameColor(); applyLayout(); };
-            $('setIconNameColor').oninput = function() { $('iconNameColorValue').textContent = this.value; layoutConfig.iconNameColorAuto = false; layoutConfig.iconNameColor = this.value; applyLayout(); };
+            $('setIconNameColor').oninput = function() { $('iconNameColorValue').textContent = this.value; layoutConfig.iconNameColorAuto = false; layoutConfig.iconNameColor = this.value; _iconColorTouched = true; applyLayout(); };
 $('settingsClose').onclick = () => {
     siteTitle = $('setSiteTitle').value.trim() || '我的收藏夹';
     layoutConfig.pageWidth = Math.max(600, +$('setPageWidth').value || 1200);
     layoutConfig.borderRadius = isNaN(+$('setBorderRadius').value) ? 20 : +$('setBorderRadius').value;
     layoutConfig.bgBlur = Math.min(30, Math.max(0, +($('setBgBlur').value || 0)));
-    layoutConfig.iconNameColor = $('setIconNameColor').value;
-    layoutConfig.iconNameColorAuto = false;
+    if (_iconColorTouched) { layoutConfig.iconNameColor = $('setIconNameColor').value; layoutConfig.iconNameColorAuto = ($('setIconNameColor').value.toLowerCase() === '#ffffff'); }
     layoutConfig.sortBy = $('setSortBy').value || 'manual';
     colorCache.clear();
     applyLayout();
@@ -3928,7 +4382,7 @@ $('settingsClose').onclick = () => {
             $('addEngineBtn').onclick = () => { const n = prompt('名称：'); if (n === null) return; const nn = n.trim(); if (!nn) return alert('名称不能为空'); if (searchEngines.some(e => e.name === nn)) return alert('已存在'); const u = prompt('URL ({query})：', 'https://example.com/search?q={query}'); if (u === null) return; const nu = u.trim(); if (!nu) return alert('URL不能为空'); if (!nu.includes('{query}') && !confirm('缺少{query}，确定？')) return; searchEngines.push({ name: nn, url: nu }); dirtySettings = true; save(); updateEngineSelect(); renderEngineList(); };
             const handleBgImg = async (input, key, infoId) => {
                 const f = input.files[0]; if (!f) return; if (f.size > 20 * 1024 * 1024) { alert('图片不超过20MB'); input.value = ''; return; }
-                try { $(infoId).textContent = '压缩中...'; const compressed = await compressImage(f, 3840, 75); layoutConfig[key] = { type: 'image', value: '', image: compressed }; if (key === 'freqBg') applyFrequentBg(); else { layoutConfig.bgBlur = 30; layoutConfig.iconNameColorAuto = true; autoIconNameColor(); if ($('settingsModal').classList.contains('show')) { $('setIconNameColor').value = '#ffffff'; $('iconNameColorValue').textContent = '#ffffff'; } applyBodyBg(); applyLayout(); if ($('settingsModal').classList.contains('show')) { $('setBgBlur').value = 30; $('bgBlurValue').textContent = '30px'; } }         dirtySettings = true;
+                try { $(infoId).textContent = '压缩中...'; const compressed = await compressImage(f, 3840, 75); layoutConfig[key] = { type: 'image', value: '', image: compressed }; if (key === 'freqBg') applyFrequentBg(); else { layoutConfig.bgBlur = 30; layoutConfig.iconNameColorAuto = true; autoIconNameColor(); if ($('settingsModal').classList.contains('show')) { $('setIconNameColor').value = '#ffffff'; $('iconNameColorValue').textContent = '默认'; } applyBodyBg(); applyLayout(); if ($('settingsModal').classList.contains('show')) { $('setBgBlur').value = 30; $('bgBlurValue').textContent = '30px'; } }         dirtySettings = true;
         save();
         $(infoId).textContent = f.name + ' (已压缩)';
         renderBgPresets(key === 'freqBg' ? 'freqBgPresets' : 'globalBgPresets', key); }
@@ -3937,7 +4391,7 @@ catch (e) { $(infoId).textContent = '压缩失败'; console.error(e); } input.va
             $('freqBgImgInput').onchange = function() { handleBgImg(this, 'freqBg', 'freqBgFileInfo'); };
             $('globalBgImgInput').onchange = function() { handleBgImg(this, 'globalBg', 'globalBgFileInfo'); };
             $('clearFreqBgBtn').onclick = () => { layoutConfig.freqBg = { type: 'preset', value: '#ffffff', image: null }; applyFrequentBg(); save(); $('freqBgFileInfo').textContent = ''; renderBgPresets('freqBgPresets', 'freqBg'); };
-            $('clearGlobalBgBtn').onclick = () => { layoutConfig.globalBg = { type: 'preset', value: '#ffffff', image: null }; layoutConfig.iconNameColor = '#000000'; layoutConfig.iconNameColorAuto = true; document.body.classList.remove('light-text'); applyBodyBg(); applyLayout(); save(); $('globalBgFileInfo').textContent = ''; renderBgPresets('globalBgPresets', 'globalBg'); };
+            $('clearGlobalBgBtn').onclick = () => { layoutConfig.globalBg = { type: 'preset', value: '#ffffff', image: null }; layoutConfig.iconNameColor = '#ffffff'; layoutConfig.iconNameColorAuto = true; document.body.classList.remove('light-text'); applyBodyBg(); applyLayout(); save(); $('globalBgFileInfo').textContent = ''; renderBgPresets('globalBgPresets', 'globalBg'); };
             $('importBtn').onclick = () => { closeModal('settingsModal'); $('fileInput').click(); };
             $('fileInput').onchange = function() {
                 if (this.files[0]) {
@@ -3946,9 +4400,25 @@ catch (e) { $(infoId).textContent = '压缩失败'; console.error(e); } input.va
                         const doc = new DOMParser().parseFromString(e.target.result, 'text/html');
                         const dl = doc.querySelector('dl'); if (!dl) return;
                         const res = [];
-                        function walk(n) { for (let c of n.children) { if (c.tagName === 'DT') { const a = c.querySelector('a'), s = c.querySelector('dl'); if (s) walk(s); else if (a && a.href && sanitizeUrl(a.href)) res.push({ title: a.textContent.trim() || a.href, url: sanitizeUrl(a.href), clicks: 0, order: res.length }); } } }
-                        walk(dl);
-                        if (res.length) { bookmarks = res; currentCat = '__ALL__'; colorCache.clear(); save(); renderAll(); if (wpState.token) setTimeout(wpPush, 500); }
+                        function walk(n, group) {
+                            for (let c of n.children) {
+                                if (c.tagName === 'DT') {
+                                    const h3 = c.querySelector('h3');
+                                    const a = c.querySelector('a');
+                                    const s = c.querySelector('dl');
+                                    const g = (h3 ? h3.textContent.trim() : '') || group;
+                                    if (s) walk(s, g);
+                                    else if (a && a.href && sanitizeUrl(a.href)) {
+                                        const url = sanitizeUrl(a.href);
+                                        const grp = g || '';
+                                        res.push({ title: a.textContent.trim() || url, url, clicks: 0, order: res.length, manualGroup: grp });
+                                        if (grp && !customGroups.includes(grp)) { customGroups.push(grp); tabOrder = [...new Set([...(tabOrder || []), grp])]; groupTimes[grp] = Date.now(); }
+                                    }
+                                }
+                            }
+                        }
+                        walk(dl, '');
+                        if (res.length) { bookmarks = res; currentCat = '__ALL__'; dirtySettings = true; colorCache.clear(); save(); renderAll(); if (wpState.token) pushLocalAsCloudTruth(); }
                     };
                     r.readAsText(this.files[0]); this.value = '';
                 }
@@ -3964,7 +4434,7 @@ catch (e) { $(infoId).textContent = '压缩失败'; console.error(e); } input.va
                 // 🔒 导出时 WebDAV 密码 btoa 编码，避免明文落盘
                 const exportWebdav = { ...webdavConfig, password: btoa(webdavConfig.password || '') };
                 const a = document.createElement('a');
-                a.href = URL.createObjectURL(new Blob([JSON.stringify({ bookmarks, aliases: categoryAliases, customGroups, tabOrder, engines: searchEngines, selectedEngine, siteTitle, layoutConfig, trash, backups, autoBackup, iconifyCache, webdav: exportWebdav })], { type: 'application/json' }));
+                a.href = URL.createObjectURL(new Blob([JSON.stringify({ bookmarks, aliases: categoryAliases, customGroups, deletedGroups, groupTimes, tabOrder, engines: searchEngines, selectedEngine, siteTitle, layoutConfig, trash, backups, autoBackup, iconifyCache, webdav: exportWebdav })], { type: 'application/json' }));
                 a.download = 'bookmarks.json'; a.click();
             };
             $('importSettingBtn').onclick = () => { closeModal('settingsModal'); $('settingInput').click(); };
@@ -3974,7 +4444,7 @@ catch (e) { $(infoId).textContent = '压缩失败'; console.error(e); } input.va
                     r.onload = function(e) {
                         try {
                             const d = JSON.parse(e.target.result);
-                            if (d.bookmarks) bookmarks = d.bookmarks; if (d.aliases) categoryAliases = d.aliases; if (d.customGroups) customGroups = d.customGroups;
+                            if (d.bookmarks) bookmarks = d.bookmarks; if (d.aliases) categoryAliases = d.aliases; if (d.customGroups) customGroups = d.customGroups; if (d.deletedGroups) deletedGroups = normalizeDeletedGroups(d.deletedGroups); if (d.groupTimes) groupTimes = d.groupTimes;
                             if (d.engines) searchEngines = d.engines; if (d.selectedEngine) selectedEngine = d.selectedEngine; if (d.siteTitle) siteTitle = d.siteTitle;
                             if (d.layoutConfig) Object.assign(layoutConfig, d.layoutConfig); if (d.trash) trash = d.trash; if (d.backups) backups = d.backups; 
                             if (d.autoBackup !== undefined) autoBackup = d.autoBackup;
@@ -3985,9 +4455,7 @@ catch (e) { $(infoId).textContent = '压缩失败'; console.error(e); } input.va
                                 try { if (webdavConfig.password) webdavConfig.password = atob(webdavConfig.password); } catch(e) {}
                                 saveWebDAVConfig(); stopWebDAVSyncTimer(); startWebDAVSyncTimer(); updateWebDAVCardSummary();
                             }
-                            colorCache.clear(); applyLayout(); updateUI(); updateEngineSelect(); dirtySettings = true; save(); renderAll(); if (wpState.token) setTimeout(wpPush, 500);
-// 导入后强制推送，确保服务器数据立即更新，避免定时拉取覆盖
-wpPush().then(() => console.log('导入后推送成功')).catch(e => console.warn('导入后推送失败', e));
+                            colorCache.clear(); applyLayout(); updateUI(); updateEngineSelect(); dirtySettings = true; save(); renderAll(); if (wpState.token) pushLocalAsCloudTruth();
                         } catch (ex) { console.warn('导入失败', ex); }
                     };
                     r.readAsText(this.files[0]); this.value = '';
@@ -4012,9 +4480,9 @@ wpPush().then(() => console.log('导入后推送成功')).catch(e => console.war
             };
             $('searchClear').onclick = () => { searchQuery = ''; $('searchInput').value = ''; $('searchClear').classList.remove('visible'); renderBookmarks(); renderFrequent(); };
 
-            function openAddModal() {
+            function openAddModal(preselectGroup) {
                 const groups = getCategoryGroups().map(g => g.name).concat(customGroups);
-                $('addGroup').innerHTML = groups.map(g => `<option value="${esc(g)}">${esc(categoryAliases[g]||g)}</option>`).join('');
+                $('addGroup').innerHTML = groups.map(g => `<option value="${esc(g)}"${preselectGroup && preselectGroup === g ? ' selected' : ''}>${esc(categoryAliases[g]||g)}</option>`).join('');
                 $('addTitle').value = ''; $('addUrl').value = ''; openModal('addModal');
             }
             $('addCancel').onclick = () => closeModal('addModal');
@@ -4065,7 +4533,20 @@ wpPush().then(() => console.log('导入后推送成功')).catch(e => console.war
             }
 
             // ===================== Module: WordPress Provider (重写对齐字段) =====================
+            // 🔔 实时同步（WebSocket）：后端保存成功后广播，其他在线设备收到即重新拉取。推送的只是"变了"信号，数据仍走 wpPull。
+            const RT_WS_URL = (typeof safeStorage !== 'undefined' && safeStorage.get('bm-ws-url')) || 'ws://www.buez.cn:8090'; // 默认走飞牛公网地址（Lucky 已转发 8090）；纯局域网访问可改 ws://192.168.31.4:8090，或用 localStorage bm-ws-url 覆盖
+            let rtWs = null, rtWsRetry = null;
+            function connectRealtimeWs() {
+                if (!wpState.token || typeof WebSocket === 'undefined') return;
+                if (rtWs && (rtWs.readyState === WebSocket.OPEN || rtWs.readyState === WebSocket.CONNECTING)) return;
+                try { rtWs = new WebSocket(RT_WS_URL); } catch (e) { rtWs = null; return; }
+                rtWs.onopen = () => { try { rtWs.send(JSON.stringify({ type: 'subscribe', token: wpState.token })); } catch (_) {} };
+                rtWs.onmessage = (ev) => { try { const m = JSON.parse(ev.data); if (m && m.type === 'changed') { if (!document.hidden) wpPull(m.ts ? Number(m.ts) : undefined); } } catch (_) {} };
+                rtWs.onclose = () => { rtWs = null; clearTimeout(rtWsRetry); rtWsRetry = setTimeout(connectRealtimeWs, 5000); };
+                rtWs.onerror = () => { try { rtWs.close(); } catch (_) {} };
+            }
             const wpState = { token: safeStorage.get('bm-wp-token') || '', user: safeStorage.get('bm-wp-user') || '' };
+            if (wpState.token) connectRealtimeWs();
 let dirtyBookmarks = new Map(); // key: url, value: { type: 'update'|'delete', data: bookmark }
 let dirtySettings = false;      // 标记布局/标题/背景等设置是否被修改
             function getLastModified() { return parseInt(safeStorage.get('bm-sync-since') || '0', 10); }
@@ -4073,6 +4554,9 @@ let dirtySettings = false;      // 标记布局/标题/背景等设置是否被�
             function wpApi(path, opts) {
                 opts = opts || {}; opts.headers = opts.headers || {};
                 opts.headers['Content-Type'] = 'application/json';
+                opts.keepalive = !!opts.keepalive; // 🔧 允许关闭/切后台时请求存活到页面卸载之后
+                // 带 body 的 POST（含背景图 base64，常超 64KB）不能用 keepalive，否则浏览器静默丢弃导致同步失败
+                if (opts.body) opts.keepalive = false;
                 let url = 'http://www.buez.cn:8088/wp-json/bm/v1/' + path;
                 if (wpState.token) url += (path.indexOf('?') >= 0 ? '&' : '?') + '_token=' + encodeURIComponent(wpState.token);
                 return fetch(url, opts).then(r => r.json());
@@ -4094,7 +4578,7 @@ $('wpModalClose').onclick = () => { closeModal('wpAccountModal'); };
                     if (r.token) {
                         wpState.token=r.token; wpState.user=$('wpUser').value;
                         safeStorage.set('bm-wp-token', r.token); safeStorage.set('bm-wp-user', wpState.user);
-                        updateWpCard(); msg.textContent='登录成功'; wpPull(); closeModal('wpAccountModal');
+                        updateWpCard(); msg.textContent='登录成功'; wpPull(); closeModal('wpAccountModal'); connectRealtimeWs();
                     } else {
                         msg.textContent = '登录失败: ' + (r.message || r.code || '服务器返回错误(' + resp.status + ')');
                     }
@@ -4111,14 +4595,21 @@ $('wpModalClose').onclick = () => { closeModal('wpAccountModal'); };
             $('wpDoForgot').onclick = async () => { const r = await fetch('http://www.buez.cn:8088/wp-json/bm/v1/forgot', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({email:$('wpForgotEmail').value})}).then(r=>r.json()); $('wpMsg').textContent = r.success ? '邮件已发送，请查收' : '发送失败'; };
             $('wpDoReset').onclick = async () => { const p = new URLSearchParams(location.hash.slice(1)); const r = await fetch('http://www.buez.cn:8088/wp-json/bm/v1/reset', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({login:p.get('login'), key:p.get('key'), password:$('wpResetPass').value})}).then(r=>r.json()); $('wpMsg').textContent = r.success ? '密码已重置，请登录' : '重置失败'; };
             let wpPushTimer = null;
-            function wpSchedulePush() { if (!wpState.token) return; if (wpPushTimer) clearTimeout(wpPushTimer); wpPushTimer = setTimeout(() => { wpPush(); }, 2500); }
-            async function wpPull() {
+            let _importing = false; // 导入/恢复进行中，阻止并发 wpPull 把导入数据冲掉
+            function wpSchedulePush() { if (!wpState.token) return; if (wpPushTimer) clearTimeout(wpPushTimer); wpPushTimer = setTimeout(() => { wpPush(); }, 0); }
+            async function wpPull(forceSince) {
                 if (!wpState.token) return;
-                const since = getLastModified();
+                if (_importing) return; // 导入/恢复期间不拉取，保证导入数据作为真相源覆盖云端
+                let _remoteTabOrder = null;
+                const since = (forceSince && Number(forceSince) > 0) ? Number(forceSince) : getLastModified();
+                let _remoteDeletedGroups = null;
+                let _remoteGroupTimes = null;
                 try {
                     const r = await wpApi('data?since=' + since);
                     console.log('WP-PULL 返回体:', r);
                     if (r.error === 'token_invalid') { wpState.token=''; safeStorage.set('bm-wp-token',''); updateWpCard(); return; }
+                    // 🔧 合并前快照：仅当云端数据确实改变了本地数据时才 rebuild DOM，避免首屏本地已渲染后无条件 renderAll 导致图标跳动/延迟弹出
+                    const _snapBefore = JSON.stringify({ b: bookmarks, l: layoutConfig, a: categoryAliases, g: customGroups, t: tabOrder, s: siteTitle, r: categoryRules });
                     if (r.bookmarks) {
                         r.bookmarks.forEach(b => {
                             if (b.deleted_at && b.deleted_at > 0) {
@@ -4166,24 +4657,42 @@ if (r.settings) {
 if(r.settings.layout_config) {
     try {
         const cfg = JSON.parse(r.settings.layout_config);
-        // 与默认布局合并，确保缺失字段（如freqBg/globalBg）不被覆盖
+        // 背景（颜色+图片）随 layout_config 同步；后端 layout_config 为 LONGTEXT 不会截断，以云端为唯一真相源。
+        // 仅当云端无图片、而本机有离线设置的图片时，才保留本机并标记待推送，避免丢失未同步的本地图片。
+        const localFreqBg = layoutConfig.freqBg;
+        const localGlobalBg = layoutConfig.globalBg;
         layoutConfig = { ...defaultLayout, ...cfg };
-        if(cfg._tabOrder) tabOrder = cfg._tabOrder;
+        // 仅当云端「完全没有该背景对象」（如离线设置尚未推送）时才保留本机图片；
+        // 只要云端已有值（颜色或图片），一律以云端为准，避免本机旧图覆盖云端新颜色并反向污染云端导致其他端“变回去”。
+        if (!cfg.freqBg && localFreqBg && localFreqBg.image) { layoutConfig.freqBg = localFreqBg; dirtySettings = true; }
+        if (!cfg.globalBg && localGlobalBg && localGlobalBg.image) { layoutConfig.globalBg = localGlobalBg; dirtySettings = true; }
+        _remoteTabOrder = cfg._tabOrder || null;
+        // 🔧 跨端同步 selectedEngine / autoBackup（借 layout_config 透传，后端无需改表）
+        if (cfg._selectedEngine !== undefined) selectedEngine = cfg._selectedEngine;
+        if (cfg._autoBackup !== undefined) autoBackup = cfg._autoBackup;
         if(cfg._searchEngines) {
             searchEngines = cfg._searchEngines;
-            // 确保选中的搜索引擎有效
             if(selectedEngine && !searchEngines.some(e => e.name === selectedEngine)) {
                 selectedEngine = searchEngines[0]?.name || '';
             }
         }
+        if (cfg._deletedGroups) _remoteDeletedGroups = cfg._deletedGroups;
+        if (cfg._groupTimes) _remoteGroupTimes = cfg._groupTimes;
         delete layoutConfig._tabOrder;
         delete layoutConfig._searchEngines;
+        delete layoutConfig._selectedEngine;
+        delete layoutConfig._autoBackup;
+        delete layoutConfig._deletedGroups;
+        delete layoutConfig._groupTimes;
     } catch(e) {
         console.warn('解析 layout_config 失败，跳过', e);
     }
 }
-    if(r.settings.category_aliases) categoryAliases = JSON.parse(r.settings.category_aliases);
-    if(r.settings.custom_groups) customGroups = JSON.parse(r.settings.custom_groups);
+    // ===== 🔧 字段级合并（多端防覆盖，与 WebDAV 通道对齐）=====
+    if(r.settings.category_aliases) { try { const ra = JSON.parse(r.settings.category_aliases); categoryAliases = { ...categoryAliases, ...ra }; } catch(e){} }
+    if(r.settings.custom_groups) { try { const rg = JSON.parse(r.settings.custom_groups); const m = mergeGroupsLWW(customGroups, deletedGroups, groupTimes, rg, _remoteDeletedGroups, _remoteGroupTimes); customGroups = m.customGroups; deletedGroups = m.deletedGroups; groupTimes = m.groupTimes; } catch(e){} }
+    // tabOrder：远端顺序为基础 + 补齐本地独有分组
+    { const _pref = _remoteTabOrder || tabOrder || []; const _known = new Set(customGroups); const _ord = _pref.filter(n => _known.has(n)); const _ext = customGroups.filter(n => !_ord.includes(n)); tabOrder = [..._ord, ..._ext]; }
     if(r.settings.site_title) siteTitle = r.settings.site_title;
 if (r.settings.category_rules) {
     try {
@@ -4197,97 +4706,129 @@ if (r.settings.category_rules) {
         }
     } catch(e) { console.warn('解析分类规则失败', e); }
 }
-    if (r.settings.webdav_config) {
-    const wc = r.settings.webdav_config;
-    if (wc.password) wc.password = atob(wc.password);
-    Object.assign(webdavConfig, wc);
-    saveWebDAVConfig();
-    stopWebDAVSyncTimer();
-    startWebDAVSyncTimer();
-    updateWebDAVCardSummary();
+    // 🔧 WebDAV 配置跨端漫游：仅在「本机 WebDAV 未启用」时应用云端配置，避免覆盖正在使用自有 WebDAV 的设备
+    if (r.settings.webdav_config && !webdavConfig.enabled) {
+        try {
+            const wc = r.settings.webdav_config;
+            if (wc.password) wc.password = atob(wc.password);
+            Object.assign(webdavConfig, wc);
+            saveWebDAVConfig();
+            updateWebDAVCardSummary();
+            if (webdavConfig.enabled) startWebDAVSyncTimer(); // 配置漫游后若已启用，立即启动同步计时器，使其本会话内生效
+        } catch(e) { console.warn('应用云端 WebDAV 配置失败', e); }
+    }
+
 }
-}
-                    if (r.server_time) setLastModified(r.server_time); // 🔑 秒级对齐
-                    if (layoutConfig.theme) applyTheme(layoutConfig.theme);
-                    applyLayout();
-                    save(); renderAll();
+                    // 🔧 仅当云端数据确实改变了本地数据时才重建 DOM（否则首屏本地已渲染的图标会被无条件 renderAll 重建而跳动/延迟弹出）
+                    const _snapAfter = JSON.stringify({ b: bookmarks, l: layoutConfig, a: categoryAliases, g: customGroups, t: tabOrder, s: siteTitle, r: categoryRules });
+                    if (_snapAfter !== _snapBefore) {
+                        if (r.server_time) setLastModified(r.server_time); // 🔑 秒级对齐
+                        if (layoutConfig.theme) applyTheme(layoutConfig.theme);
+                        applyLayout();
+                        save(); renderAll();
+                    }
                 } catch(e) {}
             }
-async function wpPush() { 
-    if (!wpState.token) return;
-    console.log('WP-PUSH 增量变更数:', dirtyBookmarks.size);
-    // 检查是否有任何变更（书签或设置）
-    if (dirtyBookmarks.size === 0 && !dirtySettings) {
-        console.log('无任何变更，跳过推送');
-        return;
-    }
-    const updates = [], deletes = [];
-    for (let [url, item] of dirtyBookmarks) {
-        if (item.type === 'delete') {
-            deletes.push(url);
-        } else {
-            const b = item.data;
-            updates.push({
-                url: b.url,
-                title: b.title,
-                group_name: b.manualGroup || '',
-                icon_url: b.customImage || '',
-                iconify_id: b.iconifyId || '',
-                custom_color: b.customColor || '',
-                sort_order: b.order || 0,
-                pinned: b.pinned ? 1 : 0,
-                pin_order: b.pinOrder || 0,
-                clicks: Number(b.clicks) || 0,
-                deleted_at: 0,
-                last_modified: b._lastModified ? Math.floor(b._lastModified / 1000) : 0
-            });
-        }
-    }
-    dirtyBookmarks.clear();
-    dirtySettings = false;  // 设置变更已推送
-    const layoutToPush = { ...layoutConfig };
-    if (layoutToPush.globalBg && layoutToPush.globalBg.image === null && layoutToPush.globalBg.value === '#ffffff') {
-        delete layoutToPush.globalBg;
-    }
-    if (layoutToPush.freqBg && layoutToPush.freqBg.image === null && layoutToPush.freqBg.value === '#ffffff') {
-        delete layoutToPush.freqBg;
-    }
-const payload = { 
-    changes: { updates, deletes },
-    settings: { 
-        layout_config: { ...layoutToPush, _tabOrder: tabOrder, _searchEngines: searchEngines },
-        category_aliases: categoryAliases,
-        custom_groups: customGroups,
-        site_title: siteTitle,
-category_rules: categoryRules,
-        webdav_config: { 
-            enabled: webdavConfig.enabled,
-            url: webdavConfig.url,
-            username: webdavConfig.username,
-            password: btoa(webdavConfig.password || ''),   // base64 编码
-            remotePath: webdavConfig.remotePath,
-            autoSync: webdavConfig.autoSync,
-            syncOnOpen: webdavConfig.syncOnOpen,
-            syncOnClose: webdavConfig.syncOnClose,
-            syncInterval: webdavConfig.syncInterval
-        }
-    }
-};
-    try { 
-        const r = await wpApi('data', { method:'POST', body: JSON.stringify(payload) }); 
-        console.log('WP-PUSH 返回', r); 
-if (r.conflicts && r.conflicts.length > 0) {
-    r.conflicts.forEach(c => {
-        const idx = bookmarks.findIndex(b => b.url === c.url);
-        if (idx >= 0) {
-            const b = bookmarks[idx];
-            const localTs = b._lastModified || 0;
-            const remoteTs = c.last_modified ? parseInt(c.last_modified) * 1000 : 0;
-            if (remoteTs > localTs) {
-                if (c.title !== undefined) b.title = c.title;
-                if (c.group_name !== undefined) b.manualGroup = c.group_name || '';
-                if (c.icon_url !== undefined) b.customImage = c.icon_url || '';
-                if (c.iconify_id !== undefined) b.iconifyId = c.iconify_id || '';
+            // 🔧 导入/恢复 = 真相源：把本地书签全量覆盖到云端（更新全部 + 删除云端多余）
+            function markAllBookmarksDirty() {
+                bookmarks.forEach(b => { if (b.url) dirtyBookmarks.set(b.url, { type: 'update', data: b }); });
+            }
+            async function overwriteCloudWithLocalBookmarks() {
+                markAllBookmarksDirty();
+                try {
+                    const r = await wpApi('data?since=0');
+                    if (r && Array.isArray(r.bookmarks)) {
+                        const localUrls = new Set(bookmarks.map(b => b.url).filter(Boolean));
+                        r.bookmarks.forEach(b => {
+                            if (b.deleted_at && b.deleted_at > 0) return;
+                            if (!localUrls.has(b.url)) dirtyBookmarks.set(b.url, { type: 'delete', data: null });
+                        });
+                    }
+                } catch(e) { console.warn('计算云端待删书签失败（忽略，仅影响云端多余项的清理）', e); }
+            }
+            async function pushLocalAsCloudTruth() {
+                _importing = true;
+                try { await overwriteCloudWithLocalBookmarks(); await wpPush(); }
+                catch(e) { console.warn('导入覆盖云端失败', e); }
+                finally { _importing = false; }
+            }
+            async function wpPush() { 
+                if (!wpState.token) return;
+                console.log('WP-PUSH 增量变更数:', dirtyBookmarks.size);
+                // 检查是否有任何变更（书签或设置）
+                if (dirtyBookmarks.size === 0 && !dirtySettings) {
+                    console.log('无任何变更，跳过推送');
+                    return;
+                }
+                const updates = [], deletes = [];
+                for (let [url, item] of dirtyBookmarks) {
+                    if (item.type === 'delete') {
+                        deletes.push(url);
+                    } else {
+                        const b = item.data;
+                        updates.push({
+                            url: b.url,
+                            title: b.title,
+                            group_name: b.manualGroup || '',
+                            icon_url: b.customImage || '',
+                            iconify_id: b.iconifyId || '',
+                            custom_color: b.customColor || '',
+                            sort_order: b.order || 0,
+                            pinned: b.pinned ? 1 : 0,
+                            pin_order: b.pinOrder || 0,
+                            clicks: Number(b.clicks) || 0,
+                            deleted_at: 0,
+                            last_modified: b._lastModified ? Math.floor(b._lastModified / 1000) : 0
+                        });
+                    }
+                }
+                dirtyBookmarks.clear();
+                const _settingsChanged = dirtySettings;  // 捕获设置变更标志（清空前），供后端增量拉取判定
+                dirtySettings = false;  // 设置变更已推送
+                const layoutToPush = { ...layoutConfig };
+                if (layoutToPush.globalBg && layoutToPush.globalBg.image === null && layoutToPush.globalBg.value === '#ffffff') {
+                    delete layoutToPush.globalBg;
+                }
+                if (layoutToPush.freqBg && layoutToPush.freqBg.image === null && layoutToPush.freqBg.value === '#ffffff') {
+                    delete layoutToPush.freqBg;
+                }
+            const payload = { 
+                changes: { updates, deletes },
+                settingsChanged: _settingsChanged,
+                settings: { 
+                    layout_config: { ...layoutToPush, _tabOrder: tabOrder, _searchEngines: searchEngines, _selectedEngine: selectedEngine, _autoBackup: autoBackup, _deletedGroups: deletedGroups },
+                    category_aliases: categoryAliases,
+                    custom_groups: customGroups,
+                    site_title: siteTitle,
+            category_rules: categoryRules,
+                    webdav_config: { 
+                        enabled: webdavConfig.enabled,
+                        url: webdavConfig.url,
+                        username: webdavConfig.username,
+                        password: btoa(webdavConfig.password || ''),   // base64 编码
+                        remotePath: webdavConfig.remotePath,
+                        autoSync: webdavConfig.autoSync,
+                        syncOnOpen: webdavConfig.syncOnOpen,
+                        syncOnClose: webdavConfig.syncOnClose,
+                        syncInterval: webdavConfig.syncInterval
+                    }
+                }
+            };
+                try { 
+                    const r = await wpApi('data', { method:'POST', body: JSON.stringify(payload), keepalive: true }); 
+                    console.log('WP-PUSH 返回', r); 
+            if (r.conflicts && r.conflicts.length > 0) {
+                r.conflicts.forEach(c => {
+                    const idx = bookmarks.findIndex(b => b.url === c.url);
+                    if (idx >= 0) {
+                        const b = bookmarks[idx];
+                        const localTs = b._lastModified || 0;
+                        const remoteTs = c.last_modified ? parseInt(c.last_modified) * 1000 : 0;
+                        if (remoteTs > localTs) {
+                            if (c.title !== undefined) b.title = c.title;
+                            if (c.group_name !== undefined) b.manualGroup = c.group_name || '';
+                            if (c.icon_url !== undefined) b.customImage = c.icon_url || '';
+                            if (c.iconify_id !== undefined) b.iconifyId = c.iconify_id || '';
                 if (c.custom_color !== undefined) b.customColor = c.custom_color || '';
                 if (c.sort_order !== undefined) b.order = c.sort_order || 0;
                 if (c.pinned !== undefined) b.pinned = c.pinned == 1;
@@ -4327,8 +4868,7 @@ if (r.server_time) setLastModified(r.server_time);
                     .then(r => r.json())
                     .then(data => {
                         if (data.bookmarks) {
-                            const remoteUrls = new Set(data.bookmarks.map(b => b.url));
-                            bookmarks = bookmarks.filter(b => remoteUrls.has(b.url));
+                            // 🔧 多端合并：保留本地独有书签，仅按 url 覆盖/补入远端书签（不再删除本地独有，避免多端丢书签）
                             data.bookmarks.forEach(b => {
                                 const idx = bookmarks.findIndex(x => x.url === b.url);
                                 if (idx >= 0) {
@@ -4395,7 +4935,36 @@ window.addEventListener('load', function() {
             updateWebDAVCardSummary();
             updateWebDAVStatusDisplay(webdavConfig.lastSyncTime ? '上次同步：' + new Date(webdavConfig.lastSyncTime).toLocaleString('zh-CN') : '等待操作', webdavConfig.lastSyncStatus === 'success' ? 'success' : webdavConfig.lastSyncStatus === 'failed' ? 'error' : 'info');
 
-            function renderAll() { renderCategoryTabs(); renderFrequent(); renderBookmarks(); }
+            function renderAll() {
+                renderCategoryTabs(); renderBookmarks(); renderFrequent();
+                // 🔧 首屏轻量入场：所有图标同时淡入上浮（无错位延迟），仅首屏播一次（__bmFirstRendered 守卫）。
+                //    切分组 / 云端同步重建 DOM 时守卫已 true，不重播 → 不会跳动。transition 驱动、下一帧显形 → 无空白等待。
+                if (!window.__bmFirstRendered) {
+                    window.__bmFirstRendered = true;
+                    var items = document.querySelectorAll('#bookmarkGrid .icon-item, #frequentIcons .icon-item');
+                    if (items.length) {
+                        // 🔧 错位弹动入场：按 DOM 顺序逐个延迟冒出，弹簧缓动(0.34,1.56,0.64,1)带回弹感；延迟封顶避免最后一行等太久。
+                        //    图标已首屏立即渲染，此动画仅入场视觉，不造成空白等待。
+                        var STEP = 22, CAP = 14, DUR = 520; // 错位步长/封顶序号/单图标时长(ms)
+                        items.forEach(function(it, idx){
+                            var d = Math.min(idx, CAP) * STEP;
+                            it.style.opacity = '0';
+                            it.style.transform = 'translateY(18px) scale(0.9)';
+                            it.style.transition = 'none';
+                            setTimeout(function(){
+                                it.style.transition = 'opacity ' + DUR + 'ms cubic-bezier(0.34,1.56,0.64,1), transform ' + DUR + 'ms cubic-bezier(0.34,1.56,0.64,1)';
+                                it.style.opacity = '1';
+                                it.style.transform = 'none';
+                            }, d);
+                        });
+                        // 🔧 最后一批动画结束后再清除内联样式，恢复 CSS .icon-item:hover/:active 的 transform 与过渡
+                        var lastDelay = Math.min(items.length - 1, CAP) * STEP;
+                        setTimeout(function(){
+                            items.forEach(function(it){ it.style.transition = ''; it.style.transform = ''; it.style.opacity = ''; });
+                        }, lastDelay + DUR + 80);
+                    }
+                }
+            }
             // ===== 先加载用户保存的主题配色 =====
             try {
                 const savedTheme = localStorage.getItem('bm-theme');
@@ -4407,13 +4976,26 @@ window.addEventListener('load', function() {
             } catch(e) { currentTheme = 'default'; }
 
             // ===== 设置暗色模式（内部会应用主题） =====
+            const _manualDark = safeStorage.getItem('bm-smart-dark-manual') === '1';
             const _savedDark = safeStorage.getItem('bm-smart-dark');
-            if (_savedDark === null) {
-                // 🟡 首次打开未配置，跟随系统偏好
-                const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-                applySmartTheme(!!prefersDark);
-            } else {
+            if (_manualDark) {
+                // 用户曾手动切换过：按用户选择（持久化值）
                 applySmartTheme(_savedDark === '1');
+            } else {
+                // 用户未手动切换过：跟随系统偏好，且不在 storage 留记录
+                const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                applySmartTheme(!!prefersDark, false);
+                // 实时跟随系统：用户手动切换前，系统主题变化自动应用
+                const _darkMq = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
+                if (_darkMq) {
+                    const _onSysChange = (e) => {
+                        if (safeStorage.getItem('bm-smart-dark-manual') !== '1') {
+                            applySmartTheme(!!(e && e.matches), false);
+                        }
+                    };
+                    if (_darkMq.addEventListener) _darkMq.addEventListener('change', _onSysChange);
+                    else if (_darkMq.addListener) _darkMq.addListener(_onSysChange);
+                }
             }
 
             // ===== 绑定主题下拉框事件，并同步显示当前主题 =====
@@ -4427,10 +5009,12 @@ themeSel.addEventListener('change', function() {
 });
             }
 
-            setTimeout(() => { document.body.classList.add('entrance-done'); }, 500);
+            // 🔧 首屏用本地 localStorage 数据立即渲染图标（之前漏掉：applyLayout 只设 CSS 变量不渲染，导致图标要等 1200ms 后 wpPull 拉云端才显示 → 刷新空白/延迟弹出）
+            renderAll();
+
             setTimeout(() => { performSyncOnOpen(); }, 800);
             setTimeout(() => { updateWpCard(); if (wpState.token) wpPull(); }, 1200);
-            setInterval(() => { if (wpState.token && !document.hidden) wpPull(); }, 60000);
+            // 实时同步已由 WebSocket（断线 5 秒自动重连 + systemd Restart=always）保证，不再需要 60 秒轮询兜底
         })();
     </script>
 </body>
